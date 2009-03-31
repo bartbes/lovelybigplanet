@@ -1,1 +1,11 @@
 LovelyBigPlanet is an implentation of LittleBigPlanet <http://en.wikipedia.org/wiki/LittleBigPlanet> created with LÖVE <http://love2d.org>.
+
+It will be released under MIT/X11 license <http://www.opensource.org/licenses/mit-license.php>
+
+Contributors (in order of signup):
+* bartbes: Project starter, general programming, networking
+* qubodup: artwork
+* osgeld: editor & artwork
+* Xcmd: ideas & beta-testing
+* appleide: beta-testing
+* Robin: physics, editor & beta-testing
