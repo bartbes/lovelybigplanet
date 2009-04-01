@@ -2,7 +2,7 @@ function load()
 	love.graphics.setFont(love.default_font)
 	local mods = love.filesystem.enumerate("mods")
 	for i, v in ipairs(mods) do
-		love.filesystem.require(v)
+		love.filesystem.require('mods/'..v)
 	end
 end
 
@@ -25,7 +25,7 @@ function loadresource(name)
 	local fext = ""
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
 	if love.filesystem.exists("resources/" .. name .. ".png") then ftype = "image"; fext = ".png" end
-	if ftype == "" or fext = "" then return false, "Resource " .. name .. " not found." end
+	if ftype == "" or fext == "" then return false, "Resource " .. name .. " not found." end
 	if ftype == "image" then
 		return true, love.graphics.newImage("resources/" .. name .. fext)
 	end
