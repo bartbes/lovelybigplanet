@@ -1,0 +1,72 @@
+﻿LovelyBigPlanet
+
+
+This game is INSPIRED by LittleBigPlanet, but be aware it is not a clone of it.
+
+Concept
+The concept is pretty simple, it is an engine, an editor, a content-sharing system (after this referred to as css, for the sake of length) and default content.
+
+Engine
+The engine should have a classic platformer feel (should provide a nice challenge with Box2D) and is pretty simple, as all it has to do is handle collision, jumping and loading objects.
+
+Editor
+The editor should support loading external files (we have to find a way to do this) and is intended for users to create content for the game, because the game is basically about user-generated content we have to make sure the editor is user-friendly and has a shallow learning curve.
+
+Css
+The css should be an efficient host storing user-created content, defined as objects, maps, resources and mods. Objects are, of course, objects, just as maps are just maps. Resources are images and sounds needed by maps. Mods are user modifications, I already foresee mods as to add or remove realism. (but that might just be me) There should be some sort of 'marketplace' (free) where you can see the available content and you can download them.
+
+Default content
+The default levels should be challenging, but fun in a kind of way that encourages players to continue playing and downloading content. They should be created with the word 'cute' in mind. Pink, ponies, rainbows, anything that is both visually attractive and keeps the game from being too serious. 15 levels should be enough for default content and we must hope that users will create content soon, so other users continue playing and generate content themselves.
+
+Style
+Funny, cute, bright, those are the keywords. But watch out you don't overdo it. It should feel like it isn't serious, though still feel somewhat serious, so the players are left with a big smile on their face, but do not throw the game away thinking: “What a load of crap”. I know this is a challenge, but the primary concern is entertaining the players.
+
+Target audience
+Anyone with a sense of humor. But should not be rated 18+.
+
+Gameplay
+The player has to go from one end of the level to the other end and should be able to do so in any way he wants. For the default content it'd be nice to have things like buttons and other obstacles, but this can't be guaranteed for user-generated content. However levels can be total jokes if they want to like the LittleBigPlanet user-created level “Pull my finger”, I think you all know the joke accompanying this particular level.
+
+Characters
+The game does not feature any characters other than the player itself. This might be extended to support multi-player in the future, but this is not a primary focus at the moment. The player character should be customizable, probably by being able to define objects as the player characters, providing those objects can be created in the editor.
+
+Weapons
+A slingshot to be used to pass certain obstacles. Support should be available for user-created weapons.
+
+Physics
+The physics should have a classic platformer feel. Slightly below average or slightly above average gravity is probably best.
+
+Controls
+Keys or joystick. Sideways movement and jumping are the movement controls.
+Left/Right: a/d and left/right (buttons)
+Jumping: w, up (button) and space bar
+Action (buttons, firing, etc): e and enter
+
+Collectibles
+There should be some sort of collectibles, one or two per level and they may or may not be mission-critical, depending on the level.
+
+Saving
+Only scores, level progress is not saved.
+
+Story
+None.
+
+HUD
+Stripped down. It should only display the data you need, like a counter for the collectibles and a level progress indicator. As there is nothing like health or ammo in this game, the HUD can be pretty small and should try to avoid blocking the players view of the level. Other things that might be on the HUD:
+-Descriptions on how to activate an object (single line, only visible when close)
+-Level name and creator (only visible on game start and end)
+
+Camera
+Player centered, might be temporarily focused on other game objects.
+
+Menus
+Should integrate with the css 'marketplace' as closely as possible. Should also be clear and does not have to be see-through.
+
+Music
+There should be some background music which can be disabled on users request. (Configuration option is stored.) The music should integrate with the level and the playing style of it. Music should be created for the default levels, but there should be some extra music for player to use when creating their own levels.
+
+Computer->Player interaction
+Nothing decided yet. Might be text or voice.
+
+Win
+When the target is reached, target is set per level and is defined as a location, not as an objective.
