@@ -62,3 +62,6 @@ function draw()
 	love.graphics.draw("LovelyBigPlanet.. work in progress", 5, 300)
 end
 
+function update(dt)
+	game.update(dt)
+end

@@ -14,7 +14,7 @@ end
 game = {}
 
 function game.update(dt)
-	love.physics.update(dt)
+	game.world:update(dt)
 end
 
 function game.draw()
