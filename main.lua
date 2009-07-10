@@ -1,5 +1,12 @@
+love.filesystem.require("camera.lua")
 love.filesystem.require("API.lua")
 love.filesystem.require("game.lua")
+
+do
+	local cam = getCamera()
+	local factor = 2
+	cam:scaleBy(factor, -factor)
+end
 
 function load()
 	love.graphics.setFont(love.default_font)
@@ -65,3 +72,5 @@ end
 function update(dt)
 	game.update(dt)
 end
+
+--camera.lateInit()
