@@ -2,7 +2,7 @@ OBJECT.Name = "Player"
 OBJECT.Creator = "Bart Bes"
 OBJECT.Version = 0.1
 OBJECT.Resources = { texture = "player" }
-OBJECT.TextureScale = { x = 0.5 }
+OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Weight = 80 --Let's do kg
 OBJECT.Polygon = { {-.5, -.5, -.5, .5, .5, .5, .5, -.5} } --a 10x10 square from the center

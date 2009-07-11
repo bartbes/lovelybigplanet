@@ -7,7 +7,7 @@ do
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 	setCamera(camera.stretchToResolution(15*aspectratio, 15))
 	getCamera():setScreenOrigin(0, 1)
-	getCamera():scaleBy(1/5, -1/5)
+	getCamera():scaleBy(1, -1)
 end
 
 function load()
@@ -19,16 +19,18 @@ function load()
 	startgame("testmap")
 end
 
-function loadmap(name, world)
+function loadmap(name, worlds)
 	if not love.filesystem.exists("maps/" .. name .. ".lua") then return false, "FILE " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("maps/" .. name .. ".lua")
 	local env = {}
 	env.MAP = mapClass.new()
 	env.LBP = LBP
+	env.Foreground = 1
+	env.Background = 2
 	setfenv(f, env)
 	f()
 	for i, v in pairs(env.MAP.Objects) do
-		env.MAP.Objects[i] = assert(loadobject(v[1], world, v[2], v[3]))
+		env.MAP.Objects[i] = assert(loadobject(v[1], worlds[v[4]], v[2], v[3], v[4]))
 	end
 	for i, v in pairs(env.MAP.Resources) do
 		env.MAP.Resources[i] = assert(loadresource(v))
@@ -36,7 +38,7 @@ function loadmap(name, world)
 	return env.MAP
 end
 
-function loadobject(name, world, x, y)
+function loadobject(name, world, x, y, position)
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {}
@@ -49,6 +51,7 @@ function loadobject(name, world, x, y)
 	end
 	env.OBJECT._body = love.physics.newBody(world, x, y, env.OBJECT.Weight)
 	env.OBJECT._shapes = {}
+	env.OBJECT._position = position
 	for i, v in ipairs(env.OBJECT.Polygon) do
 		table.insert(env.OBJECT._shapes, love.physics.newPolygonShape(env.OBJECT._body, unpack(v)))
 	end
