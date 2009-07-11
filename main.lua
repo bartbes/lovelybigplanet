@@ -1,6 +1,7 @@
 love.filesystem.require("camera.lua")
 love.filesystem.require("API.lua")
 love.filesystem.require("game.lua")
+love.filesystem.require("map.lua")
 
 do
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
@@ -22,7 +23,7 @@ function loadmap(name, world)
 	if not love.filesystem.exists("maps/" .. name .. ".lua") then return false, "FILE " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("maps/" .. name .. ".lua")
 	local env = {}
-	env.MAP = {}
+	env.MAP = mapClass.new()
 	env.LBP = LBP
 	setfenv(f, env)
 	f()
