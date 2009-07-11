@@ -10,3 +10,11 @@ OBJECT.Polygon = { {-.5, -.5, -.5, .5, .5, .5, .5, -.5} } --a 10x10 square from 
 function OBJECT:collision(a)
 	--we don't do anything on collision, note this probably will be called from the map, instead of from the engine itself
 end
+
+function OBJECT.keypressed(key)
+	--now what?
+end
+
+function OBJECT.keyreleased(key)
+end
+

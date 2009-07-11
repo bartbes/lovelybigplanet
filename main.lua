@@ -84,4 +84,12 @@ function update(dt)
 	game.update(dt)
 end
 
+function keypressed(key)
+	game.keypressed(key)
+end
+
+function keyreleased(key)
+	game.keyreleased(key)
+end
+
 --camera.lateInit()

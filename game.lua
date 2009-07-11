@@ -27,3 +27,10 @@ function game.draw()
 	game.map:drawForegroundObjects()
 end
 
+function game.keypressed(key)
+	game.map.Objects.player.keypressed(key)
+end
+
+function game.keyreleased(key)
+	game.map.Objects.player.keyreleased(key)
+end
