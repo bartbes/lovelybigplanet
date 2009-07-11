@@ -6,7 +6,7 @@ function mapClass.new()
 end
 
 function mapClass:drawBackgroundObjects()
-	for k,v in pairs(self.Object) do
+	for k,v in pairs(self.Objects) do
 		if v.background then
 			LBP.draw(v)
 		end
@@ -14,7 +14,7 @@ function mapClass:drawBackgroundObjects()
 end
 
 function mapClass:drawForegroundObjects()
-	for k,v in pairs(self.Object) do
+	for k,v in pairs(self.Objects) do
 		if not v.background then
 			LBP.draw(v)
 		end
