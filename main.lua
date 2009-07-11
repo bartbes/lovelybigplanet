@@ -49,12 +49,19 @@ function loadobject(name, world, x, y, angle, position)
 	for i, v in pairs(env.OBJECT.Resources) do
 		env.OBJECT.Resources[i] = assert(loadresource(v))
 	end
-	env.OBJECT._body = love.physics.newBody(world, x, y, env.OBJECT.Weight)
+	env.OBJECT._body = love.physics.newBody(world, x, y)--, env.OBJECT.Weight)
 	env.OBJECT._body:setAngle(angle)
 	env.OBJECT._shapes = {}
 	env.OBJECT._position = position
 	for i, v in ipairs(env.OBJECT.Polygon) do
 		table.insert(env.OBJECT._shapes, love.physics.newPolygonShape(env.OBJECT._body, unpack(v)))
+		env.OBJECT._shapes[#env.OBJECT._shapes]:setData(name)
+	end
+	if env.OBJECT.Weight == 0 then
+		env.OBJECT._body:setMass(0, 0, 0, 0)
+	else
+		env.OBJECT._body:setMassFromShapes()
+		env.OBJECT._body:setAngularDamping(50)
 	end
 	return env.OBJECT
 end
