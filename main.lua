@@ -3,9 +3,10 @@ love.filesystem.require("API.lua")
 love.filesystem.require("game.lua")
 
 do
-	local cam = getCamera()
-	local factor = 2
-	cam:scaleBy(factor, -factor)
+	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
+	setCamera(camera.stretchToResolution(15*aspectratio, 15))
+	getCamera():setScreenOrigin(0, 1)
+	getCamera():scaleBy(1/5, -1/5)
 end
 
 function load()

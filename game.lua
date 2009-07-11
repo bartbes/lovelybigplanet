@@ -4,7 +4,7 @@ function startgame(map)
 	draw = game.draw
 	--ok, let's do the stuff we'd normally do in load
 	game.world = love.physics.newWorld(love.graphics.getWidth() * 2, love.graphics.getHeight() * 2) --shouldn't we use CAMERA?
-	game.world:setGravity(0, 9.81)
+	game.world:setGravity(0, -9.81)
 	game.map = loadmap(map, game.world)
 	center = {}
 	center.x = love.graphics.getWidth()/2
