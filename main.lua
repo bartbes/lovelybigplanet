@@ -41,7 +41,7 @@ end
 function loadobject(name, world, x, y, angle, position)
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
-	local env = {}
+	local env = {key_left = love.key_left, key_right = love.key_right, key_up = love.key_up, print=print}
 	env.OBJECT = {}
 	env.LBP = LBP
 	setfenv(f, env)

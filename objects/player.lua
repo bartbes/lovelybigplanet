@@ -12,7 +12,14 @@ function OBJECT:collision(a)
 end
 
 function OBJECT.keypressed(key)
-	--now what?
+	--how about:
+	if key == key_right then
+		OBJECT._body:applyImpulse(3, 0)
+	elseif key == key_left then
+		OBJECT._body:applyImpulse(-3, 0)
+	elseif key == key_up then
+		OBJECT._body:applyImpulse(0, 4)
+	end
 end
 
 function OBJECT.keyreleased(key)
