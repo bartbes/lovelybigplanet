@@ -30,7 +30,7 @@ function loadmap(name, worlds)
 	setfenv(f, env)
 	f()
 	for i, v in pairs(env.MAP.Objects) do
-		env.MAP.Objects[i] = assert(loadobject(v[1], worlds[v[4]], v[2], v[3], v[4]))
+		env.MAP.Objects[i] = assert(loadobject(v[1], worlds[v[5]], v[2], v[3], v[4], v[5]))
 	end
 	for i, v in pairs(env.MAP.Resources) do
 		env.MAP.Resources[i] = assert(loadresource(v))
@@ -38,7 +38,7 @@ function loadmap(name, worlds)
 	return env.MAP
 end
 
-function loadobject(name, world, x, y, position)
+function loadobject(name, world, x, y, angle, position)
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {}
@@ -50,6 +50,7 @@ function loadobject(name, world, x, y, position)
 		env.OBJECT.Resources[i] = assert(loadresource(v))
 	end
 	env.OBJECT._body = love.physics.newBody(world, x, y, env.OBJECT.Weight)
+	env.OBJECT._body:setAngle(angle)
 	env.OBJECT._shapes = {}
 	env.OBJECT._position = position
 	for i, v in ipairs(env.OBJECT.Polygon) do
