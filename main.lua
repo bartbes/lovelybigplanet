@@ -85,7 +85,7 @@ end
 
 function update(dt)
 	game.update(dt)
-	love.timer.sleep(15)
+	love.timer.sleep(25)
 end
 
 function keypressed(key)
