@@ -3,13 +3,17 @@ love.filesystem.require("API.lua")
 love.filesystem.require("game.lua")
 love.filesystem.require("map.lua")
 
-dbg = false
+dbg = true
+
+cameras = {}
+cameras.hud = camera.new()
 
 do
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-	setCamera(camera.stretchToResolution(15*aspectratio, 15))
-	getCamera():setScreenOrigin(0, 1)
-	getCamera():scaleBy(1, -1)
+	cameras.default = camera.stretchToResolution(15*aspectratio, 15)
+	setCamera(cameras.default)
+	cameras.default:setScreenOrigin(0, 1)
+	cameras.default:scaleBy(1, -1)
 end
 
 function load()
@@ -63,6 +67,9 @@ function loadobject(name, world, x, y, angle, position)
 	if not env.OBJECT.Static then
 		env.OBJECT._body:setMassFromShapes()
 		env.OBJECT._body:setAngularDamping(35)
+	end
+	if name == "player" then
+		env.OBJECT._body:setAngularDamping(150)
 	end
 	return env.OBJECT
 end

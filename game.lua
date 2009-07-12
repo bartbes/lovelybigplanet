@@ -43,11 +43,24 @@ end
 function game.draw()
 	--local x,y = getCamera():unpos(center.x*45, center.y*31)
 	--love.graphics.draw(game.map.Resources.background, x, y, 0, love.graphics.getWidth()/game.map.Resources.background:getWidth(), love.graphics.getWidth()/game.map.Resources.background:getWidth())
-	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, love.graphics.getWidth()/game.map.Resources.background:getWidth(), love.graphics.getWidth()/game.map.Resources.background:getWidth())
+	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	game.map:drawBackgroundObjects()
 	game.map:drawForegroundObjects()
+	setCamera(cameras.hud)
+	game.drawhud()
+	setCamera(cameras.default)
+end
+
+function game.drawhud()
 	if dbg then
-		love.graphics.draw("FPS: " .. love.timer.getFPS(), 0, 10)
+		local col = love.graphics.getColor()
+		love.graphics.setColor(255, 0, 0)
+		local x = love.graphics.getWidth()-120
+		local basey = love.graphics.getHeight()/2
+		local line = love.graphics.getFont():getHeight() + 2
+		love.graphics.draw("FPS: " .. love.timer.getFPS(), x, basey)
+		love.graphics.draw("Jump: " .. tostring(game.allowjump), x, basey+line)
+		love.graphics.setColor(col)
 	end
 end
 

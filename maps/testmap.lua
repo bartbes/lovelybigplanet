@@ -2,6 +2,7 @@ MAP.Name = "Test map"
 MAP.Creator = "Bart Bes"
 MAP.Version = 0.1
 MAP.Resources = { background = "samplebackground" } --I need only this resource for this map itself, resources of the object will be loaded by the object.
+MAP.BackgroundScale = { x = 10 }
 MAP.Objects = { player = { "player", 2, 5, 0, Foreground }, platform = { "platform", 2, 1, -2, Foreground }, gadget = { "gadget", 2.2, 11, 0, Foreground },
 gadget2 = { "gadget", 2.2, 10, 0, Foreground },
 bridge = { "bridge", 4, 5, 0, Foreground },
