@@ -3,6 +3,8 @@ love.filesystem.require("API.lua")
 love.filesystem.require("game.lua")
 love.filesystem.require("map.lua")
 
+dbg = false
+
 do
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 	setCamera(camera.stretchToResolution(15*aspectratio, 15))
@@ -16,6 +18,7 @@ function load()
 	for i, v in ipairs(mods) do
 		love.filesystem.require('mods/'..v)
 	end
+	love.graphics.setColorMode(love.color_modulate)
 	startgame("testmap")
 end
 
@@ -82,6 +85,7 @@ end
 
 function update(dt)
 	game.update(dt)
+	love.timer.sleep(15)
 end
 
 function keypressed(key)

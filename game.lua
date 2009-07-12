@@ -37,12 +37,16 @@ function game.update(dt)
 	game.worlds[1]:update(dt)
 	game.worlds[2]:update(dt)
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
+	love.timer.sleep(15)
 end
 
 function game.draw()
-	love.graphics.draw(game.map.Resources.background, center.x, center.y)
+	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, love.graphics.getWidth()/game.map.Resources.background:getWidth(), love.graphics.getWidth()/game.map.Resources.background:getWidth())
 	game.map:drawBackgroundObjects()
 	game.map:drawForegroundObjects()
+	if dbg then
+		love.graphics.draw("FPS: " .. love.timer.getFPS(), 0, 10)
+	end
 end
 
 function game.collision(a, b, coll)
