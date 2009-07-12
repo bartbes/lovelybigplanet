@@ -59,7 +59,7 @@ function loadobject(name, world, x, y, angle, position)
 	end
 	if not env.OBJECT.Static then
 		env.OBJECT._body:setMassFromShapes()
-		env.OBJECT._body:setAngularDamping(50)
+		env.OBJECT._body:setAngularDamping(35)
 	end
 	return env.OBJECT
 end
