@@ -89,7 +89,7 @@ function update(dt)
 end
 
 function keypressed(key)
-	if key == love.key_q or key == love.key_esc then
+	if key == love.key_q or key == love.key_escape then
 		love.system.exit()
 	end
 end
