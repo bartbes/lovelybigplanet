@@ -41,6 +41,8 @@ function game.update(dt)
 end
 
 function game.draw()
+	--local x,y = getCamera():unpos(center.x*45, center.y*31)
+	--love.graphics.draw(game.map.Resources.background, x, y, 0, love.graphics.getWidth()/game.map.Resources.background:getWidth(), love.graphics.getWidth()/game.map.Resources.background:getWidth())
 	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, love.graphics.getWidth()/game.map.Resources.background:getWidth(), love.graphics.getWidth()/game.map.Resources.background:getWidth())
 	game.map:drawBackgroundObjects()
 	game.map:drawForegroundObjects()
