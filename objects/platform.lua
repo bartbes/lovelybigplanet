@@ -4,7 +4,7 @@ OBJECT.Version = 0.1
 OBJECT.Resources = { texture = "platform" }
 OBJECT.TextureScale = { x = 10, y = 1 }
 
-OBJECT.Weight = 0
+OBJECT.Static = true
 OBJECT.Polygon = { { -5, -0.5, -5, 0.5, 5, 0.5, 5, -0.5 } }
 
 function OBJECT:collision(a)

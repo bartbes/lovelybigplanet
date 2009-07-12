@@ -57,7 +57,7 @@ function loadobject(name, world, x, y, angle, position)
 		table.insert(env.OBJECT._shapes, love.physics.newPolygonShape(env.OBJECT._body, unpack(v)))
 		env.OBJECT._shapes[#env.OBJECT._shapes]:setData(name)
 	end
-	if env.OBJECT.Weight ~= 0 then
+	if not env.OBJECT.Static then
 		env.OBJECT._body:setMassFromShapes()
 		env.OBJECT._body:setAngularDamping(50)
 	end
@@ -82,14 +82,6 @@ end
 
 function update(dt)
 	game.update(dt)
-end
-
-function keypressed(key)
-	game.keypressed(key)
-end
-
-function keyreleased(key)
-	game.keyreleased(key)
 end
 
 --camera.lateInit()

@@ -17,6 +17,15 @@ end
 game = {}
 
 function game.update(dt)
+	if love.keyboard.isDown(love.key_left) then
+		game.map.Objects.player._body:setVelocity(-3, 0)
+	end
+	if love.keyboard.isDown(love.key_right) then
+		game.map.Objects.player._body:setVelocity(3, 0)
+	end
+	if love.keyboard.isDown(love.key_up) then
+		game.map.Objects.player._body:setVelocity(game.map.Objects.player._body:getVelocity(), 5)
+	end
 	game.worlds[1]:update(dt)
 	game.worlds[2]:update(dt)
 end
@@ -25,12 +34,4 @@ function game.draw()
 	love.graphics.draw(game.map.Resources.background, center.x, center.y)
 	game.map:drawBackgroundObjects()
 	game.map:drawForegroundObjects()
-end
-
-function game.keypressed(key)
-	game.map.Objects.player.keypressed(key)
-end
-
-function game.keyreleased(key)
-	game.map.Objects.player.keyreleased(key)
 end
