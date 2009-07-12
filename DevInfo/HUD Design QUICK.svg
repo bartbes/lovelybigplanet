@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1920px"
+   height="1080px"
+   id="svg2392"
+   sodipodi:version="0.32"
+   inkscape:version="0.46"
+   sodipodi:docname="HUD Design QUICK.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape">
+  <defs
+     id="defs2394">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 540 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="1920 : 540 : 1"
+       inkscape:persp3d-origin="960 : 360 : 1"
+       id="perspective2400" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.42426407"
+     inkscape:cx="1049.6887"
+     inkscape:cy="475.74928"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1680"
+     inkscape:window-height="972"
+     inkscape:window-x="0"
+     inkscape:window-y="25" />
+  <metadata
+     id="metadata2397">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2404"
+       style="font-size:24;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       transform="translate(-6.666667,-11.666663)"><flowRegion
+         id="flowRegion2406"><rect
+           id="rect2408"
+           width="196.21321"
+           height="98.165825"
+           x="15"
+           y="16.666666"
+           style="font-size:24px" /></flowRegion><flowPara
+         id="flowPara2410">Level controlled text, for example time</flowPara></flowRoot>    <rect
+       style="fill:none;stroke:#000000;stroke-opacity:1"
+       id="rect2412"
+       width="216.66667"
+       height="108.33334"
+       x="-3.1394347e-07"
+       y="1.6666615" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="M 785.39598,-5.6984709e-07 L 820.39598,66.666666 L 1040.396,66.666666 L 1088.7293,4.9999994 L 785.39598,-5.6984709e-07 z"
+       id="path3186" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="875.11005"
+       y="53.737728"
+       id="text3188"><tspan
+         sodipodi:role="line"
+         id="tspan3190"
+         x="875.11005"
+         y="53.737728">Score</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-opacity:1"
+       id="rect3192"
+       width="230.98822"
+       height="113.13708"
+       x="1692.3423"
+       y="-1.8733755" />
+    <text
+       xml:space="preserve"
+       style="font-size:40px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="1704.1273"
+       y="45.267078"
+       id="text3194"><tspan
+         sodipodi:role="line"
+         id="tspan3196"
+         x="1704.1273"
+         y="45.267078">More level</tspan><tspan
+         sodipodi:role="line"
+         x="1704.1273"
+         y="95.267075"
+         id="tspan3198">stuff</tspan></text>
+    <rect
+       style="fill:none;stroke:#000000;stroke-opacity:1"
+       id="rect3200"
+       width="782.53149"
+       height="82.495789"
+       x="549.18628"
+       y="1004.5753" />
+    <text
+       xml:space="preserve"
+       style="font-size:36px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
+       x="598.68372"
+       y="1030.5024"
+       id="text3202"><tspan
+         sodipodi:role="line"
+         id="tspan3204"
+         x="598.68372"
+         y="1030.5024">Last objective/new objective/whatever</tspan><tspan
+         sodipodi:role="line"
+         x="598.68372"
+         y="1075.5024"
+         id="tspan3206">limited time</tspan></text>
+  </g>
+</svg>
