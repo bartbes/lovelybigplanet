@@ -36,6 +36,7 @@ function game.update(dt)
 	game.map.Objects.player._body:setVelocity(x, y)
 	game.worlds[1]:update(dt)
 	game.worlds[2]:update(dt)
+	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
 end
 
 function game.draw()
