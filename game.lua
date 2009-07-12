@@ -11,6 +11,7 @@ function startgame(map)
 	game.worlds[1]:setCallback(game.collision)
 	game.worlds[2]:setCallback(game.collision)
 	game.map = loadmap(map, game.worlds)
+	game.map.Objects.player._body:setAllowSleep(false)
 	center = {}
 	center.x = love.graphics.getWidth()/2
 	center.y = love.graphics.getHeight()/2
@@ -20,12 +21,13 @@ end
 game = {}
 
 function game.update(dt)
+	game.map.Objects.player._body:setSleep(false)
 	local x, y = game.map.Objects.player._body:getVelocity()
 	if love.keyboard.isDown(love.key_left) then
-		x = -3
+		x = -4
 	end
 	if love.keyboard.isDown(love.key_right) then
-		x = 3
+		x = 4
 	end
 	if love.keyboard.isDown(love.key_up) and game.allowjump then
 		game.allowjump = false
@@ -43,7 +45,7 @@ function game.draw()
 end
 
 function game.collision(a, b, coll)
-	if a == "player" then
+	if a == "player" or b == "player" then
 		game.allowjump = true
 	end
 end

@@ -84,4 +84,10 @@ function update(dt)
 	game.update(dt)
 end
 
+function keypressed(key)
+	if key == love.key_q or key == love.key_esc then
+		love.system.exit()
+	end
+end
+
 --camera.lateInit()
