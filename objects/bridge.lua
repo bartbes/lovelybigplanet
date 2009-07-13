@@ -1,7 +1,7 @@
 OBJECT.Name = "Bridge"
 OBJECT.Creator = "Robin Wellner"
 OBJECT.Version = 0.0
-OBJECT.Resources = { texture = "block" }
+OBJECT.Resources = { texture = "longblock" }
 OBJECT.TextureScale = { x = 3 , y = 1}
 
 OBJECT.Static = false
