@@ -18,6 +18,7 @@ function startgame(map)
 	game.allowjump = true
 	game.activelayer = 1
 	game.layers = 2
+	game.finished = false
 end
 
 game = {}
@@ -27,10 +28,10 @@ function game.update(dt)
 	game.map.Objects.player._body:setSleep(false)
 	local x, y = game.map.Objects.player._body:getVelocity()
 	if love.keyboard.isDown(love.key_left) then
-		x = -4
+		x = -3.5
 	end
 	if love.keyboard.isDown(love.key_right) then
-		x = 4
+		x = 3.5
 	end
 	if love.keyboard.isDown(love.key_up) and game.allowjump then
 		game.allowjump = false
@@ -46,33 +47,20 @@ function game.update(dt)
 	game.worlds[1]:update(dt)
 	game.worlds[2]:update(dt)
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
+	local x, y = game.map.Objects.player._body:getPosition()
+	if math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._position == game.map.Finish.position then
+		game.finished = true
+	end
 	love.timer.sleep(15)
 end
 
 function game.draw()
-	--local x,y = getCamera():unpos(center.x*45, center.y*31)
-	--love.graphics.draw(game.map.Resources.background, x, y, 0, love.graphics.getWidth()/game.map.Resources.background:getWidth(), love.graphics.getWidth()/game.map.Resources.background:getWidth())
 	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	game.map:drawBackgroundObjects()
 	game.map:drawForegroundObjects()
 	setCamera(cameras.hud)
-	game.drawhud()
+	drawhud()
 	setCamera(cameras.default)
-end
-
-function game.drawhud()
-	local col = love.graphics.getColor()
-	if dbg then
-		love.graphics.setColor(255, 0, 0)
-		local x = love.graphics.getWidth()-120
-		local basey = love.graphics.getHeight()/2
-		local line = love.graphics.getFont():getHeight() + 2
-		love.graphics.draw("FPS: " .. love.timer.getFPS(), x, basey)
-		love.graphics.draw("Jump: " .. tostring(game.allowjump), x, basey+line)
-		love.graphics.draw("Angle: " .. game.map.Objects.player._body:getAngle(), x, basey+2*line)
-		love.graphics.draw("Last collision:\n" .. lastcollision[1] .. "\nand\n" .. lastcollision[2], x, basey+3*line)
-	end
-	love.graphics.setColor(col)
 end
 
 function game.collision(a, b, coll)

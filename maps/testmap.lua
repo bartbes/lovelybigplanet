@@ -23,6 +23,7 @@ platform3 = { "platform", 24, 1, 85, Foreground },
 platform4 = { "platform", 14, 6, 0, Foreground },
 platform5 = { "platform", 2, 6, 0, Background }
 } --Load the objects, and their resources
+MAP.Finish = { x = 2, y = 7, position = Background } --set finish coordinates, these are rounded
 
 --[[
 function MAP:drawBackgroundObjects()
