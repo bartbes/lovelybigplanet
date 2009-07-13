@@ -37,7 +37,7 @@ function loadmap(name, worlds)
 	setfenv(f, env)
 	f()
 	for i, v in pairs(env.MAP.Objects) do
-		env.MAP.Objects[i] = assert(loadobject(v[1], worlds[v[5]], v[2], v[3], v[4], v[5]))
+		env.MAP.Objects[i] = assert(loadobject(i, v[1], worlds[v[5]], v[2], v[3], v[4], v[5]))
 	end
 	for i, v in pairs(env.MAP.Resources) do
 		env.MAP.Resources[i] = assert(loadresource(v))
@@ -45,7 +45,7 @@ function loadmap(name, worlds)
 	return env.MAP
 end
 
-function loadobject(name, world, x, y, angle, position)
+function loadobject(internalname, name, world, x, y, angle, position)
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {key_left = love.key_left, key_right = love.key_right, key_up = love.key_up, print=print}
@@ -62,7 +62,7 @@ function loadobject(name, world, x, y, angle, position)
 	env.OBJECT._position = position
 	for i, v in ipairs(env.OBJECT.Polygon) do
 		table.insert(env.OBJECT._shapes, love.physics.newPolygonShape(env.OBJECT._body, unpack(v)))
-		env.OBJECT._shapes[#env.OBJECT._shapes]:setData(name)
+		env.OBJECT._shapes[#env.OBJECT._shapes]:setData(internalname)
 	end
 	if not env.OBJECT.Static then
 		env.OBJECT._body:setMassFromShapes()

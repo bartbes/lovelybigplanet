@@ -70,11 +70,13 @@ function game.drawhud()
 		love.graphics.draw("FPS: " .. love.timer.getFPS(), x, basey)
 		love.graphics.draw("Jump: " .. tostring(game.allowjump), x, basey+line)
 		love.graphics.draw("Angle: " .. game.map.Objects.player._body:getAngle(), x, basey+2*line)
+		love.graphics.draw("Last collision:\n" .. lastcollision[1] .. "\nand\n" .. lastcollision[2], x, basey+3*line)
 	end
 	love.graphics.setColor(col)
 end
 
 function game.collision(a, b, coll)
+	lastcollision = {a, b}
 	if a == "player" or b == "player" then
 		game.allowjump = true
 	end
@@ -89,7 +91,7 @@ function game.keypressed(key)
 		local tempplayer = game.map.Objects.player
 		local velx, vely = tempplayer._body:getVelocity()
 		local spin = tempplayer._body:getSpin()
-		game.map.Objects.player = loadobject("player", game.worlds[game.activelayer], tempplayer._body:getX(), tempplayer._body:getY(), tempplayer._body:getAngle(), game.activelayer)
+		game.map.Objects.player = loadobject("player", "player", game.worlds[game.activelayer], tempplayer._body:getX(), tempplayer._body:getY(), tempplayer._body:getAngle(), game.activelayer)
 		tempplayer._body:destroy()
 		tempplayer = nil
 		game.map.Objects.player._body:setVelocity(velx, vely)
