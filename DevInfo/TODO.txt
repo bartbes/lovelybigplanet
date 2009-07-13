@@ -1,0 +1,9 @@
+Callbacks:
+-update
+-before draw
+-collision
+-activate
+
+Controls:
+-activate
+-pull (scheduled for 0.6.0)
