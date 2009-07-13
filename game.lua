@@ -21,6 +21,7 @@ end
 game = {}
 
 function game.update(dt)
+	if dbg then game.allowjump = true end
 	game.map.Objects.player._body:setSleep(false)
 	local x, y = game.map.Objects.player._body:getVelocity()
 	if love.keyboard.isDown(love.key_left) then
@@ -34,6 +35,12 @@ function game.update(dt)
 		y = 5
 	end
 	game.map.Objects.player._body:setVelocity(x, y)
+	local angle = game.map.Objects.player._body:getAngle()
+	if angle > 80 then
+		game.map.Objects.player._body:setAngle(0)
+	elseif angle < -80 then
+		game.map.Objects.player._body:setAngle(0)
+	end
 	game.worlds[1]:update(dt)
 	game.worlds[2]:update(dt)
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
@@ -52,16 +59,17 @@ function game.draw()
 end
 
 function game.drawhud()
+	local col = love.graphics.getColor()
 	if dbg then
-		local col = love.graphics.getColor()
 		love.graphics.setColor(255, 0, 0)
 		local x = love.graphics.getWidth()-120
 		local basey = love.graphics.getHeight()/2
 		local line = love.graphics.getFont():getHeight() + 2
 		love.graphics.draw("FPS: " .. love.timer.getFPS(), x, basey)
 		love.graphics.draw("Jump: " .. tostring(game.allowjump), x, basey+line)
-		love.graphics.setColor(col)
+		love.graphics.draw("Angle: " .. game.map.Objects.player._body:getAngle(), x, basey+2*line)
 	end
+	love.graphics.setColor(col)
 end
 
 function game.collision(a, b, coll)

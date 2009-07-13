@@ -3,7 +3,7 @@ love.filesystem.require("API.lua")
 love.filesystem.require("game.lua")
 love.filesystem.require("map.lua")
 
-dbg = true
+dbg = false
 
 cameras = {}
 cameras.hud = camera.new()
@@ -98,6 +98,8 @@ end
 function keypressed(key)
 	if key == love.key_q or key == love.key_escape then
 		love.system.exit()
+	elseif key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
+		dbg = not dbg
 	end
 end
 
