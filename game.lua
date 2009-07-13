@@ -51,8 +51,9 @@ end
 
 function game.draw()
 	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
-	game.map:drawBackgroundObjects()
-	game.map:drawForegroundObjects()
+	for i = 1, game.layers do
+		game.map:drawLayer(i)
+	end
 	hud.draw()
 end
 

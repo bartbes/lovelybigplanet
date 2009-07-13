@@ -5,22 +5,12 @@ function mapClass.new()
 	return t
 end
 
-function mapClass:drawBackgroundObjects()
-	for k,v in pairs(self.Objects) do
-		if v._shapes[1]:getCategory() == 2 then
-			if game.activelayer ~= 2 then love.graphics.setColor(100, 100, 100, 150) end
+function mapClass:drawLayer(layer)
+	for k, v in pairs(self.Objects) do
+		if v._shapes[1]:getCategory() == layer then
+			if game.activelayer ~= layer then love.graphics.setColor(100, 100, 100, 150) end
 			LBP.draw(v)
-			if game.activelayer ~= 2 then love.graphics.setColor(255, 255, 255, 255) end
-		end
-	end
-end
-
-function mapClass:drawForegroundObjects()
-	for k,v in pairs(self.Objects) do
-		if v._shapes[1]:getCategory() == 1 then
-			if game.activelayer ~= 1 then love.graphics.setColor(100, 100, 100, 150) end
-			LBP.draw(v)
-			if game.activelayer ~= 1 then love.graphics.setColor(255, 255, 255, 255) end
+			if game.activelayer ~= layer then love.graphics.setColor(255, 255, 255, 255) end
 		end
 	end
 end
