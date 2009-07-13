@@ -100,6 +100,8 @@ function keypressed(key)
 		love.system.exit()
 	elseif key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 		dbg = not dbg
+	else
+		game.keypressed(key)
 	end
 end
 

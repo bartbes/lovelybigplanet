@@ -16,6 +16,8 @@ function startgame(map)
 	center.x = love.graphics.getWidth()/2
 	center.y = love.graphics.getHeight()/2
 	game.allowjump = true
+	game.activelayer = 1
+	game.layers = 2
 end
 
 game = {}
@@ -75,5 +77,22 @@ end
 function game.collision(a, b, coll)
 	if a == "player" or b == "player" then
 		game.allowjump = true
+	end
+end
+
+function game.keypressed(key)
+	if key == love.key_down then
+		game.activelayer = game.activelayer + 1
+		if game.activelayer > game.layers then
+			game.activelayer = 1
+		end
+		local tempplayer = game.map.Objects.player
+		local velx, vely = tempplayer._body:getVelocity()
+		local spin = tempplayer._body:getSpin()
+		game.map.Objects.player = loadobject("player", game.worlds[game.activelayer], tempplayer._body:getX(), tempplayer._body:getY(), tempplayer._body:getAngle(), game.activelayer)
+		tempplayer._body:destroy()
+		tempplayer = nil
+		game.map.Objects.player._body:setVelocity(velx, vely)
+		game.map.Objects.player._body:setSpin(spin)
 	end
 end
