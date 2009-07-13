@@ -2,7 +2,7 @@ OBJECT.Name = "Gadget"
 OBJECT.Creator = "Robin Wellner"
 OBJECT.Version = 0.0
 OBJECT.Resources = { texture = "block" }
-OBJECT.TextureScale = { x = .8 }
+OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = false
 OBJECT.Polygon = { {-.4, -.4, -.4, .4, .4, .4, .4, -.4} }
