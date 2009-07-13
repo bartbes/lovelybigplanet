@@ -3,13 +3,9 @@ function startgame(map)
 	update = game.update
 	draw = game.draw
 	--ok, let's do the stuff we'd normally do in load
-	game.worlds = {}
-	game.worlds[1] = love.physics.newWorld(love.graphics.getWidth() * 2, love.graphics.getHeight() * 2)
-	game.worlds[2] = love.physics.newWorld(love.graphics.getWidth() * 2, love.graphics.getHeight() * 2)
-	game.worlds[1]:setGravity(0, -9.81)
-	game.worlds[2]:setGravity(0, -9.81)
-	game.worlds[1]:setCallback(game.collision)
-	game.worlds[2]:setCallback(game.collision)
+	game.world = love.physics.newWorld(love.graphics.getWidth() * 2, love.graphics.getHeight() * 2)
+	game.world:setGravity(0, -9.81)
+	game.world:setCallback(game.collision)
 	game.map = loadmap(map, game.worlds)
 	game.map.Objects.player._body:setAllowSleep(false)
 	center = {}
@@ -44,8 +40,7 @@ function game.update(dt)
 	elseif angle < -80 then
 		game.map.Objects.player._body:setAngle(0)
 	end
-	game.worlds[1]:update(dt)
-	game.worlds[2]:update(dt)
+	game.world:update(dt)
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
 	local x, y = game.map.Objects.player._body:getPosition()
 	if math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._position == game.map.Finish.position then
@@ -74,13 +69,12 @@ function game.keypressed(key)
 		if game.activelayer > game.layers then
 			game.activelayer = 1
 		end
-		local tempplayer = game.map.Objects.player
-		local velx, vely = tempplayer._body:getVelocity()
-		local spin = tempplayer._body:getSpin()
-		game.map.Objects.player = loadobject("player", "player", game.worlds[game.activelayer], tempplayer._body:getX(), tempplayer._body:getY(), tempplayer._body:getAngle(), game.activelayer)
-		tempplayer._body:destroy()
-		tempplayer = nil
-		game.map.Objects.player._body:setVelocity(velx, vely)
-		game.map.Objects.player._body:setSpin(spin)
+		local pl = game.map.Objects.player
+		local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+		table.remove(posses, game.activelayer) -- oh god, this is awful
+		for k,v in ipairs(pl._shapes) do
+			v:setCategory(game.activelayer)
+			v:setMask(unpack(posses))
+		end
 	end
 end

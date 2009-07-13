@@ -38,7 +38,7 @@ function loadmap(name, worlds)
 	setfenv(f, env)
 	f()
 	for i, v in pairs(env.MAP.Objects) do
-		env.MAP.Objects[i] = assert(loadobject(i, v[1], worlds[v[5]], v[2], v[3], v[4], v[5]))
+		env.MAP.Objects[i] = assert(loadobject(i, v[1], game.world, v[2], v[3], v[4], v[5]))
 	end
 	for i, v in pairs(env.MAP.Resources) do
 		env.MAP.Resources[i] = assert(loadresource(v))
@@ -64,6 +64,10 @@ function loadobject(internalname, name, world, x, y, angle, position)
 	for i, v in ipairs(env.OBJECT.Polygon) do
 		table.insert(env.OBJECT._shapes, love.physics.newPolygonShape(env.OBJECT._body, unpack(v)))
 		env.OBJECT._shapes[#env.OBJECT._shapes]:setData(internalname)
+		env.OBJECT._shapes[#env.OBJECT._shapes]:setCategory(position)
+		local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+		table.remove(posses, position) -- oh god, this is awful
+		env.OBJECT._shapes[#env.OBJECT._shapes]:setMask(unpack(posses))
 	end
 	if not env.OBJECT.Static then
 		env.OBJECT._body:setMassFromShapes()
