@@ -5,7 +5,7 @@ OBJECT.Resources = { texture = "player" }
 OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = false
-OBJECT.Polygon = { {-.5, -.5, -.5, .5, .5, .5, .5, -.5} } --a 10x10 square from the center
+OBJECT.Polygon = { {-0.39, -0.5, -0.39, 0.39, 0.39, 0.39, 0.39, -0.5} } --a 10x10 square from the center
 
 function OBJECT:collision(a)
 	--we don't do anything on collision, note this probably will be called from the map, instead of from the engine itself
