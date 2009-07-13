@@ -8,7 +8,7 @@ end
 function mapClass:drawBackgroundObjects()
 	for k,v in pairs(self.Objects) do
 		if v._position == 2 then
-			if game.activelayer ~= 2 then love.graphics.setColor(200, 200, 200, 220) end
+			if game.activelayer ~= 2 then love.graphics.setColor(100, 100, 100, 175) end
 			LBP.draw(v)
 			if game.activelayer ~= 2 then love.graphics.setColor(255, 255, 255, 255) end
 		end
@@ -18,7 +18,7 @@ end
 function mapClass:drawForegroundObjects()
 	for k,v in pairs(self.Objects) do
 		if v._position == 1 then
-			if game.activelayer ~= 1 then love.graphics.setColor(200, 200, 200, 220) end
+			if game.activelayer ~= 1 then love.graphics.setColor(100, 100, 100, 175) end
 			LBP.draw(v)
 			if game.activelayer ~= 1 then love.graphics.setColor(255, 255, 255, 255) end
 		end
