@@ -58,9 +58,7 @@ function game.draw()
 	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	game.map:drawBackgroundObjects()
 	game.map:drawForegroundObjects()
-	setCamera(cameras.hud)
-	drawhud()
-	setCamera(cameras.default)
+	hud.draw()
 end
 
 function game.collision(a, b, coll)
