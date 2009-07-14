@@ -57,6 +57,7 @@ function game.draw()
 		game.map:drawLayer(i)
 	end
 	hud.draw()
+	menu.draw()
 end
 
 function game.collision(a, b, coll)

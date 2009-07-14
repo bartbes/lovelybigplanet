@@ -3,6 +3,7 @@ love.filesystem.require("API.lua")
 love.filesystem.require("game.lua")
 love.filesystem.require("map.lua")
 love.filesystem.require("hud.lua")
+love.filesystem.require("menu.lua")
 
 dbg = false
 
@@ -103,10 +104,12 @@ function update(dt)
 end
 
 function keypressed(key)
-	if key == love.key_q or key == love.key_escape then
+	if key == love.key_q then
 		love.system.exit()
 	elseif key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 		dbg = not dbg
+	elseif key == love.key_escape then
+		menu.load()
 	else
 		game.keypressed(key)
 	end
