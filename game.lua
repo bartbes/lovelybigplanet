@@ -80,6 +80,7 @@ function game.switchlayer(layer)
 end
 
 function game.keypressed(key)
+menu.keypressed(key)
 	if key == love.key_z then
 		local layer = game.activelayer + 1
 		if layer > game.layers then
