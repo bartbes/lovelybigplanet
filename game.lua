@@ -47,6 +47,7 @@ function game.update(dt)
 	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position then
 		game.finished = true
 		game.score = game.score + 10000
+		if game.map.finished then game.map.finished() end
 	end
 	love.timer.sleep(15)
 end

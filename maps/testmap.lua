@@ -26,7 +26,11 @@ platform5 = { "platform", 2, 6, 0, {Background} }
 MAP.Finish = { x = 2, y = 7, position = Background } --set finish coordinates, these are rounded
 
 LBP.showScore(true)
+LBP.messageBox("Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left platform")
 
+function MAP.finished()
+	LBP.messageBox("Great, you did it!")
+end
 --[[
 function MAP:drawBackgroundObjects()
 	LBP.draw(self.Objects.platform)
