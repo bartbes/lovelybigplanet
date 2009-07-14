@@ -1,7 +1,7 @@
 menu = {}
 menu.state = false
 menu.options = { 'Resume', 'Save', 'Load', 'Settings', 'Credits', 'Quit' }
-menu.settingsoptions = { 'Back', 'Fullscreen', 'Resolution'  }
+menu.settingsoptions = { 'Resume', 'Fullscreen', 'Resolution'  }
 menu.resoptions = { {x = 1280, y = 720}, {x = 640, y = 360} }
 menu.bwidth = 64
 menu.bheight = 16
