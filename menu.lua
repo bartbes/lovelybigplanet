@@ -1,6 +1,6 @@
 menu = {}
 menu.state = false
-menu.options = { 'Resume', 'Save', 'Load', 'Settings', 'Credits', 'Quit' }
+menu.options = { 'Resume', 'Restart', 'Save', 'Load', 'Settings', 'Credits', 'Quit' }
 menu.settingsoptions = { 'Resume', 'Fullscreen', 'Resolution'  }
 menu.resoptions = { {x = 1280, y = 720}, {x = 640, y = 360} }
 menu.bwidth = 64
@@ -183,6 +183,7 @@ end
 	if menu.state == 'settings' and menu.settingsoptions[menu.settingsselectedbutton] == 'Resume' then menu.cleanup() end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Resume' then menu.cleanup() end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Quit' then love.system.exit() end
+	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Restart' then love.system.restart() end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Save' then menu.state = 'save' end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Load' then menu.state = 'load' end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Settings' then menu.state = 'settings' end
