@@ -1,11 +1,15 @@
 menu = {}
 menu.state = false
 menu.options = { 'Resume', 'Save', 'Load', 'Settings', 'Credits', 'Quit' }
-menu.settingsoptions = { 'Resume', 'Quit'  }
+menu.settingsoptions = { 'Back', 'Fullscreen', 'Resolution'  }
+menu.resoptions = { {x = 1280, y = 720}, {x = 640, y = 360} }
 menu.bwidth = 64
 menu.bheight = 16
 menu.mainselectedbutton = 1
 menu.settingsselectedbutton = 1
+menu.selectedres = 1
+local arrowlimage = love.graphics.newImage("resources/arrowl.png")
+local arrowrimage = love.graphics.newImage("resources/arrowr.png")
 
 --Unless you absolutely must, don't touch this file -SnakeFace
 
@@ -32,9 +36,9 @@ function menu.draw()
 		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw, my)
 		for i = 1, numoptions do
 		if i == menu.mainselectedbutton then
-			menu.drawbutton(menu.options[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true)
+			menu.drawbutton(menu.options[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 0, true)
 		else
-			menu.drawbutton(menu.options[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false)
+			menu.drawbutton(menu.options[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 0, true)
 			end
 		end
 		love.graphics.setColor(prevcolor)
@@ -44,10 +48,12 @@ function menu.draw()
 		local height = love.graphics.getHeight()
 		local width = love.graphics.getWidth()
 		local prevcolor = love.graphics.getColor()
+		love.graphics.setColor(105, 105, 20)
+		love.graphics.rectangle(2, width/2-55, height/2-35, 110, 70)
 		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-50, height/2-50, 100, 100)
+		love.graphics.rectangle(2, width/2-50, height/2-30, 100, 60)
 		love.graphics.setColor(25, 25, 25)
-		love.graphics.draw("Game saving not supported yet", width/2 + 25, height/2 + 25)
+		love.graphics.draw("Saving is not yet supported", width/2 - 45, height/2)
 		love.graphics.setColor(prevcolor)
 	end
 	if menu.state == "load" then
@@ -55,10 +61,12 @@ function menu.draw()
 		local height = love.graphics.getHeight()
 		local width = love.graphics.getWidth()
 		local prevcolor = love.graphics.getColor()
+		love.graphics.setColor(105, 105, 20)
+		love.graphics.rectangle(2, width/2-55, height/2-35, 110, 70)
 		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-50, height/2-50, 100, 100)
+		love.graphics.rectangle(2, width/2-50, height/2-30, 100, 60)
 		love.graphics.setColor(25, 25, 25)
-		love.graphics.draw("Game loading not supported yet", width/2 + 25, height/2 + 25)
+		love.graphics.draw("Loading is not yet supported", width/2 - 45, height/2)
 		love.graphics.setColor(prevcolor)
 	end
 	if menu.state == "settings" then
@@ -68,17 +76,24 @@ function menu.draw()
 		local width = love.graphics.getWidth()
 		local prevcolor = love.graphics.getColor()
 		love.graphics.setColor(175, 175, 50)
-		local mw = menu.bwidth+12
+		local mw = menu.bwidth+8
 		local my = numoptions*menu.bheight+32
-		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw, my)
-		for i = 1, numoptions do
+		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw+8, my+10)
+		for i = 1, numoptions + 1 do
+		if i <= numoptions then
 		if i == menu.settingsselectedbutton then
-			menu.drawbutton(menu.settingsoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true)
+			menu.drawbutton(menu.settingsoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 2, true, 66)
 		else
-			menu.drawbutton(menu.settingsoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false)
+			menu.drawbutton(menu.settingsoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 2, true, 66)
 			end
 		end
+		if i > numoptions then 
+			menu.drawbutton(menu.resoptions[menu.selectedres].x .. "x" .. menu.resoptions[menu.selectedres].y, width/2-menu.bwidth/2+2, height/2-12-my/2+i*(menu.bheight+4), false, 2, false, 66)
+		end
 		love.graphics.setColor(prevcolor)
+	end
+	love.graphics.draw(arrowlimage, width/2-mw/2+4, height/2+my/2-3)
+	love.graphics.draw(arrowrimage, width/2+mw/2+2, height/2+my/2-3)
 	end
 	if menu.state == "credits" then
 		setCamera(cameras.hud)
@@ -101,10 +116,11 @@ function menu.draw()
 	end
 		setCamera(cameras.default)
 end
-function menu.drawbutton(str, x, y, selected)
+function menu.drawbutton(str, x, y, selected, ep, border, width)
 	local prevcolorb = love.graphics.getColor()
 	love.graphics.setColor(125, 125, 10)
-	love.graphics.rectangle(1, x, y, menu.bwidth, menu.bheight)
+	if border and not width then love.graphics.rectangle(1, x, y, menu.bwidth + ep, menu.bheight) end
+	if border and width then love.graphics.rectangle(1, x, y, width + ep, menu.bheight) end
 if selected then
 	love.graphics.setColor(255, 255, 255)
 else
@@ -150,10 +166,21 @@ end
 	end
 end
 end
+	if menu.state == 'settings' and menu.settingsoptions[menu.settingsselectedbutton] == 'Resolution' then
+	if key == love.key_left and menu.selectedres > 1 then
+	menu.selectedres = menu.selectedres - 1
+	end
+	if key == love.key_right and menu.selectedres < #menu.resoptions then
+	menu.selectedres = menu.selectedres + 1
+	end
+	end
 	if key == love.key_return then
 	if menu.state == 'save' then menu.cleanup() end
 	if menu.state == 'load' then menu.cleanup() end
 	if menu.state == 'credits' then menu.cleanup() end
+	if menu.state == 'settings' and menu.settingsoptions[menu.settingsselectedbutton] == 'Resolution' then love.graphics.setMode( menu.resoptions[menu.selectedres].x, menu.resoptions[menu.selectedres].y, false, true, 0 ) end
+	if menu.state == 'settings' and menu.settingsoptions[menu.settingsselectedbutton] == 'Fullscreen' then love.graphics.toggleFullscreen() end
+	if menu.state == 'settings' and menu.settingsoptions[menu.settingsselectedbutton] == 'Resume' then menu.cleanup() end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Resume' then menu.cleanup() end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Quit' then love.system.exit() end
 	if menu.state == 'main' and menu.options[menu.mainselectedbutton] == 'Save' then menu.state = 'save' end
