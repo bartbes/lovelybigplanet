@@ -46,7 +46,7 @@ function loadmap(name, worlds)
 	return env.MAP
 end
 
-function loadobject(internalname, name, world, x, y, angle, position)
+function loadobject(internalname, name, world, x, y, angle, positions)
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {key_left = love.key_left, key_right = love.key_right, key_up = love.key_up, print=print}
@@ -60,13 +60,15 @@ function loadobject(internalname, name, world, x, y, angle, position)
 	env.OBJECT._body = love.physics.newBody(world, x, y, 0)--, env.OBJECT.Weight)
 	env.OBJECT._body:setAngle(angle)
 	env.OBJECT._shapes = {}
-	env.OBJECT._position = position
+	env.OBJECT._positions = positions
 	for i, v in ipairs(env.OBJECT.Polygon) do
 		table.insert(env.OBJECT._shapes, love.physics.newPolygonShape(env.OBJECT._body, unpack(v)))
 		env.OBJECT._shapes[#env.OBJECT._shapes]:setData(internalname)
-		env.OBJECT._shapes[#env.OBJECT._shapes]:setCategory(position)
+		env.OBJECT._shapes[#env.OBJECT._shapes]:setCategory(unpack(positions))
 		local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
-		table.remove(posses, position) -- oh god, this is awful
+		for i, v in ipairs(positions) do
+			table.remove(posses, v-i+1) -- oh god, this is awful
+		end
 		env.OBJECT._shapes[#env.OBJECT._shapes]:setMask(unpack(posses))
 	end
 	if not env.OBJECT.Static then

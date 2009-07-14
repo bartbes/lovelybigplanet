@@ -35,6 +35,9 @@ function hud.draw()
 		love.graphics.line(love.graphics.getWidth()-100, 0, love.graphics.getWidth()-100, 30)
 		love.graphics.line(love.graphics.getWidth()-100, 30, love.graphics.getWidth()-80, 50)
 	end
+	if hud.score then
+		love.graphics.drawf(tostring(game.score), love.graphics.getWidth()/2, 30, 20, love.align_center)
+	end
 	if dbg then
 		love.graphics.setColor(255, 0, 0)
 		local x = love.graphics.getWidth()-120

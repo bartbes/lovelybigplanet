@@ -5,12 +5,26 @@ function mapClass.new()
 	return t
 end
 
+local function inCategory(shape, layer)
+	local categories = {shape:getCategory()}
+	for i, v in ipairs(categories) do
+		if v == layer then
+			return true
+		end
+	end
+	return false
+end
+
+local function active(shape)
+	return inCategory(shape, game.activelayer)
+end
+
 function mapClass:drawLayer(layer)
 	for k, v in pairs(self.Objects) do
-		if v._shapes[1]:getCategory() == layer then
-			if game.activelayer ~= layer then love.graphics.setColor(100, 100, 100, 150) end
+		if inCategory(v._shapes[1], layer) then
+			if not active(v._shapes[1]) then love.graphics.setColor(100, 100, 100, 150) end
 			LBP.draw(v)
-			if game.activelayer ~= layer then love.graphics.setColor(255, 255, 255, 255) end
+			if not active(v._shapes[1]) then love.graphics.setColor(255, 255, 255, 255) end
 		end
 	end
 end
