@@ -1,29 +1,27 @@
-menu = {}
-menu.state = false
-menu.options = { "Resume", "Restart", "Save", "Load", "Settings", "Credits", "Quit" }
-menu.settingsoptions = { "Resume", "Fullscreen", "Resolution"  }
-menu.resoptions = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} }
-menu.bwidth = 64
-menu.bheight = 16
-menu.mainselectedbutton = 1
-menu.settingsselectedbutton = 1
-menu.selectedres = 1
+menu = {} --master table
+menu.state = false --menu.state defines what menu or submenu is shown ( see: menu.draw() )
+menu.options = { "Resume", "Restart", "Save", "Load", "Settings", "Credits", "Quit" } --defines the options for the main menu
+menu.settingsoptions = { "Resume", "Fullscreen", "Resolution"  } --defines options in the settings menu
+menu.resoptions = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} } -- settable resolutions
+menu.bwidth = 64 --width of a menu button
+menu.bheight = 16 --height of a menu button
+menu.mainselectedbutton = 1 --the number of the selected button if in main menu
+menu.settingsselectedbutton = 1 --the number of the selected button if in settings menu
+menu.selectedres = 1 --the selected resolutions id
 local arrowlimage = love.graphics.newImage("resources/arrowl.png")
 local arrowrimage = love.graphics.newImage("resources/arrowr.png")
 
---Unless you absolutely must, don't touch this file -SnakeFace
-
-function menu.load()
+function menu.load() --hooks the menu in and 'pauses' the game
 	update = menu.update
 	menu.state = "main"
 end
 
-function menu.cleanup()
+function menu.cleanup() --reinstates normal game function and removes menu, DO NOT JUST CALL menu.state = false to remove the menu, call menu.cleanup()
 	update = game.update
 	menu.state = false
 end
 
-function menu.draw()
+function menu.draw() --decides what state to draw, then draws it
 	setCamera(cameras.hud)
 	local height = love.graphics.getHeight()
 	local width = love.graphics.getWidth()
@@ -100,11 +98,11 @@ function menu.draw()
 		love.graphics.draw("Robin - Physics, editor & testing", width/2 - 45, height/2 + 30)
 		love.graphics.draw("SnakeFace - General coding & artwork", width/2 - 45, height/2 + 45)
 	end
-	love.graphics.setColor(prevcolor)
-	setCamera(cameras.default)
+	love.graphics.setColor(prevcolor) --retains original colouring for game elements
+	setCamera(cameras.default) --makes sure the game behind the menu is properly drawn
 end
 
-function menu.drawbutton(str, x, y, selected, ep, border, width)
+function menu.drawbutton(str, x, y, selected, ep, border, width) --draws the buttons in the menu. args: string to display, xpos, ypos, if button is selected option, extra padding incase of options being too large, whether or not to draw the border, width of button to draw(default is menu.bwidth)
 	local prevcolorb = love.graphics.getColor()
 	love.graphics.setColor(125, 125, 10)
 	width = width or menu.bwidth
@@ -118,10 +116,10 @@ function menu.drawbutton(str, x, y, selected, ep, border, width)
 	love.graphics.setColor(prevcolorb)
 end
 
-function menu.update(dt)
+function menu.update(dt) --deprecated in use, but just to be on the safe side ;)
 end
 
-function menu.keypressed(key)
+function menu.keypressed(key) --catches all keypresses and changes the menu display accordingly. This one is quite hard to read unless you understand the way states work :/
 	if menu.state == "main" then
 		if key == love.key_down then
 			if menu.mainselectedbutton < #menu.options then
