@@ -78,15 +78,23 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	--create the shapes, data is set to the internal name (what the map calls them)
 	--category is the layers it's in, mask is what it collides with (or what it doesn't
 	--collide with actually)
-	for i, v in ipairs(env.OBJECT.Polygon) do
+	for i, v in ipairs(env.OBJECT.Polygon or {}) do
 		table.insert(env.OBJECT._shapes, love.physics.newPolygonShape(env.OBJECT._body, unpack(v)))
-		env.OBJECT._shapes[#env.OBJECT._shapes]:setData(internalname)
-		env.OBJECT._shapes[#env.OBJECT._shapes]:setCategory(unpack(positions))
-		local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
-		for i, v in ipairs(positions) do
-			table.remove(posses, v-i+1) -- oh god, this is awful
-		end
-		env.OBJECT._shapes[#env.OBJECT._shapes]:setMask(unpack(posses))
+	end
+	for i, v in ipairs(env.OBJECT.Circle or {}) do
+		table.insert(env.OBJECT._shapes, love.physics.newCircleShape(env.OBJECT._body, unpack(v)))
+	end
+	for i, v in ipairs(env.OBJECT.Rectangle or {}) do
+		table.insert(env.OBJECT._shapes, love.physics.newRectangleShape(env.OBJECT._body, unpack(v)))
+	end
+	local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+	for i, v2 in ipairs(positions) do
+		table.remove(posses, v2-i+1) -- oh god, this is awful
+	end
+	for i, v in ipairs(env.OBJECT._shapes) do
+		v:setData(internalname)
+		v:setCategory(unpack(positions))
+		v:setMask(unpack(posses))
 	end
 	--if it's not static, calculate mass, set angular damping, we do not want things
 	--to roll too much
