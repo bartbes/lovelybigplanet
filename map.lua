@@ -5,6 +5,10 @@ function mapClass.new()
 	return t
 end
 
+function mapClass:add(object)
+	self.Objects[#self.Objects+1] = assert(loadobject(#self.Objects+1, object[1], game.world, object[2], object[3], object[4], object[5]))
+end
+
 local function inCategory(shape, layer)
 	local categories = {shape:getCategory()}
 	for i, v in ipairs(categories) do
