@@ -22,9 +22,10 @@ end
 function mapClass:drawLayer(layer)
 	for k, v in pairs(self.Objects) do
 		if inCategory(v._shapes[1], layer) then
-			if not active(v._shapes[1]) then love.graphics.setColor(100, 100, 100, 150) end
+			local translucent = not active(v._shapes[1])
+			if translucent then love.graphics.setColor(100, 100, 100, 150) end
 			LBP.draw(v)
-			if not active(v._shapes[1]) then love.graphics.setColor(255, 255, 255, 255) end
+			if translucent then love.graphics.setColor(255, 255, 255, 255) end
 		end
 	end
 end
