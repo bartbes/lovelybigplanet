@@ -30,9 +30,11 @@ function menu.draw()
 	local prevcolor = love.graphics.getColor()
 	if menu.state == "main" then
 		local numoptions = #menu.options
-		love.graphics.setColor(175, 175, 50)
 		local mw = menu.bwidth+12
-		local my = numoptions*menu.bheight+32
+		local my = numoptions*menu.bheight+40
+		love.graphics.setColor(105, 105, 20)
+		love.graphics.rectangle(2, width/2-mw/2-5, height/2-my/2-5, mw+10, my+10)
+		love.graphics.setColor(175, 175, 50)
 		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw, my)
 		for i = 1, numoptions do
 			if i == menu.mainselectedbutton then
@@ -47,25 +49,27 @@ function menu.draw()
 		local width = love.graphics.getWidth()
 		local prevcolor = love.graphics.getColor()
 		love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-55, height/2-35, 110, 70)
+		love.graphics.rectangle(2, width/2-55, height/2-35, 310, 70)
 		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-50, height/2-30, 100, 60)
+		love.graphics.rectangle(2, width/2-50, height/2-30, 300, 60)
 		love.graphics.setColor(25, 25, 25)
 		love.graphics.draw("Saving is not yet supported", width/2 - 45, height/2)
 	end
 	if menu.state == "load" then
 		love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-55, height/2-35, 110, 70)
+		love.graphics.rectangle(2, width/2-55, height/2-35, 310, 70)
 		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-50, height/2-30, 100, 60)
+		love.graphics.rectangle(2, width/2-50, height/2-30, 300, 60)
 		love.graphics.setColor(25, 25, 25)
 		love.graphics.draw("Loading is not yet supported", width/2 - 45, height/2)
 	end
 	if menu.state == "settings" then
 		local numoptions = #menu.settingsoptions
-		love.graphics.setColor(175, 175, 50)
 		local mw = menu.bwidth+8
 		local my = numoptions*menu.bheight+32
+		love.graphics.setColor(105, 105, 20)
+		love.graphics.rectangle(2, width/2-mw/2-5, height/2-my/2-5, mw+18, my+20)
+		love.graphics.setColor(175, 175, 50)
 		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw+8, my+10)
 		for i = 1, numoptions + 1 do
 			if i <= numoptions then
