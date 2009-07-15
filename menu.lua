@@ -174,6 +174,11 @@ function menu.keypressed(key)
 		elseif menu.state == "credits" then menu.cleanup()
 		elseif menu.state == "settings" then
 			if menu.settingsoptions[menu.settingsselectedbutton] == "Resolution" then love.graphics.setMode(menu.resoptions[menu.selectedres].x, menu.resoptions[menu.selectedres].y, false, true, 0)
+				local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
+				cameras.default = camera.stretchToResolution(15*aspectratio, 15)
+				setCamera(cameras.default)
+				cameras.default:setScreenOrigin(0, 1)
+				cameras.default:scaleBy(1, -1)
 			elseif menu.settingsoptions[menu.settingsselectedbutton] == "Fullscreen" then love.graphics.toggleFullscreen()
 			elseif menu.settingsoptions[menu.settingsselectedbutton] == "Resume" then menu.cleanup()
 			end
