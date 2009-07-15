@@ -4,14 +4,14 @@ MAP.Version = 0.1
 MAP.Resources = { background = "samplebackground" } --I need only this resource for this map itself, resources of the object will be loaded by the object.
 MAP.BackgroundScale = { x = 10 }
 MAP.Objects = { player = { "player", 2, 5, 0, {Foreground} }, platform = { "platform", 2, 1, -2, {Foreground} }, gadget = { "gadget", 2.2, 11, 0, {Foreground} },
-gadget2 = { "gadget", 2.2, 10, 0, {Foreground} },
+gadget2 = { "gadgetb", 2.2, 10, 0, {Foreground} },
 bridge = { "bridge", 4, 5, 0, {Foreground, Background} },
 gadget3 = { "gadget", 2.4, 9, 0, {Foreground} },
 gadget4 = { "gadget", 2.6, 8, 0, {Foreground} },
-gadget5 = { "gadget", 14, 4, 0, {Foreground} },
+gadget5 = { "gadgetb", 14, 4, 0, {Foreground} },
 gadget6 = { "gadget", 14.2, 5, 0, {Foreground} },
 gadget7 = { "gadget", 14.3, 6, 0, {Foreground} },
-gadget8 = { "gadget", 13.4, 5, 0, {Foreground} },
+gadget8 = { "gadgetb", 13.4, 5, 0, {Foreground} },
 gadget9 = { "gadget", 13, 7, 0, {Foreground} },
 gadget10 = { "gadget", 13, 7, 0, {Foreground} },
 gadget11 = { "gadget", 14.5, 5.5, 0, {Foreground} },
