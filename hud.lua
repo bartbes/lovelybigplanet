@@ -80,7 +80,7 @@ function hud.draw()
 		love.graphics.setColor(0, 0, 0, 255)
 		love.graphics.rectangle(love.draw_fill, width/4, height/4, width/2, height/4)
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.draw("Press Enter to continue", width*5/8, height/2-10)
+		love.graphics.draw("Press Enter to continue", width*.75-165, height/2-10)
 		love.graphics.drawf(hud.messagebox, width/2-50, height*3/8-20, width/10, love.align_center)
 		--NOTE: I don't get the feeling love.align_center works as it should
 	end
