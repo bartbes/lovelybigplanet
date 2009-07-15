@@ -2,7 +2,7 @@ menu = {}
 menu.state = false
 menu.options = { "Resume", "Restart", "Save", "Load", "Settings", "Credits", "Quit" }
 menu.settingsoptions = { "Resume", "Fullscreen", "Resolution"  }
-menu.resoptions = { {x = 640, y = 360}, {x = 1280, y = 720}, {x = 1680, y = 1050} }
+menu.resoptions = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} }
 menu.bwidth = 64
 menu.bheight = 16
 menu.mainselectedbutton = 1
