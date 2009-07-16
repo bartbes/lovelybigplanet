@@ -120,6 +120,7 @@ function menu.update(dt) --deprecated in use, but just to be on the safe side ;)
 end
 
 function menu.keypressed(key) --catches all keypresses and changes the menu display accordingly. This one is quite hard to read unless you understand the way states work :/
+	if not menu.state then return false end --if we are not in the menu, return
 	if menu.state == "main" then
 		if key == love.key_down then
 			if menu.mainselectedbutton < #menu.options then
@@ -191,4 +192,5 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			end
 		end
 	end
+	return true --we were in the menu, return true, the game won't parse the keypress any further
 end

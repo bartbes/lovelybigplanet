@@ -99,7 +99,7 @@ function game.switchlayer(layer)
 end
 
 function game.keypressed(key)
-	menu.keypressed(key) --I hate this, has to be a better way
+	if menu.keypressed(key) then return end
 	if key == love.key_z then --z is switch to next layer
 		local layer = game.activelayer + 1
 		if layer > game.layers then
