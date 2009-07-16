@@ -68,9 +68,7 @@ function game.draw()
 	--draw the background, of course
 	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	--ask the map to draw each layer, usually done using the standard functions
-	for i = 1, game.layers do
-		game.map:drawLayer(i)
-	end
+	game.map:drawLayers()
 	--draw HUD
 	hud.draw()
 	--same goes for menu

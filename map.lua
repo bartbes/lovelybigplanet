@@ -23,13 +23,11 @@ local function active(shape)
 	return inCategory(shape, game.activelayer)
 end
 
-function mapClass:drawLayer(layer)
+function mapClass:drawLayers()
 	for k, v in pairs(self.Objects) do
-		if inCategory(v._shapes[1], layer) then
-			local translucent = not active(v._shapes[1])
-			if translucent then love.graphics.setColor(100, 100, 100, 150) end
-			LBP.draw(v)
-			if translucent then love.graphics.setColor(255, 255, 255, 255) end
-		end
+		local translucent = not active(v._shapes[1])
+		if translucent then love.graphics.setColor(100, 100, 100, 150) end
+		LBP.draw(v)
+		if translucent then love.graphics.setColor(255, 255, 255, 255) end
 	end
 end
