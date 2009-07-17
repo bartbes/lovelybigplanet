@@ -142,7 +142,11 @@ function keypressed(key)
 	elseif key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 		dbg = not dbg
 	elseif key == love.key_escape then
-		menu.load()
+		if menu.state then
+			menu.cleanup()
+		else
+			menu.load()
+		end
 	else
 		game.keypressed(key)
 	end
