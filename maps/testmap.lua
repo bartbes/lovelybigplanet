@@ -38,14 +38,3 @@ LBP.messageBox("Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left 
 function MAP.finished()
 	LBP.messageBox("Great, you did it!")
 end
---[[
-function MAP:drawBackgroundObjects()
-	LBP.draw(self.Objects.platform)
-	LBP.draw(self.Objects.platform2)
-	LBP.draw(self.Objects.platform3)
-end
-
-function MAP:drawForegroundObjects()
-	LBP.draw(self.Objects.player)
-end
-]]
