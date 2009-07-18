@@ -3,7 +3,7 @@ MAP.Creator = "Bart Bes"
 MAP.Version = 0.1
 MAP.Resources = { background = "samplebackground" } --I need only this resource for this map itself, resources of the object will be loaded by the object.
 MAP.BackgroundScale = { x = 10 }
-MAP.Objects = { player = { "player", 2, 5, 0, {Foreground} }, platform = { "platform", 2, 1, -2, {Foreground} }, gadget = { "gadget", 2.2, 11, 0, {Foreground} },
+MAP.Objects = { player = { "player", 2, 5, 0, {Foreground} }, platform = { "platform", 2, 1, -2, {Foreground} }, gadget1 = { "gadget", 2.2, 11, 0, {Foreground} },
 enemy = { "enemy", 2, 8, 0, {Background} },
 gadget2 = { "gadgetb", 2.2, 10, 0, {Foreground} },
 bridge = { "bridge", 4, 5, 0, {Foreground, Background} },
@@ -28,7 +28,20 @@ MAP.Finish = { x = 2, y = 7, position = Background } --set finish coordinates, t
 function MAP.update(dt)
 	if MAP.Objects.enemy._body:getY() < 2 and not MAP.shownmessage then
 		MAP.shownmessage = true
+		LBP.addScore(5000)
 		LBP.messageBox("You threw the enemy off the platform!")
+	end
+	local S = true
+	for i=1,14 do
+		if MAP.Objects['gadget'..i]._body:getY() > 0 then
+			S = false
+			break
+		end
+	end
+	if S and MAP.Objects.bridge._body:getY() < 0 and not MAP.shownmessage2 then
+		MAP.shownmessage2 = true
+		LBP.addScore(10000)
+		LBP.messageBox("You threw all gadgets and the brige off the platforms!")
 	end
 end
 

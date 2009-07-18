@@ -28,3 +28,7 @@ function LBP.draw(object) --the generic draw function, only takes the object, ex
 		end
 	end
 end
+
+function LBP.addScore(pnt) --the function to add points to the score, as suggested by TechnoKat
+	game.score = game.score + pnt
+end
