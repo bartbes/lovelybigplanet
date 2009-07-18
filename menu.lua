@@ -1,9 +1,9 @@
 menu = {} --master table
 menu.state = false --menu.state defines what menu or submenu is shown ( see: menu.draw() )
-menu.options = { "Resume", "Restart", "Save", "Load", "Settings", "Credits", "Quit" } --defines the options for the main menu
-menu.settingsoptions = { "Resume", "Fullscreen", "Resolution"  } --defines options in the settings menu
-menu.loadoptions = {} --defines maps that can be loaded
-menu.resoptions = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} } -- settable resolutions
+menu.options = { main = { "Resume", "Restart", "Save", "Load", "Settings", "Credits", "Quit" },
+                 settings = { "Resume", "Fullscreen", "Resolution"  },
+				 res = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} },
+				 load = {} }  --defines the options per menu
 menu.bwidth = 64 --width of a menu button
 menu.bheight = 16 --height of a menu button
 menu.selectedbutton = {main = 1, settings = 1, load = 1} --the number of the selected button per menu
@@ -27,7 +27,7 @@ function menu.draw() --decides what state to draw, then draws it
 	local width = love.graphics.getWidth()
 	local prevcolor = love.graphics.getColor()
 	if menu.state == "main" then
-		local numoptions = #menu.options
+		local numoptions = #menu.options.main
 		local mw = menu.bwidth+12
 		local my = numoptions*menu.bheight+40
 		love.graphics.setColor(105, 105, 20)
@@ -36,9 +36,9 @@ function menu.draw() --decides what state to draw, then draws it
 		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw, my)
 		for i = 1, numoptions do
 			if i == menu.selectedbutton.main then
-				menu.drawbutton(menu.options[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 0, true)
+				menu.drawbutton(menu.options.main[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 0, true)
 			else
-				menu.drawbutton(menu.options[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 0, true)
+				menu.drawbutton(menu.options.main[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 0, true)
 			end
 		end
 	end
@@ -60,7 +60,7 @@ function menu.draw() --decides what state to draw, then draws it
 		love.graphics.rectangle(2, width/2-50, height/2-30, 300, 60)
 		love.graphics.setColor(25, 25, 25)
 		love.graphics.draw("Loading is not yet supported", width/2 - 45, height/2)]]
-		local numoptions = #menu.loadoptions
+		local numoptions = #menu.options.load
 		local mw = menu.bwidth+12
 		local my = numoptions*menu.bheight+40
 		love.graphics.setColor(105, 105, 20)
@@ -69,15 +69,15 @@ function menu.draw() --decides what state to draw, then draws it
 		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw, my)
 		for i = 1, numoptions do
 			if i == menu.selectedbutton.load then
-				menu.drawbutton(menu.loadoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 0, true)
+				menu.drawbutton(menu.options.load[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 0, true)
 			else
-				menu.drawbutton(menu.loadoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 0, true)
+				menu.drawbutton(menu.options.load[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 0, true)
 			end
 		end
 
 	end
 	if menu.state == "settings" then
-		local numoptions = #menu.settingsoptions
+		local numoptions = #menu.options.settings
 		local mw = menu.bwidth+8
 		local my = numoptions*menu.bheight+32
 		love.graphics.setColor(105, 105, 20)
@@ -87,13 +87,13 @@ function menu.draw() --decides what state to draw, then draws it
 		for i = 1, numoptions + 1 do
 			if i <= numoptions then
 				if i == menu.selectedbutton.settings then
-					menu.drawbutton(menu.settingsoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 2, true, 66)
+					menu.drawbutton(menu.options.settings[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 2, true, 66)
 				else
-					menu.drawbutton(menu.settingsoptions[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 2, true, 66)
+					menu.drawbutton(menu.options.settings[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 2, true, 66)
 				end
 			end
 			if i > numoptions then 
-				menu.drawbutton(menu.resoptions[menu.selectedres].x .. "x" .. menu.resoptions[menu.selectedres].y, width/2-menu.bwidth/2+2, height/2-12-my/2+i*(menu.bheight+4), false, 2, false, 66)
+				menu.drawbutton(menu.options.res[menu.selectedres].x .. "x" .. menu.options.res[menu.selectedres].y, width/2-menu.bwidth/2+2, height/2-12-my/2+i*(menu.bheight+4), false, 2, false, 66)
 			end
 		end
 		love.graphics.draw(arrowlimage, width/2-mw/2+4, height/2+my/2-3)
@@ -138,7 +138,7 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 	if not menu.state then return false end --if we are not in the menu, return
 	if menu.state == "main" then
 		if key == love.key_down then
-			if menu.selectedbutton.main < #menu.options then
+			if menu.selectedbutton.main < #menu.options.main then
 				menu.selectedbutton.main = menu.selectedbutton.main + 1
 			else
 				menu.selectedbutton.main = 1
@@ -148,13 +148,13 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			if menu.selectedbutton.main > 1 then
 				menu.selectedbutton.main = menu.selectedbutton.main - 1
 			else
-				menu.selectedbutton.main = #menu.options
+				menu.selectedbutton.main = #menu.options.main
 			end
 		end
 	end
 	if menu.state == "settings" then
 		if key == love.key_down then
-			if menu.selectedbutton.settings < #menu.settingsoptions then
+			if menu.selectedbutton.settings < #menu.options.settings then
 				menu.selectedbutton.settings = menu.selectedbutton.settings + 1
 			else
 				menu.selectedbutton.settings = 1
@@ -164,27 +164,27 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			if menu.selectedbutton.settings > 1 then
 				menu.selectedbutton.settings = menu.selectedbutton.settings - 1
 			else
-				menu.selectedbutton.settings = #menu.settingsoptions
+				menu.selectedbutton.settings = #menu.options.settings
 			end
 		end
 	end
-	if menu.state == "settings" and menu.settingsoptions[menu.selectedbutton.settings] == "Resolution" then
+	if menu.state == "settings" and menu.options.settings[menu.selectedbutton.settings] == "Resolution" then
 		if key == love.key_left then
 			menu.selectedres = menu.selectedres - 1
 			if menu.selectedres < 1 then
-				menu.selectedres = #menu.resoptions
+				menu.selectedres = #menu.options.res
 			end
 		end
 		if key == love.key_right then
 			menu.selectedres = menu.selectedres + 1
-			if menu.selectedres > #menu.resoptions then
+			if menu.selectedres > #menu.options.res then
 				menu.selectedres = 1
 			end
 		end
 	end
 	if menu.state == "load" then
 		if key == love.key_down then
-			if menu.selectedbutton.load < #menu.loadoptions then
+			if menu.selectedbutton.load < #menu.options.load then
 				menu.selectedbutton.load = menu.selectedbutton.load + 1
 			else
 				menu.selectedbutton.load = 1
@@ -194,32 +194,32 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			if menu.selectedbutton.load > 1 then
 				menu.selectedbutton.load = menu.selectedbutton.load - 1
 			else
-				menu.selectedbutton.load = #menu.loadoptions
+				menu.selectedbutton.load = #menu.options.load
 			end
 		end
 	end
 	if key == love.key_return then
 		if menu.state == "save" then menu.cleanup()
-		elseif menu.state == "load" then startgame(menu.loadoptions[menu.selectedbutton.load]) ; menu.cleanup()
+		elseif menu.state == "load" then startgame(menu.options.load[menu.selectedbutton.load]) ; menu.cleanup()
 		elseif menu.state == "credits" then menu.cleanup()
 		elseif menu.state == "settings" then
-			if menu.settingsoptions[menu.selectedbutton.settings] == "Resolution" then love.graphics.setMode(menu.resoptions[menu.selectedres].x, menu.resoptions[menu.selectedres].y, false, true, 0)
+			if menu.options.settings[menu.selectedbutton.settings] == "Resolution" then love.graphics.setMode(menu.options.res[menu.selectedres].x, menu.options.res[menu.selectedres].y, false, true, 0)
 				local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 				cameras.default = camera.stretchToResolution(15*aspectratio, 15)
 				setCamera(cameras.default)
 				cameras.default:setScreenOrigin(0, 1)
 				cameras.default:scaleBy(1, -1)
-			elseif menu.settingsoptions[menu.selectedbutton.settings] == "Fullscreen" then love.graphics.toggleFullscreen()
-			elseif menu.settingsoptions[menu.selectedbutton.settings] == "Resume" then menu.cleanup()
+			elseif menu.options.settings[menu.selectedbutton.settings] == "Fullscreen" then love.graphics.toggleFullscreen()
+			elseif menu.options.settings[menu.selectedbutton.settings] == "Resume" then menu.cleanup()
 			end
 		elseif menu.state == "main" then
-			if menu.options[menu.selectedbutton.main] == "Resume" then menu.cleanup()
-			elseif menu.options[menu.selectedbutton.main] == "Quit" then love.system.exit()
-			elseif menu.options[menu.selectedbutton.main] == "Restart" then love.system.restart()
-			elseif menu.options[menu.selectedbutton.main] == "Save" then menu.state = "save"
-			elseif menu.options[menu.selectedbutton.main] == "Load" then prepareload() ; menu.state = "load"
-			elseif menu.options[menu.selectedbutton.main] == "Settings" then menu.state = "settings"
-			elseif menu.options[menu.selectedbutton.main] == "Credits" then menu.state = "credits"
+			if menu.options.main[menu.selectedbutton.main] == "Resume" then menu.cleanup()
+			elseif menu.options.main[menu.selectedbutton.main] == "Quit" then love.system.exit()
+			elseif menu.options.main[menu.selectedbutton.main] == "Restart" then love.system.restart()
+			elseif menu.options.main[menu.selectedbutton.main] == "Save" then menu.state = "save"
+			elseif menu.options.main[menu.selectedbutton.main] == "Load" then prepareload() ; menu.state = "load"
+			elseif menu.options.main[menu.selectedbutton.main] == "Settings" then menu.state = "settings"
+			elseif menu.options.main[menu.selectedbutton.main] == "Credits" then menu.state = "credits"
 			end
 		end
 	end
@@ -227,9 +227,9 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 end
 
 function prepareload() -- or, more correctly: prepare the list of games that can be loaded
-	menu.loadoptions = {}
+	menu.options.load = {}
 	local maps = love.filesystem.enumerate("maps")
 	for i, v in ipairs(maps) do
-		menu.loadoptions[i] = string.sub(v, 1, -5)
+		menu.options.load[i] = string.sub(v, 1, -5)
 	end
 end
