@@ -168,7 +168,7 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 	end
 	if key == love.key_return then
 		if menu.state == "save" then menu.cleanup()
-		elseif menu.state == "load" then startgame(menu.options.load[menu.selectedbutton.load]) ; menu.cleanup()
+		elseif menu.state == "load" then menu.cleanup(); startgame(menu.options.load[menu.selectedbutton.load])
 		elseif menu.state == "credits" then menu.cleanup()
 		elseif menu.state == "settings" then
 			if menu.options.settings[menu.selectedbutton.settings] == "Resolution" then love.graphics.setMode(menu.options.res[menu.selectedres].x, menu.options.res[menu.selectedres].y, false, true, 0)
