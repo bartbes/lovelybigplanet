@@ -5,7 +5,11 @@ OBJECT.Resources = { texture = "enemy" }
 OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = false
-OBJECT.Circle = { {0, .27, 1/6}, {0, -1/6, 1/6}, {.5/3, -.41, .25/3}, {-.5/3, -.41, .25/3}, {-.35, -1/8, .2/3}, {.35, -1/8, .2/3}, }
+OBJECT.Circle = {	{0, .27, 1/6}, --head
+					{0, -1/6, 1/6}, --body
+					{.5/3, -.38, .23/3}, {-.5/3, -.38, .23/3}, --feet
+					{-.32, -1/8, .2/3}, {.32, -1/8, .2/3}, --hands
+				}
 --OBJECT.Polygon = { {-0.39, -0.5, -0.39, 0.39, 0.39, 0.39, 0.39, -0.5} } --a 10x10 square from the center
 
 function OBJECT:collision(a)
