@@ -60,6 +60,7 @@ function game.update(dt)
 		--is there a map callback, if so, call it
 		if game.map.finished then game.map.finished() end
 	end
+	if game.map.update then game.map.update(dt) end
 	--preserve some CPU, may need some tweaking when the engine becomes heavier
 	love.timer.sleep(15)
 end
