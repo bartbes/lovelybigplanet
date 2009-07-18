@@ -136,35 +136,19 @@ end
 
 function menu.keypressed(key) --catches all keypresses and changes the menu display accordingly. This one is quite hard to read unless you understand the way states work :/
 	if not menu.state then return false end --if we are not in the menu, return
-	if menu.state == "main" then
+	if menu.options[menu.state] then --only works for states with options
 		if key == love.key_down then
-			if menu.selectedbutton.main < #menu.options.main then
-				menu.selectedbutton.main = menu.selectedbutton.main + 1
+			if menu.selectedbutton[menu.state] < #menu.options[menu.state] then
+				menu.selectedbutton[menu.state] = menu.selectedbutton[menu.state] + 1
 			else
-				menu.selectedbutton.main = 1
+				menu.selectedbutton[menu.state] = 1
 			end
 		end
 		if key == love.key_up then
-			if menu.selectedbutton.main > 1 then
-				menu.selectedbutton.main = menu.selectedbutton.main - 1
+			if menu.selectedbutton[menu.state] > 1 then
+				menu.selectedbutton[menu.state] = menu.selectedbutton[menu.state] - 1
 			else
-				menu.selectedbutton.main = #menu.options.main
-			end
-		end
-	end
-	if menu.state == "settings" then
-		if key == love.key_down then
-			if menu.selectedbutton.settings < #menu.options.settings then
-				menu.selectedbutton.settings = menu.selectedbutton.settings + 1
-			else
-				menu.selectedbutton.settings = 1
-			end
-		end
-		if key == love.key_up then
-			if menu.selectedbutton.settings > 1 then
-				menu.selectedbutton.settings = menu.selectedbutton.settings - 1
-			else
-				menu.selectedbutton.settings = #menu.options.settings
+				menu.selectedbutton[menu.state] = #menu.options[menu.state]
 			end
 		end
 	end
@@ -179,22 +163,6 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			menu.selectedres = menu.selectedres + 1
 			if menu.selectedres > #menu.options.res then
 				menu.selectedres = 1
-			end
-		end
-	end
-	if menu.state == "load" then
-		if key == love.key_down then
-			if menu.selectedbutton.load < #menu.options.load then
-				menu.selectedbutton.load = menu.selectedbutton.load + 1
-			else
-				menu.selectedbutton.load = 1
-			end
-		end
-		if key == love.key_up then
-			if menu.selectedbutton.load > 1 then
-				menu.selectedbutton.load = menu.selectedbutton.load - 1
-			else
-				menu.selectedbutton.load = #menu.options.load
 			end
 		end
 	end
