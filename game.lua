@@ -90,6 +90,7 @@ function game.collision(a, b, coll)
 	if a == "player" or b == "player" then
 		game.allowjump = true
 	end
+	if game.map.collision then game.map.collision() end
 end
 
 function game.switchlayer(layer)

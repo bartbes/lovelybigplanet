@@ -34,11 +34,6 @@ function rLBP.addScore(pnt) --the function to add points to the score, as sugges
 	game.score = game.score + pnt
 end
 
-function rLBP.setCollision(f)
-	if type(f) ~= "function" then f = nil end
-	game.world:setCallback(f)
-end
-
 local mt = {}
 function mt:__index(i)
 	return rLBP[i]
