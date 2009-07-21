@@ -1,4 +1,12 @@
+local function getval(n, ...)
+	local t = {...}
+	return t[n]
+end
+
 function startgame(map)
+	hud.score = false
+	hud.lvl1 = false
+	hud.lvl2 = false
 	--following needs to be replaced by a state loader
 	update = game.update
 	draw = game.draw
@@ -54,7 +62,7 @@ function game.update(dt)
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
 	--check if he finished, round the position first
 	local x, y = game.map.Objects.player._body:getPosition()
-	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position then
+	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position and math.abs(getval(2, game.map.Objects.player._body:getVelocity())) < 0.01 then
 		game.finished = true
 		game.score = game.score + 10000
 		--is there a map callback, if so, call it
