@@ -11,7 +11,7 @@ MAP.Objects = {
 	platform4 = { "platform", -5, 7.5, 0, {Foreground} },
 	platform5 = { "platform", 7.5, 1, 0, {Foreground} },
 	gadget1 = { "gadget", 2, 6, 0, {Foreground, Background} },
-	gagdet2 = { "gadget", 4, 6, 0, {Background} },
+	gadget2 = { "gadget", 4, 6, 0, {Background} },
 }
 MAP.Finish = { x = 3, y = -3, position = Background }
 
@@ -19,5 +19,9 @@ LBP.messageBox("A riddle:\n\nThe one box stops, the other continues\nFind the be
 
 
 function MAP.finished()
-	LBP.messageBox("Wow, you figured out the riddle!")
+	if MAP.Objects.gadget2._body:getY() < -3 then
+		LBP.messageBox("Wow, you figured out the riddle!")
+		return true
+	end
+	return false
 end

@@ -50,4 +50,5 @@ LBP.messageBox("Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left 
 
 function MAP.finished()
 	LBP.messageBox("Great, you did it!")
+	return true
 end
