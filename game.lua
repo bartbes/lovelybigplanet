@@ -1,4 +1,5 @@
-local function getval(n, ...)
+local function getval(n, ...)	-- should we nuke it and replace by select() call?
+								--(it is only used once, and in this case identical to select())
 	local t = {...}
 	return t[n]
 end
