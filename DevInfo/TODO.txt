@@ -6,4 +6,4 @@ Callbacks:
 
 Controls:
 -activate
--pull (scheduled for 0.6.0)
+-pull (scheduled for LOVE 0.6.0)
