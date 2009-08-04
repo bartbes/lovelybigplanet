@@ -54,6 +54,7 @@ function loadmap(name, worlds)
 	for i, v in pairs(env.MAP.Resources) do
 		env.MAP.Resources[i] = assert(loadresource(v))
 	end
+	env.MAP._name = name
 	return env.MAP
 end
 
