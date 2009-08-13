@@ -59,7 +59,7 @@ function game.update(dt)
 	local x, y = game.map.Objects.player._body:getPosition()
 	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position and math.abs(select(2, game.map.Objects.player._body:getVelocity())) < 0.01 then
 		--is there a map callback, if so, call it
-		if game.map.finished and game.map.finished() then
+		if (game.map.finished and game.map.finished()) or (not game.map.finished) then
 			game.finished = true
 			game.score = game.score + 10000
 		end
