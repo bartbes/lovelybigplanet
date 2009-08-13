@@ -1,9 +1,3 @@
-local function getval(n, ...)	-- should we nuke it and replace by select() call?
-								--(it is only used once, and in this case identical to select())
-	local t = {...}
-	return t[n]
-end
-
 function startgame(map)
 	hud.score = false
 	hud.lvl1 = false
@@ -63,7 +57,7 @@ function game.update(dt)
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
 	--check if he finished, round the position first
 	local x, y = game.map.Objects.player._body:getPosition()
-	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position and math.abs(getval(2, game.map.Objects.player._body:getVelocity())) < 0.01 then
+	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position and math.abs(select(2, game.map.Objects.player._body:getVelocity())) < 0.01 then
 		--is there a map callback, if so, call it
 		if game.map.finished and game.map.finished() then
 			game.finished = true
