@@ -1,5 +1,5 @@
 love.filesystem.require("camera.lua")
-love.filesystem.require("API.lua")
+love.filesystem.require("api.lua")
 love.filesystem.require("game.lua")
 love.filesystem.require("map.lua")
 love.filesystem.require("hud.lua")
