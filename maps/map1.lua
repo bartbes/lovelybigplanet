@@ -1,7 +1,7 @@
 MAP.Name = "Test map 1"
 MAP.Creator = "Bart Bes"
 MAP.Version = 0.1
-MAP.Resources = { background = "samplebackground" }
+MAP.Resources = { background = "bartbes/samplebackground" }
 MAP.BackgroundScale = { x = 10 }
 MAP.Objects = {
 	player = { "player", -8, 8.5, 0, {Foreground} },

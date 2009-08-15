@@ -8,8 +8,8 @@ menu.bwidth = 64 --width of a menu button
 menu.bheight = 16 --height of a menu button
 menu.selectedbutton = {main = 1, settings = 1, load = 1} --the number of the selected button per menu
 menu.selectedres = 1 --the selected resolutions id
-local arrowlimage = love.graphics.newImage("resources/arrowl.png")
-local arrowrimage = love.graphics.newImage("resources/arrowr.png")
+local arrowlimage = love.graphics.newImage("resources/snakeface/arrowl.png")
+local arrowrimage = love.graphics.newImage("resources/snakeface/arrowr.png")
 
 function menu.load() --hooks the menu in and 'pauses' the game
 	update = menu.update

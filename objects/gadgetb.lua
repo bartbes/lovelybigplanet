@@ -1,7 +1,7 @@
 OBJECT.Name = "Gadgetb"
 OBJECT.Creator = "SnakeFace"
 OBJECT.Version = 0.0
-OBJECT.Resources = { texture = "blockb" }
+OBJECT.Resources = { texture = "snakeface/blockb" }
 OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = false

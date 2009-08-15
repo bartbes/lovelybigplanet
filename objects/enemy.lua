@@ -1,7 +1,7 @@
 OBJECT.Name = "Enemy"
 OBJECT.Creator = "Robin Wellner"
 OBJECT.Version = 0.0
-OBJECT.Resources = { texture = "enemy" }
+OBJECT.Resources = { texture = "snakeface/enemy" }
 OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = false

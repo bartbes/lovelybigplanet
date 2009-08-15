@@ -1,7 +1,7 @@
 OBJECT.Name = "Player"
 OBJECT.Creator = "Bart Bes"
 OBJECT.Version = 0.1
-OBJECT.Resources = { texture = "player" }
+OBJECT.Resources = { texture = "snakeface/player" }
 OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = false
