@@ -46,7 +46,7 @@ function MAP.update(dt)
 	end
 end
 
-LBP.showScore(true)
+MAP.showScore=true
 MAP.Mission = "Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left platform"
 
 function MAP.finished()

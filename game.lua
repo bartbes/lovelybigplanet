@@ -23,6 +23,7 @@ function startgame(map)
 	game.finished = false
 	game.score = 0
 	if game.map.Mission then LBP.messageBox(game.map.Mission) end
+	LBP.showScore(game.map.showScore)
 end
 
 game = {}
