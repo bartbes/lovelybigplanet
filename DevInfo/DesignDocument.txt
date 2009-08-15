@@ -21,6 +21,9 @@ The default levels should be challenging, but fun in a kind of way that encourag
 Style
 Funny, cute, bright, those are the keywords. But watch out you don't overdo it. It should feel like it isn't serious, though still feel somewhat serious, so the players are left with a big smile on their face, but do not throw the game away thinking: “What a load of crap”. I know this is a challenge, but the primary concern is entertaining the players.
 
+Art formats
+Images in .png format with transparency. 150px = 1m. Because of the physics engine, sizes should be 'realistic', main character = 1-2 meters/150-300px. Sounds in .ogg format.
+
 Target audience
 Anyone with a sense of humor. But should not be rated 18+.
 
