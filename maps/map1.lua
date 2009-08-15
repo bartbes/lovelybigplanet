@@ -15,7 +15,7 @@ MAP.Objects = {
 }
 MAP.Finish = { x = 3, y = -3, position = Background }
 
-LBP.messageBox("A riddle:\n\nThe one box stops, the other continues\nFind the best, it will guide you\nto the finish.")
+MAP.Mission = "A riddle:\n\nThe one box stops, the other continues\nFind the best, it will guide you\nto the finish."
 
 
 function MAP.finished()
