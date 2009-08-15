@@ -46,7 +46,7 @@ function game.update(dt)
 		y = 5
 	end
 	if love.keyboard.isDown(love.key_down) and dbg then
-		y = -3
+		y = y - 1*dt
 	end
 	game.map.Objects.player._body:setVelocity(x, y)
 	--players don't use their heads for walking
