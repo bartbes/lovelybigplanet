@@ -45,7 +45,7 @@ function game.update(dt)
 		game.allowjump = false
 		y = 5
 	end
-	if love.keyboard.isDown(love.key_down) and gdb then
+	if love.keyboard.isDown(love.key_down) and dbg then
 		y = -3
 	end
 	game.map.Objects.player._body:setVelocity(x, y)
