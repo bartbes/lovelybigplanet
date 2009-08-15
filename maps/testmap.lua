@@ -25,6 +25,8 @@ platform4 = { "platform", 14, 6, 0, {Foreground} },
 platform5 = { "platform", 2, 6, 0, {Background} }
 } --Load the objects, and their resources
 MAP.Finish = { x = 2, y = 7, position = Background } --set finish coordinates, these are rounded
+MAP.Mission = "Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left platform"
+MAP.ShowScore = true
 
 function MAP.update(dt)
 	if MAP.Objects.enemy._body:getY() < 2 and not MAP.shownmessage then
@@ -45,9 +47,6 @@ function MAP.update(dt)
 		LBP.messageBox("You threw all gadgets and the brige off the platforms!")
 	end
 end
-
-MAP.showScore=true
-MAP.Mission = "Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left platform"
 
 function MAP.finished()
 	LBP.messageBox("Great, you did it!")
