@@ -34,6 +34,10 @@ function rLBP.addScore(pnt) --the function to add points to the score, as sugges
 	game.score = game.score + pnt
 end
 
+function rLBP.round(n) --round a number
+	return math.floor(n+0.5)
+end
+
 local mt = {}
 function mt:__index(i)
 	return rLBP[i]

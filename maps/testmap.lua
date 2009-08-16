@@ -22,13 +22,19 @@ gadget14 = { "gadget", 13.5, 4.5, 0, {Foreground} },
 platform2 = { "platform", 14, 1, 5, {Foreground} },
 platform3 = { "platform", 24, 1, 85, {Foreground} },
 platform4 = { "platform", 14, 6, 0, {Foreground} },
-platform5 = { "platform", 2, 6, 0, {Background} }
+platform5 = { "platform", 2, 6, 0, {Background} },
+helpsign = { "helpsign", 4, 6.80, 0, {Background} }
 } --Load the objects, and their resources
 MAP.Finish = { x = 2, y = 7, position = Background } --set finish coordinates, these are rounded
 MAP.Mission = "Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left platform"
 MAP.ShowScore = true
 
+function MAP.init()
+	MAP.Objects.helpsign.helptext = "You gain extra points\nfor pushing off the enemy"
+end
+
 function MAP.update(dt)
+	MAP.Objects.helpsign:checkposition(MAP.Objects.player._body)
 	if MAP.Objects.enemy._body:getY() < 2 and not MAP.shownmessage then
 		MAP.shownmessage = true
 		LBP.addScore(5000)
