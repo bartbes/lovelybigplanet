@@ -1,0 +1,4 @@
+We need a finish object, you know, so people know where the end is.., unless it should be hidden of course.
+It doesn't have to detect the presence of the player, this is already handled by the game.
+Image on how it looks in littlebigplanet: http://guidesmedia.ign.com/guides/856680/images/lbp_057.jpg
+(Doesn't have to be as advanced though)
