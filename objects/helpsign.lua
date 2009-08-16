@@ -12,7 +12,7 @@ OBJECT.helptext = "<Help message empty>"
 
 function OBJECT:checkposition(body)
 	if hashelped then return end
-	if LBP.round(body:getX()) == LBP.round(self._body:getX()) and LBP.round(body:getY()) == LBP.round(self._body:getY()) then
+	if ((body:getX() - self._body:getX()) ^ 2 + (body:getY() - self._body:getY()) ^ 2)^.5 < .75 then
 		LBP.messageBox(OBJECT.helptext)
 		hashelped = true
 	end
