@@ -22,8 +22,10 @@ function startgame(map)
 	game.layers = 2
 	game.finished = false
 	game.score = 0
+	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
 	if game.map.Mission then LBP.messageBox(game.map.Mission) end
 	LBP.showScore(game.map.ShowScore)
+	if game.map.init then game.map.init() end
 end
 
 game = {}
