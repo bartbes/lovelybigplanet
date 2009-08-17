@@ -1,1 +1,0 @@
-The texture to go with the finish, for more info, refer to the finish object.
