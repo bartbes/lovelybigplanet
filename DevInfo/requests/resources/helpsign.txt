@@ -1,2 +1,0 @@
-A texture for the newly created object helpsign. This should be a classic platformer helpsign.
-Like, a sign.. on a pole.. with some unreadable text on it.
