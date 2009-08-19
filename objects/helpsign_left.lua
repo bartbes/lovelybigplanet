@@ -1,7 +1,7 @@
 OBJECT.Name = "Help Sign"
 OBJECT.Creator = "Bart Bes"
 OBJECT.Version = 0.1
-OBJECT.Resources = { texture = "qubodup/sign_yellow-80x100" } --took the yellow one, not definitive
+OBJECT.Resources = { texture = "qubodup/sign_left_yellow-80x100" } --took the yellow one, not definitive
 OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = true
