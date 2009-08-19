@@ -28,6 +28,11 @@ function load()
 		love.filesystem.require('mods/'..v)
 	end
 	love.graphics.setColorMode(love.color_modulate)
+	if love.filesystem.exists("savegame.dat") then
+		loadsave()
+	--else
+		--return createsave(startgame, "testmap")
+	end
 	startgame("testmap")
 end
 
