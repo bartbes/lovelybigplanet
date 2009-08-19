@@ -4,6 +4,7 @@ love.filesystem.require("game.lua")
 love.filesystem.require("map.lua")
 love.filesystem.require("hud.lua")
 love.filesystem.require("menu.lua")
+love.filesystem.require("save.lua")
 
 dbg = false
 
