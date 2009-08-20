@@ -82,12 +82,15 @@ function game.draw()
 	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	--ask the map to draw each layer, usually done using the standard functions
 	game.map:drawLayers()
-	--draw HUD
-	hud.draw()
 	--same goes for menu
 	menu.draw()
 	if editor.active then
+		setCamera(cameras.editor)
 		editor.context:display()
+		setCamera(cameras.default)
+	else
+		--draw HUD
+		hud.draw()
 	end
 end
 

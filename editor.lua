@@ -4,9 +4,16 @@ LoveUI.requireall()
 editor = { active = false }
 
 editor.context=LoveUI.Context:new();
-editor.button1=LoveUI.Button:new(LoveUI.Rect:new(10, 100, 128, 32));
-editor.button1.value = "Launch missile"
-
+editor.button_settings=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 128, 32));
+editor.button_settings.value = "Settings"
+editor.button_clear=LoveUI.Button:new(LoveUI.Rect:new(148, 10, 128, 32));
+editor.button_clear.value = "Clear"
+editor.button_load=LoveUI.Button:new(LoveUI.Rect:new(286, 10, 128, 32));
+editor.button_load.value = "Load"
+editor.button_save=LoveUI.Button:new(LoveUI.Rect:new(424, 10, 128, 32));
+editor.button_save.value = "Save"
+editor.context:addSubview(editor.button_settings, editor.button_clear,
+	editor.button_load, editor.button_save)
 
 function editor.draw()
 	setCamera(cameras.editor)
