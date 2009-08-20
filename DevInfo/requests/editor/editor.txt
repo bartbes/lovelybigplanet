@@ -1,1 +1,3 @@
 We need an level/map editor.
+
+At some point, we'll also need sprites for the editor. See editor.jpeg for inspiration.

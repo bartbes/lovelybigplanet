@@ -31,6 +31,30 @@ end
 game = {}
 
 function game.update(dt)
+	if editor.active then
+		editor.context:update(dt)
+		local x, y = love.mouse.getPosition( )
+		if x < 40 then
+			local g = getCamera()
+			local ox, oy = g:getOrigin()
+			g:setOrigin(ox - (40-x)/40, oy)
+		elseif x > (camera.love.graphics.getWidth() - 40) then
+			local g = getCamera()
+			local ox, oy = g:getOrigin()
+			g:setOrigin(ox + (x-camera.love.graphics.getWidth()+40)/40, oy)
+		end
+		if y < 40 and x > 562 then
+			local g = getCamera()
+			local ox, oy = g:getOrigin()
+			g:setOrigin(ox, oy + (40-y)/40)
+		elseif y > (camera.love.graphics.getHeight() - 40) then
+			local g = getCamera()
+			local ox, oy = g:getOrigin()
+			g:setOrigin(ox, oy - (y-camera.love.graphics.getHeight()+40)/40)
+		end
+		love.timer.sleep(15)
+		return
+	end
 	--allow flying if we are debugging
 	if dbg then game.allowjump = true end
 	--FIX: setAllowSleep fails, do it manually
@@ -81,10 +105,16 @@ function game.draw()
 	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	--ask the map to draw each layer, usually done using the standard functions
 	game.map:drawLayers()
-	--draw HUD
-	hud.draw()
 	--same goes for menu
 	menu.draw()
+	if editor.active then
+		setCamera(cameras.editor)
+		editor.context:display()
+		setCamera(cameras.default)
+	else
+		--draw HUD
+		hud.draw()
+	end
 end
 
 function game.collision(a, b, coll)

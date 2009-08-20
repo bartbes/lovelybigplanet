@@ -1,3 +1,4 @@
+love.filesystem.require("editor.lua")
 love.filesystem.require("camera.lua")
 love.filesystem.require("api.lua")
 love.filesystem.require("game.lua")
@@ -11,6 +12,7 @@ dbg = false
 --create the cameras
 cameras = {}
 cameras.hud = camera.new()
+cameras.editor = camera.new()
 
 --in a do-end structure for the local, we do not want to pollute the global environment
 do
@@ -146,16 +148,41 @@ function keypressed(key)
 	--check some global keys first, if they're not used, pass it on
 	if key == love.key_q then
 		love.system.exit()
-	elseif key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
-		dbg = not dbg
 	elseif key == love.key_escape then
 		if menu.state then
 			menu.cleanup()
 		else
 			menu.load()
 		end
+	elseif key == love.key_e then
+		editor.active = not editor.active
+	elseif editor.active then
+		if menu.keypressed(key) then return end
+		editor.context:keyEvent(key, editor.context.keyDown)
 	else
-		game.keypressed(key)
+		if key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
+			dbg = not dbg
+		else
+			game.keypressed(key)
+		end
+	end
+end
+
+function keyreleased(key)
+	if editor.active then
+		editor.context:keyEvent(key, editor.context.keyUp)
+	end
+end
+ 
+function mousepressed(x, y, button)
+	if editor.active then
+		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
+	end
+end
+ 
+function mousereleased(x, y, button)
+	if editor.active then
+		editor.context:mouseEvent(x, y, button, editor.context.mouseUp)
 	end
 end
 
