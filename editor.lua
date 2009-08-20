@@ -1,6 +1,12 @@
 require "libs/LoveUI/LoveUI.lua"
+LoveUI.requireall()
 
-editor = {}
+editor = { active = false }
+
+editor.context=LoveUI.Context:new();
+editor.button1=LoveUI.Button:new(LoveUI.Rect:new(10, 100, 128, 32));
+editor.button1.value = "Launch missile"
+
 
 function editor.draw()
 	setCamera(cameras.editor)

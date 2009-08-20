@@ -31,6 +31,7 @@ end
 game = {}
 
 function game.update(dt)
+	if editor.active then editor.context:update(dt) end
 	--allow flying if we are debugging
 	if dbg then game.allowjump = true end
 	--FIX: setAllowSleep fails, do it manually
@@ -85,6 +86,9 @@ function game.draw()
 	hud.draw()
 	--same goes for menu
 	menu.draw()
+	if editor.active then
+		editor.context:display()
+	end
 end
 
 function game.collision(a, b, coll)
