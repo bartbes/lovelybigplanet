@@ -181,3 +181,4 @@ function mousereleased(x, y, button)
 end
 
 --camera.lateInit()
+editor.cursortexture=loadresource("snakeface/player")

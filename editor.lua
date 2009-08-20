@@ -1,7 +1,7 @@
 require "libs/LoveUI/LoveUI.lua"
 LoveUI.requireall()
 
-editor = { active = false }
+editor = { active = false, cursortexture = nil }
 
 editor.context=LoveUI.Context:new();
 editor.button_settings=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 128, 32));

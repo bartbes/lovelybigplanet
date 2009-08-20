@@ -109,6 +109,10 @@ function game.draw()
 	menu.draw()
 	if editor.active then
 		setCamera(cameras.editor)
+		local x, y = love.mouse.getPosition( )
+		love.graphics.setColor(255, 255, 255, 150)
+		love.graphics.draw(editor.cursortexture, x, y, 0, 1/3, 1/3)
+		love.graphics.setColor(255, 255, 255, 255)
 		editor.context:display()
 		setCamera(cameras.default)
 	else
