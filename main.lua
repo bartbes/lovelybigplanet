@@ -7,6 +7,7 @@ love.filesystem.require("menu.lua")
 love.filesystem.require("save.lua")
 
 dbg = false
+resources = {}
 
 --create the cameras
 cameras = {}
@@ -117,6 +118,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 end
 
 function loadresource(name)
+	if resources[name] then return resources[name] end
 	local ftype = ""
 	local fext = ""
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
@@ -125,7 +127,8 @@ function loadresource(name)
 	if ftype == "" or fext == "" then return false, "Resource " .. name .. " not found." end
 	--if it's an image, load and return it
 	if ftype == "image" then
-		return love.graphics.newImage("resources/" .. name .. fext)
+		resources[name] = love.graphics.newImage("resources/" .. name .. fext)
+		return resources[name]
 	end
 	--FAIL!
 	return false, "Resource " .. name .. " not found."
