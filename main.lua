@@ -16,7 +16,7 @@ cameras.hud = camera.new()
 --in a do-end structure for the local, we do not want to pollute the global environment
 do
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-	cameras.default = camera.stretchToResolution(15*aspectratio, 15)
+	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
 	setCamera(cameras.default)
 	cameras.default:setScreenOrigin(0, 1)
 	cameras.default:scaleBy(1, -1)
