@@ -148,6 +148,8 @@ function keypressed(key)
 		else
 			menu.load()
 		end
+	elseif key == love.key_e then
+		editor.active = not editor.active
 	elseif editor.active then
 		if menu.keypressed(key) then return end
 		editor.context:keyEvent(key, editor.context.keyDown)
