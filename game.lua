@@ -31,7 +31,7 @@ end
 game = {}
 
 function game.update(dt)
-	if editor.active then editor.context:update(dt) end
+	if editor.active then editor.context:update(dt) return end
 	--allow flying if we are debugging
 	if dbg then game.allowjump = true end
 	--FIX: setAllowSleep fails, do it manually

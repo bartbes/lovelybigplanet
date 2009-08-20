@@ -149,6 +149,7 @@ function keypressed(key)
 			menu.load()
 		end
 	elseif editor.active then
+		if menu.keypressed(key) then return end
 		editor.context:keyEvent(key, editor.context.keyDown)
 	else
 		if key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then

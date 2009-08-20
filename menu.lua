@@ -1,6 +1,6 @@
 menu = {} --master table
 menu.state = false --menu.state defines what menu or submenu is shown ( see: menu.draw() )
-menu.options = { main = { "Resume", "Restart", "Save", "Load", "Settings", "Credits", "Quit" },
+menu.options = { main = { "Resume", "Restart", "Save", "Load", "Editor", "Settings", "Credits", "Quit" },
                  settings = { "Resume", "Fullscreen", "Resolution"  },
 				 res = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} },
 				 load = {} }  --defines the options per menu
@@ -186,6 +186,7 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			elseif menu.options.main[menu.selectedbutton.main] == "Restart" then menu.cleanup(); startgame(game.map._name)
 			elseif menu.options.main[menu.selectedbutton.main] == "Save" then menu.state = "save"
 			elseif menu.options.main[menu.selectedbutton.main] == "Load" then prepareload() ; menu.state = "load"
+			elseif menu.options.main[menu.selectedbutton.main] == "Editor" then menu.cleanup() ; editor.active = not editor.active
 			elseif menu.options.main[menu.selectedbutton.main] == "Settings" then menu.state = "settings"
 			elseif menu.options.main[menu.selectedbutton.main] == "Credits" then menu.state = "credits"
 			end
