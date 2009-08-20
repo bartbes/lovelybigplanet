@@ -4,7 +4,7 @@ local version={"unstable", 20090709.1752}  --release, revision (YYYYMMDD.HHMM)
 if LoveUI==nil then
 	LoveUI={};
 	
-	function LoveUI.PATH (path)
+	--[[function LoveUI.PATH (path)
 		local lf = love.filesystem
 		path=path or ""; -- is a folder
 		for k, subfile in pairs(lf.enumerate(path)) do
@@ -23,7 +23,8 @@ if LoveUI==nil then
 			end
 		end
 	end
-	LoveUI.PATH();
+	LoveUI.PATH();]]
+	LoveUI.PATH = "libs/LoveUI"
 	
 	function LoveUI.getVersion() 
 		return unpack(version);
