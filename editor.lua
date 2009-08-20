@@ -1,3 +1,5 @@
+require "libs/LoveUI/LoveUI.lua"
+
 editor = {}
 
 function editor.draw()
