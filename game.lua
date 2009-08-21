@@ -43,7 +43,7 @@ function game.update(dt)
 			local ox, oy = g:getOrigin()
 			g:setOrigin(ox + (x-camera.love.graphics.getWidth()+40)/40, oy)
 		end
-		if y < 40 and x > 562 then
+		if y < 40 and x > 700 then
 			local g = getCamera()
 			local ox, oy = g:getOrigin()
 			g:setOrigin(ox, oy + (40-y)/40)
@@ -110,9 +110,11 @@ function game.draw()
 	if editor.active then
 		setCamera(cameras.editor)
 		local x, y = love.mouse.getPosition( )
-		love.graphics.setColor(255, 255, 255, 150)
-		love.graphics.draw(editor.cursortexture, x, y, 0, 1/3, 1/3)
-		love.graphics.setColor(255, 255, 255, 255)
+		if editor.view_objects.hidden == false and (y > 52 or x > 700) then
+			love.graphics.setColor(255, 255, 255, 150)
+			love.graphics.draw(editor.cursortexture, x, y, 0, 1/3, 1/3)
+			love.graphics.setColor(255, 255, 255, 255)
+		end
 		editor.context:display()
 		setCamera(cameras.default)
 	else
