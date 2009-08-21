@@ -8,6 +8,7 @@ love.filesystem.require("menu.lua")
 love.filesystem.require("save.lua")
 
 dbg = false
+resources = {}
 
 --create the cameras
 cameras = {}
@@ -17,7 +18,7 @@ cameras.editor = camera.new()
 --in a do-end structure for the local, we do not want to pollute the global environment
 do
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-	cameras.default = camera.stretchToResolution(15*aspectratio, 15)
+	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
 	setCamera(cameras.default)
 	cameras.default:setScreenOrigin(0, 1)
 	cameras.default:scaleBy(1, -1)
@@ -69,7 +70,7 @@ end
 function loadobject(internalname, name, world, x, y, angle, positions)
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
-	local env = {key_left = love.key_left, key_right = love.key_right, key_up = love.key_up, print=print}
+	local env = {print=print}
 	env.OBJECT = {}
 	env.LBP = LBP
 	--environment is set up, apply and execute
@@ -119,6 +120,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 end
 
 function loadresource(name)
+	if resources[name] then return resources[name] end
 	local ftype = ""
 	local fext = ""
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
@@ -127,7 +129,8 @@ function loadresource(name)
 	if ftype == "" or fext == "" then return false, "Resource " .. name .. " not found." end
 	--if it's an image, load and return it
 	if ftype == "image" then
-		return love.graphics.newImage("resources/" .. name .. fext)
+		resources[name] = love.graphics.newImage("resources/" .. name .. fext)
+		return resources[name]
 	end
 	--FAIL!
 	return false, "Resource " .. name .. " not found."
