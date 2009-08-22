@@ -140,7 +140,7 @@ end
 
 function keypressed(key)
 	--check some global keys first, if they're not used, pass it on
-	if key == love.key_q then
+	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		love.system.exit()
 	elseif key == love.key_escape then
 		if menu.state then
@@ -148,7 +148,7 @@ function keypressed(key)
 		else
 			menu.load()
 		end
-	elseif key == love.key_e then
+	elseif key == love.key_e and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		editor.active = not editor.active
 	elseif editor.active then
 		if menu.keypressed(key) then return end
