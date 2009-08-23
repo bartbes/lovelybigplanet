@@ -112,6 +112,24 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	return env.OBJECT
 end
 
+function loadobjectlite(name)
+	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
+	local f = love.filesystem.load("objects/" .. name .. ".lua")
+	local env = {print=print}
+	env.OBJECT = {}
+	env.LBP = LBP
+	--environment is set up, apply and execute
+	setfenv(f, env)
+	f()
+	--load Resources
+	for i, v in pairs(env.OBJECT.Resources) do
+		env.OBJECT.Resources[i] = assert(loadresource(v))
+	end
+	env.OBJECT._name = name
+	return env.OBJECT
+end
+
+
 function loadresource(name)
 	local ftype = ""
 	local fext = ""
@@ -171,6 +189,20 @@ end
 function mousepressed(x, y, button)
 	if editor.active then
 		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
+		if editor.view_settings.hidden and (y > 40 or x > 700) then
+			if editor.cursorobject then
+				x, y = cameras.default:unpos(x, y)
+				if editor.cursorobject._name == 'player' then
+					game.map.Objects.player = loadobject('player', editor.cursorobject._name, game.world, x, y, 0, {1})
+				else
+					i = 1
+					while game.map.Objects[editor.cursorobject._name .. i] do
+						i = i + 1
+					end
+					game.map.Objects[editor.cursorobject._name .. i] = loadobject(editor.cursorobject._name .. i, editor.cursorobject._name, game.world, x, y, 0, {1})
+				end
+			end
+		end
 	end
 end
  
@@ -181,4 +213,5 @@ function mousereleased(x, y, button)
 end
 
 --camera.lateInit()
-editor.cursortexture=loadresource("snakeface/player")
+editor.cursorobject=loadobjectlite("player")
+editor.cursortexture=editor.cursorobject.Resources.texture
