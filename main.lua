@@ -189,7 +189,7 @@ end
 function mousepressed(x, y, button)
 	if editor.active then
 		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
-		if editor.view_settings.hidden and (y > 40 or x > 700) then
+		if editor.view_settings.hidden and (y > 40 or x > 700) and (editor.view_objects.hidden or (x < 562 or x > 710 or y > 42 * #editor.objectbuttons)) then
 			if editor.cursorobject then
 				x, y = cameras.default:unpos(x, y)
 				if editor.cursorobject._name == 'player' then

@@ -110,7 +110,7 @@ function game.draw()
 	if editor.active then
 		setCamera(cameras.editor)
 		local x, y = love.mouse.getPosition( )
-		if editor.view_objects.hidden == false and (y > 52 or x > 700) then
+		if editor.view_settings.hidden and (y > 52 or x > 700) and (editor.view_objects.hidden or (x < 562 or x > 710 or y > 42 * #editor.objectbuttons)) then
 			love.graphics.setColor(255, 255, 255, 150)
 			love.graphics.draw(editor.cursortexture, x, y, 0, 1/3, 1/3)
 			love.graphics.setColor(255, 255, 255, 255)

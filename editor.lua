@@ -37,14 +37,30 @@ editor.settings_version.value = "Version"
 editor.view_settings:addSubview(editor.settings_title, editor.settings_author,
 	editor.settings_version)
 
+local clr = love.graphics.newColor(255,255,255)
+
 editor.view_objects = LoveUI.View:new(LoveUI.Rect:new(562, 42, 200, 300), LoveUI.Size:new(400, 400))
 editor.view_objects.hidden = false
-editor.objects_player=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 128, 32));
+editor.objectbuttons = {}
+local objs = love.filesystem.enumerate("objects")
+for i, v in ipairs(objs) do
+	editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 128, 32));
+	editor.objectbuttons[i].value = string.sub(v, 1, -5)
+	editor.objectbuttons[i]:setAction(function (self)
+		editor.cursorobject=loadobjectlite(self.value)
+		editor.cursortexture=editor.cursorobject.Resources.texture
+		editor.view_objects.hidden = true
+	end)
+	editor.objectbuttons[i].opaque = false
+	editor.objectbuttons[i].textColor = clr
+end
+editor.view_objects:addSubview(unpack(editor.objectbuttons))
+--[[editor.objects_player=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 128, 32));
 editor.objects_player.value = "Place player"
 editor.objects_player:setAction(function ()
 	--
 end)
-editor.view_objects:addSubview(editor.objects_player)
+editor.view_objects:addSubview(editor.objects_player)]]
 	
 editor.context:addSubview(editor.button_settings, editor.button_clear,
 	editor.button_load, editor.button_save, editor.button_objects,
@@ -58,9 +74,8 @@ editor.button_objects.opaque = false
 editor.settings_title.opaque = false
 editor.settings_author.opaque = false
 editor.settings_version.opaque = false
-editor.objects_player.opaque = false
+--editor.objects_player.opaque = false
 
-local clr = love.graphics.newColor(255,255,255)
 editor.button_settings.textColor = clr
 editor.button_clear.textColor = clr
 editor.button_load.textColor = clr
@@ -69,7 +84,7 @@ editor.button_objects.textColor = clr
 editor.settings_title.textColor = clr
 editor.settings_author.textColor = clr
 editor.settings_version.textColor = clr
-editor.objects_player.textColor = clr
+--editor.objects_player.textColor = clr
 
 
 
