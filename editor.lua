@@ -7,7 +7,7 @@ editor.context=LoveUI.Context:new();
 editor.button_settings=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 128, 32));
 editor.button_settings.value = "Settings"
 editor.button_settings:setAction(function ()
-	editor.view_settings.hidden = false
+	editor.view_settings.hidden = not editor.view_settings.hidden
 	editor.view_objects.hidden = true
 end)
 editor.button_clear=LoveUI.Button:new(LoveUI.Rect:new(148, 10, 128, 32));
@@ -23,7 +23,7 @@ editor.button_objects=LoveUI.Button:new(LoveUI.Rect:new(562, 10, 128, 32));
 editor.button_objects.value = "Tools"
 editor.button_objects:setAction(function ()
 	editor.view_settings.hidden = true
-	editor.view_objects.hidden = false
+	editor.view_objects.hidden = not editor.view_objects.hidden
 end)
 
 editor.view_settings = LoveUI.View:new(LoveUI.Rect:new(10, 42, 200, 300), LoveUI.Size:new(400, 400))
