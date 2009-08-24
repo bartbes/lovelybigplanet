@@ -147,6 +147,76 @@
        inkscape:vp_y="0 : 1000 : 0"
        inkscape:vp_x="0 : 526.18109 : 1"
        sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       id="perspective2414"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3264" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3262" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3260" />
+    <inkscape:perspective
+       id="perspective3258"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3256" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3254" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3252" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective3250" />
+    <inkscape:perspective
+       id="perspective3248"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       sodipodi:type="inkscape:persp3d" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -159,10 +229,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="17.687241"
-     inkscape:cy="24.658859"
+     inkscape:cx="12.960046"
+     inkscape:cy="20.94383"
      inkscape:document-units="px"
-     inkscape:current-layer="g4844"
+     inkscape:current-layer="g2666"
      showgrid="false"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -170,10 +240,10 @@
      inkscape:bbox-paths="true"
      inkscape:snap-nodes="true"
      inkscape:snap-global="true"
-     inkscape:window-width="958"
-     inkscape:window-height="1179"
-     inkscape:window-x="0"
-     inkscape:window-y="0">
+     inkscape:window-width="955"
+     inkscape:window-height="1134"
+     inkscape:window-x="15"
+     inkscape:window-y="-13">
     <inkscape:grid
        type="xygrid"
        id="grid2639"
@@ -219,20 +289,26 @@
            height="34"
            width="12"
            id="rect2546"
-           style="fill:#360000;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+           style="fill:#1b1b1b;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
         <rect
-           style="fill:#7f301a;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+           style="fill:#4c4c4c;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
            id="rect2548"
            width="8"
            height="30"
            x="30"
            y="268"
            rx="4"
-           ry="4" />
+           ry="4"
+           inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
+           inkscape:export-xdpi="90"
+           inkscape:export-ydpi="90" />
       </g>
       <path
          sodipodi:type="arc"
-         style="opacity:1;fill:#ff4f11;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#1f2d62;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="path3205"
          sodipodi:cx="20"
          sodipodi:cy="60"
@@ -240,7 +316,7 @@
          sodipodi:ry="20"
          d="M 40,60 A 20,20 0 1 1 0,60 A 20,20 0 1 1 40,60 z"
          transform="matrix(0.9,0,0,0.9,16,214)"
-         inkscape:export-filename="/home/qubodup/src/git/lbp/resources/qubodup/sign_info-36x50.png"
+         inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
       <path
@@ -251,13 +327,13 @@
          sodipodi:cy="60"
          sodipodi:cx="20"
          id="path3207"
-         style="opacity:1;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#0f61f9;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          sodipodi:type="arc"
-         inkscape:export-filename="/home/qubodup/src/git/lbp/resources/qubodup/sign_info-36x50.png"
+         inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
       <rect
-         style="opacity:1;fill:#1d1d1d;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#1f2d62;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect3209"
          width="8"
          height="18"
@@ -265,11 +341,11 @@
          y="254"
          rx="4"
          ry="4"
-         inkscape:export-filename="/home/qubodup/src/git/lbp/resources/qubodup/sign_info-36x50.png"
+         inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
       <rect
-         style="opacity:1;fill:#1d1d1d;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         style="opacity:1;fill:#1f2d62;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
          id="rect3211"
          width="8"
          height="8"
@@ -277,7 +353,7 @@
          y="274"
          rx="4"
          ry="4"
-         inkscape:export-filename="/home/qubodup/src/git/lbp/resources/qubodup/sign_info-36x50.png"
+         inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
       <rect
@@ -288,8 +364,8 @@
          height="14"
          width="4"
          id="rect3213"
-         style="opacity:1;fill:#ecda00;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         inkscape:export-filename="/home/qubodup/src/git/lbp/resources/qubodup/sign_info-36x50.png"
+         style="opacity:1;fill:#58c6ff;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
       <rect
@@ -300,8 +376,8 @@
          height="4"
          width="4"
          id="rect3215"
-         style="opacity:1;fill:#ecda00;fill-opacity:1;stroke:none;stroke-width:0.25;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-         inkscape:export-filename="/home/qubodup/src/git/lbp/resources/qubodup/sign_info-36x50.png"
+         style="opacity:1;fill:#58c6ff;fill-opacity:1;stroke:none;stroke-width:0.25000000000000000;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         inkscape:export-filename="/home/qubodup/sign_info-36x50.png"
          inkscape:export-xdpi="90"
          inkscape:export-ydpi="90" />
     </g>
