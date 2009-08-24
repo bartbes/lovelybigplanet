@@ -7,8 +7,9 @@ editor.context=LoveUI.Context:new();
 editor.button_settings=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 80, 32));
 editor.button_settings.value = "Settings"
 editor.button_settings:setAction(function ()
-	editor.view_settings.hidden = not editor.view_settings.hidden
 	editor.view_objects.hidden = true
+	editor.view_load.hidden = true
+	editor.view_settings.hidden = not editor.view_settings.hidden
 end)
 editor.button_clear=LoveUI.Button:new(LoveUI.Rect:new(100, 10, 80, 32));
 editor.button_clear.value = "Clear"
@@ -17,12 +18,18 @@ editor.button_clear:setAction(function ()
 end)
 editor.button_load=LoveUI.Button:new(LoveUI.Rect:new(190, 10, 80, 32));
 editor.button_load.value = "Load"
+editor.button_load:setAction(function ()
+	editor.view_settings.hidden = true
+	editor.view_objects.hidden = true
+	editor.view_load.hidden = not editor.view_load.hidden
+end)
 editor.button_save=LoveUI.Button:new(LoveUI.Rect:new(280, 10, 80, 32));
 editor.button_save.value = "Save"
 editor.button_objects=LoveUI.Button:new(LoveUI.Rect:new(370, 10, 80, 32));
 editor.button_objects.value = "Tools"
 editor.button_objects:setAction(function ()
 	editor.view_settings.hidden = true
+	editor.view_load.hidden = true
 	editor.view_objects.hidden = not editor.view_objects.hidden
 end)
 
@@ -61,10 +68,27 @@ editor.objects_player:setAction(function ()
 	--
 end)
 editor.view_objects:addSubview(editor.objects_player)]]
+
+editor.view_load = LoveUI.View:new(LoveUI.Rect:new(190, 42, 200, 300), LoveUI.Size:new(400, 400))
+editor.view_load.hidden = true
+editor.loadbuttons = {}
+local maps = love.filesystem.enumerate("maps")
+for i, v in ipairs(maps) do
+	editor.loadbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32))
+	editor.loadbuttons[i].value = string.sub(v, 1, -5)
+	editor.loadbuttons[i]:setAction(function (self)
+		startgame(self.value)
+		editor.active = false
+		editor.view_load.hidden = true
+	end)
+	editor.loadbuttons[i].opaque = false
+	editor.loadbuttons[i].textColor = clr
+end
+editor.view_load:addSubview(unpack(editor.loadbuttons))
 	
 editor.context:addSubview(editor.button_settings, editor.button_clear,
 	editor.button_load, editor.button_save, editor.button_objects,
-	editor.view_settings, editor.view_objects)
+	editor.view_settings, editor.view_objects, editor.view_load)
 
 editor.button_settings.opaque = false
 editor.button_clear.opaque = false
