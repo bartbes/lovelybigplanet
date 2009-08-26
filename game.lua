@@ -1,4 +1,4 @@
-function startgame(map)
+function startgame(map, noplay)
 	hud.score = false
 	hud.lvl1 = false
 	hud.lvl2 = false
@@ -23,7 +23,7 @@ function startgame(map)
 	game.finished = false
 	game.score = 0
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
-	if game.map.Mission then LBP.messageBox(game.map.Mission) end
+	if game.map.Mission and not noplay then LBP.messageBox(game.map.Mission) end
 	LBP.showScore(game.map.ShowScore)
 	if game.map.init then game.map.init() end
 end

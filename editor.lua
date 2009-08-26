@@ -77,8 +77,7 @@ for i, v in ipairs(maps) do
 	editor.loadbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32))
 	editor.loadbuttons[i].value = string.sub(v, 1, -5)
 	editor.loadbuttons[i]:setAction(function (self)
-		startgame(self.value)
-		editor.active = false
+		startgame(self.value, true)
 		editor.view_load.hidden = true
 	end)
 	editor.loadbuttons[i].opaque = false
