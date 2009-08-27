@@ -25,6 +25,15 @@ editor.button_load:setAction(function ()
 end)
 editor.button_save=LoveUI.Button:new(LoveUI.Rect:new(280, 10, 80, 32));
 editor.button_save.value = "Save"
+editor.button_save:setAction(function ()
+	if editor.settings_filename.value == "Filename" then
+		return
+	end
+	game.map.Name = editor.settings_title.value
+	game.map.Creator = editor.settings_author.value
+	game.map.Version = editor.settings_version.value
+	generatemap(editor.settings_filename.value)
+end)
 editor.button_objects=LoveUI.Button:new(LoveUI.Rect:new(370, 10, 80, 32));
 editor.button_objects.value = "Tools"
 editor.button_objects:setAction(function ()
@@ -41,8 +50,10 @@ editor.settings_author = LoveUI.Textfield:new(LoveUI.Rect:new(10, 41, 100, 26))
 editor.settings_author.value = "Author"
 editor.settings_version = LoveUI.Textfield:new(LoveUI.Rect:new(10, 72, 100, 26))
 editor.settings_version.value = "Version"
+editor.settings_filename = LoveUI.Textfield:new(LoveUI.Rect:new(10, 103, 100, 26))
+editor.settings_filename.value = "Filename"
 editor.view_settings:addSubview(editor.settings_title, editor.settings_author,
-	editor.settings_version)
+	editor.settings_version, editor.settings_filename)
 
 local clr = love.graphics.newColor(255,255,255)
 
@@ -91,6 +102,7 @@ editor.button_objects.opaque = false
 editor.settings_title.opaque = false
 editor.settings_author.opaque = false
 editor.settings_version.opaque = false
+editor.settings_filename.opaque = false
 
 editor.button_settings.textColor = clr
 editor.button_clear.textColor = clr
@@ -100,3 +112,4 @@ editor.button_objects.textColor = clr
 editor.settings_title.textColor = clr
 editor.settings_author.textColor = clr
 editor.settings_version.textColor = clr
+editor.settings_filename.textColor = clr

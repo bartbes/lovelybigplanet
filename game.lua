@@ -102,7 +102,7 @@ end
 
 function game.draw()
 	--draw the background, of course
-	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
+	love.graphics.draw(game.map.Resources.background.resource, center.x, center.y, 0, (game.map.BackgroundScale.x or 1)/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x or 1)/150)
 	--ask the map to draw each layer, usually done using the standard functions
 	game.map:drawLayers()
 	--same goes for menu
@@ -112,7 +112,7 @@ function game.draw()
 		local x, y = love.mouse.getPosition( )
 		if editor.view_settings.hidden and (y > 52 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42 * #editor.objectbuttons)) then
 			love.graphics.setColor(255, 255, 255, 150)
-			love.graphics.draw(editor.cursortexture, x, y, 0, 1/3, 1/3)
+			love.graphics.draw(editor.cursortexture.resource, x, y, 0, 1/3, 1/3)
 			love.graphics.setColor(255, 255, 255, 255)
 		end
 		editor.context:display()

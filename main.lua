@@ -78,6 +78,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	env.OBJECT._body:setAngle(angle)
 	env.OBJECT._shapes = {}
 	env.OBJECT._positions = positions
+	env.OBJECT._name = name
 	--create the shapes, data is set to the internal name (what the map calls them)
 	--category is the layers it's in, mask is what it collides with (or what it doesn't
 	--collide with actually)
@@ -139,10 +140,72 @@ function loadresource(name)
 	if ftype == "" or fext == "" then return false, "Resource " .. name .. " not found." end
 	--if it's an image, load and return it
 	if ftype == "image" then
-		return love.graphics.newImage("resources/" .. name .. fext)
+		return {name = name, resource = love.graphics.newImage("resources/" .. name .. fext)}
 	end
 	--FAIL!
 	return false, "Resource " .. name .. " not found."
+end
+
+function rtos(resources)
+	local s = "{\n"
+	for i, v in pairs(resources) do
+		s = s .. string.format("\t%s = \"%s\", \n", i, v.name)
+	end
+	s = s .. "}"
+	return s
+end
+
+function otos(objects)
+	local s = "{\n"
+	for i, v in pairs(objects) do
+		if type(i) == "number" then
+			s = s .. "\t[" .. i .. "] = { "
+		else
+			s = s .. "\t" .. i .. " = { "
+		end
+		s = s .. string.format("\"%s\", %f, %f, %f, { ", v._name, v._body:getX(), v._body:getY(), v._body:getAngle())
+		for j, w in ipairs{v._shapes[1]:getCategory()} do
+			s = s .. w .. ", "
+		end
+		s = s .. "} }, \n"
+	end
+	s  = s .. "}"
+	return s
+end
+
+function generatemap(filename)
+	if not love.filesystem.exists("PLACEHOLDER") then
+		local f = love.filesystem.newFile("PLACEHOLDER", love.file_write)
+		love.filesystem.open(f)
+		love.filesystem.close(f)
+		love.filesystem.mkdir("maps")
+	end
+	local f = love.filesystem.newFile("maps/" .. filename .. ".lua", love.file_write)
+	love.filesystem.open(f)
+	local data = string.format(
+[[
+MAP.Name = "%s"
+MAP.Creator = "%s"
+MAP.Version = "%s"
+MAP.Resources = %s
+MAP.BackgroundScale = { x = %f, y = %f }
+MAP.Objects = %s
+MAP.Finish = { x = %f, y = %f, position = %d }
+MAP.Mission = "%s"
+]],
+		game.map.Name,
+		game.map.Creator,
+		game.map.Version,
+		rtos(game.map.Resources),
+		game.map.BackgroundScale.x or 1,
+		game.map.BackgroundScale.y or game.map.BackgroundScale.x or 1,
+		otos(game.map.Objects),
+		game.map.Finish.x,
+		game.map.Finish.y,
+		game.map.Finish.position,
+		string.gsub(game.map.Mission, "\n", "\\n") or "")
+	love.filesystem.write(f, data)
+	love.filesystem.close(f)
 end
 
 function draw()
