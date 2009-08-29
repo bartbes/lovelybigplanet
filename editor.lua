@@ -57,7 +57,7 @@ editor.view_settings:addSubview(editor.settings_title, editor.settings_author,
 
 local clr = love.graphics.newColor(255,255,255)
 
-editor.view_objects = LoveUI.View:new(LoveUI.Rect:new(370, 42, 200, 300), LoveUI.Size:new(400, 400))
+editor.view_objects = LoveUI.View:new(LoveUI.Rect:new(370, 42, 200, 500), LoveUI.Size:new(400, 500))
 editor.view_objects.hidden = false
 editor.objectbuttons = {}
 local objs = love.filesystem.enumerate("objects")
@@ -72,6 +72,16 @@ for i, v in ipairs(objs) do
 	editor.objectbuttons[i].opaque = false
 	editor.objectbuttons[i].textColor = clr
 end
+local i = #objs + 1
+editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
+editor.objectbuttons[i].value = "Select"
+editor.objectbuttons[i]:setAction(function (self)
+	editor.cursorobject=nil
+	editor.cursortexture=nil
+	editor.view_objects.hidden = true
+end)
+editor.objectbuttons[i].opaque = false
+editor.objectbuttons[i].textColor = clr
 editor.view_objects:addSubview(unpack(editor.objectbuttons))
 
 editor.view_load = LoveUI.View:new(LoveUI.Rect:new(190, 42, 200, 300), LoveUI.Size:new(400, 400))
