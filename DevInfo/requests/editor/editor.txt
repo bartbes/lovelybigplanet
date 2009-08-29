@@ -1,3 +1,7 @@
-We need an level/map editor.
-
-At some point, we'll also need sprites for the editor. See editor.jpeg for inspiration.
+The map editor currently needs:
+ * Sprites for the objects -- this might not be used at all, because it works with object names as well
+ * Popup menu (or just buttons of some kind) for selected objects, to be able to:
+   - Rotate
+   - Move
+   - Place on other layer(s)
+   - Delete
