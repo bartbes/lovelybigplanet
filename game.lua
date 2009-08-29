@@ -108,6 +108,13 @@ function game.draw()
 	--same goes for menu
 	menu.draw()
 	if editor.active then
+		if editor.selectedobject then
+			love.graphics.setColor(100, 100, 255, 255)
+			love.graphics.setBlendMode(love.blend_additive)
+			LBP.draw(game.map.Objects[editor.selectedobject])
+			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.setBlendMode(love.blend_normal)
+		end
 		setCamera(cameras.editor)
 		local x, y = love.mouse.getPosition( )
 		if editor.cursortexture and editor.view_settings.hidden and (y > 52 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) then

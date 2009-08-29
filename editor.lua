@@ -8,6 +8,9 @@ local function preparebutton(btn)
 	btn.opaque = false
 	btn.textColor = clr
 end
+local function preparepopup(btn)
+	btn.backgroundColor = clr
+end
 
 editor.context=LoveUI.Context:new();
 editor.button_settings=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 80, 32));
@@ -110,7 +113,49 @@ for i, v in ipairs(maps) do
 	preparebutton(editor.loadbuttons[i])
 end
 editor.view_load:addSubview(unpack(editor.loadbuttons))
-	
+
+editor.view_popup = LoveUI.View:new(LoveUI.Rect:new(0, 0, 500, 500), LoveUI.Size:new(400, 400))
+editor.view_popup.hidden = true
+editor.popup_move = LoveUI.Button:new(LoveUI.Rect:new(10, 10, 100, 26))
+editor.popup_move.value = "Move"
+editor.popup_move:setAction(function (self)
+	editor.view_popup.hidden = true
+	--move (sh)it
+end)
+preparepopup(editor.popup_move)
+editor.popup_rot = LoveUI.Button:new(LoveUI.Rect:new(10, 36, 100, 26))
+editor.popup_rot.value = "Rotate"
+editor.popup_rot:setAction(function (self)
+	editor.view_popup.hidden = true
+	--rotate (sh)it
+end)
+preparepopup(editor.popup_rot)
+editor.popup_place = LoveUI.Button:new(LoveUI.Rect:new(10, 62, 100, 26))
+editor.popup_place.value = "Layer(s)"
+editor.popup_place:setAction(function (self)
+	editor.view_popup.hidden = true
+	--place (sh)it
+end)
+preparepopup(editor.popup_place)
+editor.popup_del = LoveUI.Button:new(LoveUI.Rect:new(10, 88, 100, 26))
+editor.popup_del.value = "Delete"
+editor.popup_del:setAction(function (self)
+	editor.view_popup.hidden = true
+	--delete (sh)it
+end)
+preparepopup(editor.popup_del)
+editor.popup_cancel = LoveUI.Button:new(LoveUI.Rect:new(10, 114, 100, 26))
+editor.popup_cancel.value = "Cancel"
+editor.popup_cancel:setAction(function (self)
+	editor.view_popup.hidden = true
+	--don't do (sh)it
+end)
+preparepopup(editor.popup_cancel)
+
+editor.view_popup:addSubview(editor.popup_move, editor.popup_rot,
+	editor.popup_place, editor.popup_del, editor.popup_cancel)
+
 editor.context:addSubview(editor.button_settings, editor.button_clear,
 	editor.button_load, editor.button_save, editor.button_objects,
-	editor.view_settings, editor.view_objects, editor.view_load)
+	editor.view_settings, editor.view_objects, editor.view_load,
+	editor.view_popup)

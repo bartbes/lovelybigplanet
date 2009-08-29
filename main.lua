@@ -277,6 +277,10 @@ function mousepressed(x, y, button)
 			else
 				editor.selectedobject = getobjat(x, y)
 				print(editor.selectedobject)
+				if editor.selectedobject then
+					editor.view_popup.hidden = false
+					editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 100, camera.love.graphics.getHeight()/2 - 100))
+				end
 			end
 		end
 	end
