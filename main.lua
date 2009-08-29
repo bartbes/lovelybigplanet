@@ -262,6 +262,11 @@ end
 function mousepressed(x, y, button)
 	if editor.active then
 		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
+		if editor.rotatemode then
+			editor.rotatemode = false
+			editor.selectedobject = nil
+			return
+		end
 		if editor.view_settings.hidden and (y > 40 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) and editor.view_popup.hidden then
 			x, y = cameras.default:unpos(x, y)
 			if editor.cursorobject then
@@ -283,7 +288,7 @@ function mousepressed(x, y, button)
 				--print(editor.selectedobject)
 				if editor.selectedobject then
 					editor.view_popup.hidden = false
-					editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 100, camera.love.graphics.getHeight()/2 - 100))
+					editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 50, camera.love.graphics.getHeight()/2 - 60))
 				end
 			end
 		end

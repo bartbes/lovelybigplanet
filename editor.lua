@@ -117,33 +117,34 @@ editor.view_load:addSubview(unpack(editor.loadbuttons))
 
 editor.view_popup = LoveUI.View:new(LoveUI.Rect:new(0, 0, 500, 500), LoveUI.Size:new(400, 400))
 editor.view_popup.hidden = true
-editor.popup_move = LoveUI.Button:new(LoveUI.Rect:new(10, 10, 100, 26))
+editor.popup_move = LoveUI.Button:new(LoveUI.Rect:new(0, 0, 100, 26))
 editor.popup_move.value = "Move"
 editor.popup_move:setAction(function (self)
 	editor.view_popup.hidden = true
 	--move (sh)it
-	editor.cursorobject=loadobjectlite(editor.selectedobject)
+	editor.cursorobject=loadobjectlite(game.map.Objects[editor.selectedobject]._name)
 	editor.cursortexture=editor.cursorobject.Resources.texture
 	game.map.Objects[editor.selectedobject] = nil
 	editor.selectedobject = nil
 	editor.placeonce = true
 end)
 preparepopup(editor.popup_move)
-editor.popup_rot = LoveUI.Button:new(LoveUI.Rect:new(10, 36, 100, 26))
+editor.popup_rot = LoveUI.Button:new(LoveUI.Rect:new(0, 26, 100, 26))
 editor.popup_rot.value = "Rotate"
 editor.popup_rot:setAction(function (self)
 	editor.view_popup.hidden = true
 	--rotate (sh)it
+	editor.rotatemode = true
 end)
 preparepopup(editor.popup_rot)
-editor.popup_place = LoveUI.Button:new(LoveUI.Rect:new(10, 62, 100, 26))
+editor.popup_place = LoveUI.Button:new(LoveUI.Rect:new(0, 52, 100, 26))
 editor.popup_place.value = "Layer(s)"
 editor.popup_place:setAction(function (self)
 	editor.view_popup.hidden = true
 	--place (sh)it
 end)
 preparepopup(editor.popup_place)
-editor.popup_del = LoveUI.Button:new(LoveUI.Rect:new(10, 88, 100, 26))
+editor.popup_del = LoveUI.Button:new(LoveUI.Rect:new(0, 78, 100, 26))
 editor.popup_del.value = "Delete"
 editor.popup_del:setAction(function (self)
 	editor.view_popup.hidden = true
@@ -152,7 +153,7 @@ editor.popup_del:setAction(function (self)
 	editor.selectedobject = nil
 end)
 preparepopup(editor.popup_del)
-editor.popup_cancel = LoveUI.Button:new(LoveUI.Rect:new(10, 114, 100, 26))
+editor.popup_cancel = LoveUI.Button:new(LoveUI.Rect:new(0, 104, 100, 26))
 editor.popup_cancel.value = "Cancel"
 editor.popup_cancel:setAction(function (self)
 	editor.view_popup.hidden = true
