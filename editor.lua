@@ -84,6 +84,7 @@ for i, v in ipairs(objs) do
 	editor.objectbuttons[i]:setAction(function (self)
 		editor.cursorobject=loadobjectlite(self.value)
 		editor.cursortexture=editor.cursorobject.Resources.texture
+		editor.placeonce = false
 		editor.view_objects.hidden = true
 	end)
 	preparebutton(editor.objectbuttons[i])
@@ -121,6 +122,11 @@ editor.popup_move.value = "Move"
 editor.popup_move:setAction(function (self)
 	editor.view_popup.hidden = true
 	--move (sh)it
+	editor.cursorobject=loadobjectlite(editor.selectedobject)
+	editor.cursortexture=editor.cursorobject.Resources.texture
+	game.map.Objects[editor.selectedobject] = nil
+	editor.selectedobject = nil
+	editor.placeonce = true
 end)
 preparepopup(editor.popup_move)
 editor.popup_rot = LoveUI.Button:new(LoveUI.Rect:new(10, 36, 100, 26))
@@ -142,6 +148,8 @@ editor.popup_del.value = "Delete"
 editor.popup_del:setAction(function (self)
 	editor.view_popup.hidden = true
 	--delete (sh)it
+	game.map.Objects[editor.selectedobject] = nil
+	editor.selectedobject = nil
 end)
 preparepopup(editor.popup_del)
 editor.popup_cancel = LoveUI.Button:new(LoveUI.Rect:new(10, 114, 100, 26))

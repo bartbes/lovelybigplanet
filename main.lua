@@ -262,7 +262,7 @@ end
 function mousepressed(x, y, button)
 	if editor.active then
 		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
-		if editor.view_settings.hidden and (y > 40 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) then
+		if editor.view_settings.hidden and (y > 40 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) and editor.view_popup.hidden then
 			x, y = cameras.default:unpos(x, y)
 			if editor.cursorobject then
 				if editor.cursorobject._name == 'player' then
@@ -274,9 +274,13 @@ function mousepressed(x, y, button)
 					end
 					game.map.Objects[editor.cursorobject._name .. i] = loadobject(editor.cursorobject._name .. i, editor.cursorobject._name, game.world, x, y, 0, {1})
 				end
+				if editor.placeonce then
+					editor.cursorobject = nil
+					editor.cursortexture = nil
+				end
 			else
 				editor.selectedobject = getobjat(x, y)
-				print(editor.selectedobject)
+				--print(editor.selectedobject)
 				if editor.selectedobject then
 					editor.view_popup.hidden = false
 					editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 100, camera.love.graphics.getHeight()/2 - 100))
@@ -293,5 +297,5 @@ function mousereleased(x, y, button)
 end
 
 --camera.lateInit()
-editor.cursorobject=loadobjectlite("player")
-editor.cursortexture=editor.cursorobject.Resources.texture
+--editor.cursorobject=loadobjectlite("player")
+--editor.cursortexture=editor.cursorobject.Resources.texture
