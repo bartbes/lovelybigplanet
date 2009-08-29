@@ -3,6 +3,12 @@ LoveUI.requireall()
 
 editor = { active = false, cursortexture = nil, cursorobject = nil }
 
+local clr = love.graphics.newColor(255,255,255)
+local function preparebutton(btn)
+	btn.opaque = false
+	btn.textColor = clr
+end
+
 editor.context=LoveUI.Context:new();
 editor.button_settings=LoveUI.Button:new(LoveUI.Rect:new(10, 10, 80, 32));
 editor.button_settings.value = "Settings"
@@ -11,11 +17,13 @@ editor.button_settings:setAction(function ()
 	editor.view_load.hidden = true
 	editor.view_settings.hidden = not editor.view_settings.hidden
 end)
+preparebutton(editor.button_settings)
 editor.button_clear=LoveUI.Button:new(LoveUI.Rect:new(100, 10, 80, 32));
 editor.button_clear.value = "Clear"
 editor.button_clear:setAction(function ()
 	game.map.Objects = {}
 end)
+preparebutton(editor.button_clear)
 editor.button_load=LoveUI.Button:new(LoveUI.Rect:new(190, 10, 80, 32));
 editor.button_load.value = "Load"
 editor.button_load:setAction(function ()
@@ -23,6 +31,7 @@ editor.button_load:setAction(function ()
 	editor.view_objects.hidden = true
 	editor.view_load.hidden = not editor.view_load.hidden
 end)
+preparebutton(editor.button_load)
 editor.button_save=LoveUI.Button:new(LoveUI.Rect:new(280, 10, 80, 32));
 editor.button_save.value = "Save"
 editor.button_save:setAction(function ()
@@ -34,6 +43,7 @@ editor.button_save:setAction(function ()
 	game.map.Version = editor.settings_version.value
 	generatemap(editor.settings_filename.value)
 end)
+preparebutton(editor.button_save)
 editor.button_objects=LoveUI.Button:new(LoveUI.Rect:new(370, 10, 80, 32));
 editor.button_objects.value = "Tools"
 editor.button_objects:setAction(function ()
@@ -41,21 +51,25 @@ editor.button_objects:setAction(function ()
 	editor.view_load.hidden = true
 	editor.view_objects.hidden = not editor.view_objects.hidden
 end)
+preparebutton(editor.button_objects)
 
 editor.view_settings = LoveUI.View:new(LoveUI.Rect:new(10, 42, 200, 300), LoveUI.Size:new(400, 400))
 editor.view_settings.hidden = true
 editor.settings_title = LoveUI.Textfield:new(LoveUI.Rect:new(10, 10, 100, 26))
 editor.settings_title.value = "Title"
+preparebutton(editor.settings_title)
 editor.settings_author = LoveUI.Textfield:new(LoveUI.Rect:new(10, 41, 100, 26))
 editor.settings_author.value = "Author"
+preparebutton(editor.settings_author)
 editor.settings_version = LoveUI.Textfield:new(LoveUI.Rect:new(10, 72, 100, 26))
 editor.settings_version.value = "Version"
+preparebutton(editor.settings_version)
 editor.settings_filename = LoveUI.Textfield:new(LoveUI.Rect:new(10, 103, 100, 26))
 editor.settings_filename.value = "Filename"
+preparebutton(editor.settings_filename)
 editor.view_settings:addSubview(editor.settings_title, editor.settings_author,
 	editor.settings_version, editor.settings_filename)
 
-local clr = love.graphics.newColor(255,255,255)
 
 editor.view_objects = LoveUI.View:new(LoveUI.Rect:new(370, 42, 200, 500), LoveUI.Size:new(400, 500))
 editor.view_objects.hidden = false
@@ -69,8 +83,7 @@ for i, v in ipairs(objs) do
 		editor.cursortexture=editor.cursorobject.Resources.texture
 		editor.view_objects.hidden = true
 	end)
-	editor.objectbuttons[i].opaque = false
-	editor.objectbuttons[i].textColor = clr
+	preparebutton(editor.objectbuttons[i])
 end
 local i = #objs + 1
 editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
@@ -80,8 +93,7 @@ editor.objectbuttons[i]:setAction(function (self)
 	editor.cursortexture=nil
 	editor.view_objects.hidden = true
 end)
-editor.objectbuttons[i].opaque = false
-editor.objectbuttons[i].textColor = clr
+preparebutton(editor.objectbuttons[i])
 editor.view_objects:addSubview(unpack(editor.objectbuttons))
 
 editor.view_load = LoveUI.View:new(LoveUI.Rect:new(190, 42, 200, 300), LoveUI.Size:new(400, 400))
@@ -95,31 +107,10 @@ for i, v in ipairs(maps) do
 		startgame(self.value, true)
 		editor.view_load.hidden = true
 	end)
-	editor.loadbuttons[i].opaque = false
-	editor.loadbuttons[i].textColor = clr
+	preparebutton(editor.loadbuttons[i])
 end
 editor.view_load:addSubview(unpack(editor.loadbuttons))
 	
 editor.context:addSubview(editor.button_settings, editor.button_clear,
 	editor.button_load, editor.button_save, editor.button_objects,
 	editor.view_settings, editor.view_objects, editor.view_load)
-
-editor.button_settings.opaque = false
-editor.button_clear.opaque = false
-editor.button_load.opaque = false
-editor.button_save.opaque = false
-editor.button_objects.opaque = false
-editor.settings_title.opaque = false
-editor.settings_author.opaque = false
-editor.settings_version.opaque = false
-editor.settings_filename.opaque = false
-
-editor.button_settings.textColor = clr
-editor.button_clear.textColor = clr
-editor.button_load.textColor = clr
-editor.button_save.textColor = clr
-editor.button_objects.textColor = clr
-editor.settings_title.textColor = clr
-editor.settings_author.textColor = clr
-editor.settings_version.textColor = clr
-editor.settings_filename.textColor = clr
