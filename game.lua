@@ -125,7 +125,8 @@ function game.draw()
 		local x, y = love.mouse.getPosition( )
 		if editor.cursortexture and editor.view_settings.hidden and (y > 52 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) then
 			love.graphics.setColor(255, 255, 255, 150)
-			love.graphics.draw(editor.cursortexture.resource, x, y, 0, 1/3, 1/3)
+			local a = editor.cursorobject._lite and 0 or -editor.cursorobject._body:getAngle()
+			love.graphics.draw(editor.cursortexture.resource, x, y, a, 1/3, 1/3)
 			love.graphics.setColor(255, 255, 255, 255)
 		end
 		editor.context:display()

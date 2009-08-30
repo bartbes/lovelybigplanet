@@ -82,7 +82,7 @@ for i, v in ipairs(objs) do
 	editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
 	editor.objectbuttons[i].value = string.sub(v, 1, -5)
 	editor.objectbuttons[i]:setAction(function (self)
-		editor.cursorobject=loadobjectlite(self.value)
+		editor.cursorobject=loadobjectlite(name)
 		editor.cursortexture=editor.cursorobject.Resources.texture
 		editor.placeonce = false
 		editor.view_objects.hidden = true
@@ -122,7 +122,7 @@ editor.popup_move.value = "Move"
 editor.popup_move:setAction(function (self)
 	editor.view_popup.hidden = true
 	--move (sh)it
-	editor.cursorobject=loadobjectlite(game.map.Objects[editor.selectedobject]._name)
+	editor.cursorobject = game.map.Objects[editor.selectedobject]
 	editor.cursortexture=editor.cursorobject.Resources.texture
 	game.map.Objects[editor.selectedobject] = nil
 	editor.selectedobject = nil

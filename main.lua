@@ -79,6 +79,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	env.OBJECT._shapes = {}
 	env.OBJECT._positions = positions
 	env.OBJECT._name = name
+	env.OBJECT._internalname = internalname
 	--create the shapes, data is set to the internal name (what the map calls them)
 	--category is the layers it's in, mask is what it collides with (or what it doesn't
 	--collide with actually)
@@ -127,6 +128,7 @@ function loadobjectlite(name)
 		env.OBJECT.Resources[i] = assert(loadresource(v))
 	end
 	env.OBJECT._name = name
+	env.OBJECT._lite = true
 	return env.OBJECT
 end
 
@@ -281,14 +283,19 @@ function mousepressed(x, y, button)
 		if editor.view_settings.hidden and (y > 40 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) and editor.view_popup.hidden then
 			x, y = cameras.default:unpos(x, y)
 			if editor.cursorobject then
-				if editor.cursorobject._name == 'player' then
-					game.map.Objects.player = loadobject('player', editor.cursorobject._name, game.world, x, y, 0, {1})
-				else
-					i = 1
-					while game.map.Objects[editor.cursorobject._name .. i] do
-						i = i + 1
+				if editor.cursorobject._lite then
+					if editor.cursorobject._name == 'player' then
+						game.map.Objects.player = loadobject('player', editor.cursorobject._name, game.world, x, y, 0, {1})
+					else
+						local i = 1
+						while game.map.Objects[editor.cursorobject._name .. i] do
+							i = i + 1
+						end
+						game.map.Objects[editor.cursorobject._name .. i] = loadobject(editor.cursorobject._name .. i, editor.cursorobject._name, game.world, x, y, 0, {1})
 					end
-					game.map.Objects[editor.cursorobject._name .. i] = loadobject(editor.cursorobject._name .. i, editor.cursorobject._name, game.world, x, y, 0, {1})
+				else
+					editor.cursorobject._body:setPosition(x, y)
+					game.map.Objects[editor.cursorobject._internalname] = editor.cursorobject
 				end
 				if editor.placeonce then
 					editor.cursorobject = nil
