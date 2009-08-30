@@ -129,6 +129,13 @@ function game.draw()
 			love.graphics.setColor(255, 255, 255, 255)
 		end
 		editor.context:display()
+		if not editor.cursorobject then
+			love.graphics.setColor(0, 0, 0, 155)
+			local f = love.graphics.getFont()
+			love.graphics.rectangle(love.draw_fill, 460, 10, f:getWidth(editor.default_action.value)+10, f:getHeight()+10)
+			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.draw(editor.default_action.value, 465, 26)
+		end
 		setCamera(cameras.default)
 	else
 		--draw HUD

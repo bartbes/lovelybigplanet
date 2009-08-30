@@ -160,6 +160,7 @@ editor.popup_cancel:setAction(function (self)
 	--don't do (sh)it
 end)
 preparepopup(editor.popup_cancel)
+editor.default_action = editor.popup_move
 
 editor.view_popup:addSubview(editor.popup_move, editor.popup_rot,
 	editor.popup_place, editor.popup_del, editor.popup_cancel)

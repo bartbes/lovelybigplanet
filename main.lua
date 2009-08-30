@@ -234,6 +234,17 @@ function keypressed(key)
 	elseif editor.active then
 		if menu.keypressed(key) then return end
 		editor.context:keyEvent(key, editor.context.keyDown)
+		if editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell then
+			if key == love.key_m then
+				editor.default_action = editor.popup_move
+			elseif key == love.key_r then
+				editor.default_action = editor.popup_rot
+			elseif key == love.key_l then
+				editor.default_action = editor.popup_place
+			elseif key == love.key_d then
+				editor.default_action = editor.popup_del
+			end
+		end
 	else
 		if key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 			dbg = not dbg
@@ -291,7 +302,7 @@ function mousepressed(x, y, button)
 						editor.view_popup.hidden = false
 						editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 50, camera.love.graphics.getHeight()/2 - 60))
 					else
-						editor.popup_move.cell.controlEvents[LoveUI.EventDefault]()
+						editor.default_action.cell.controlEvents[LoveUI.EventDefault]()
 					end
 				end
 			end
