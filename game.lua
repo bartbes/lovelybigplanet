@@ -37,9 +37,6 @@ function game.update(dt)
 		if editor.rotatemode then
 			local o = game.map.Objects[editor.selectedobject]
 			local ox, oy = cameras.default:pos(o._body:getX(), o._body:getY())
-			print(math.sqrt((x-ox)^2+(y-oy)^2))
-			--ox, oy = ox-camera.love.graphics.getWidth(), oy-camera.love.graphics.getHeight()
-			--print(ox, oy)
 			o._body:setAngle(math.deg(math.atan2(x-ox, y-oy)))
 		else
 			if x < 40 then
