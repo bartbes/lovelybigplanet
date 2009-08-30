@@ -78,15 +78,16 @@ editor.view_objects = LoveUI.View:new(LoveUI.Rect:new(370, 42, 200, 500), LoveUI
 editor.view_objects.hidden = false
 editor.objectbuttons = {}
 local objs = love.filesystem.enumerate("objects")
+local function placeobject (self)
+	editor.cursorobject=loadobjectlite(self.value)
+	editor.cursortexture=editor.cursorobject.Resources.texture
+	editor.placeonce = false
+	editor.view_objects.hidden = true
+end
 for i, v in ipairs(objs) do
 	editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
 	editor.objectbuttons[i].value = string.sub(v, 1, -5)
-	editor.objectbuttons[i]:setAction(function (self)
-		editor.cursorobject=loadobjectlite(name)
-		editor.cursortexture=editor.cursorobject.Resources.texture
-		editor.placeonce = false
-		editor.view_objects.hidden = true
-	end)
+	editor.objectbuttons[i]:setAction(placeobject)
 	preparebutton(editor.objectbuttons[i])
 end
 local i = #objs + 1
