@@ -170,17 +170,9 @@ end
 function game.keypressed(key)
 	if menu.keypressed(key) then return end
 	if key == love.key_z then --z is switch to next layer
-		local layer = game.activelayer + 1
-		if layer > game.layers then
-			layer = 1
-		end
-		game.switchlayer(layer)
+		game.switchlayer((game.activelayer % game.layers) + 1)
 	elseif key == love.key_a then --a to previous
-		local layer = game.activelayer - 1
-		if layer < 1 then
-			layer = game.layers
-		end
-		game.switchlayer(layer)
+		game.switchlayer(((game.activelayer-2) % game.layers) + 1)
 	--now we'll check for the number keys, if one is pressed, switch to appropriate
 	--layer, if it exists.
 	elseif key == love.key_1 or key == love.key_kp1 then
