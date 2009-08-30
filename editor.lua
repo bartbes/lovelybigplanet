@@ -105,13 +105,14 @@ editor.view_load = LoveUI.View:new(LoveUI.Rect:new(190, 42, 200, 300), LoveUI.Si
 editor.view_load.hidden = true
 editor.loadbuttons = {}
 local maps = love.filesystem.enumerate("maps")
+local function loadgame(self)
+	startgame(self.value, true)
+	editor.view_load.hidden = true
+end
 for i, v in ipairs(maps) do
 	editor.loadbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32))
 	editor.loadbuttons[i].value = string.sub(v, 1, -5)
-	editor.loadbuttons[i]:setAction(function (self)
-		startgame(self.value, true)
-		editor.view_load.hidden = true
-	end)
+	editor.loadbuttons[i]:setAction(loadgame)
 	preparebutton(editor.loadbuttons[i])
 end
 editor.view_load:addSubview(unpack(editor.loadbuttons))
