@@ -1,7 +1,4 @@
 The map editor currently needs:
  * Sprites for the objects -- this might not be used at all, because it works with object names as well
- * Popup menu (or just buttons of some kind) for selected objects, to be able to:
-   - Rotate
-   - Move
-   - Place on other layer(s)
-   - Delete
+ * Functionality to place objects on other layer(s) (probably needs checkboxes)
+ * Scripting: preserve existing map scripting and let players edit them with the editor
