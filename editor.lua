@@ -194,3 +194,63 @@ editor.context:addSubview(editor.button_settings, editor.button_clear,
 	editor.button_load, editor.button_save, editor.button_objects,
 	editor.view_settings, editor.view_objects, editor.view_load,
 	editor.view_popup)
+
+function mousepressed(x, y, button)
+	if editor.active then
+		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
+		if editor.rotatemode then
+			editor.rotatemode = false
+			editor.selectedobject = nil
+			return
+		end
+		if editor.view_settings.hidden and (y > 40 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) and editor.view_popup.hidden then
+			x, y = cameras.default:unpos(x, y)
+			if editor.cursorobject then
+				if editor.cursorobject._lite then
+					if editor.cursorobject._name == 'player' then
+						game.map.Objects.player = loadobject('player', editor.cursorobject._name, game.world, x, y, 0, {game.activelayer})
+					else
+						local i = 1
+						while game.map.Objects[editor.cursorobject._name .. i] do
+							i = i + 1
+						end
+						game.map.Objects[editor.cursorobject._name .. i] = loadobject(editor.cursorobject._name .. i, editor.cursorobject._name, game.world, x, y, 0, {game.activelayer})
+					end
+				else
+					editor.cursorobject._body:setPosition(x, y)
+					game.map.Objects[editor.cursorobject._internalname] = editor.cursorobject
+				end
+				if editor.placeonce then
+					editor.selectedobject = editor.cursorobject._internalname
+					editor.cursorobject = nil
+					editor.cursortexture = nil
+				end
+			else
+				if editor.selectedobject then
+					local newobj = getobjat(x, y)
+					if editor.selectedobject == newobj then
+						if button == love.mouse_right then
+							editor.view_popup.hidden = false
+							editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 50, camera.love.graphics.getHeight()/2 - 60))
+						else
+							editor.default_action.cell.controlEvents[LoveUI.EventDefault]()
+						end
+					else
+						editor.selectedobject = newobj
+					end
+				else
+					editor.selectedobject = getobjat(x, y)
+					if editor.selectedobject and editor.default_action == editor.popup_del then
+						editor.default_action.cell.controlEvents[LoveUI.EventDefault]() --delete immediately
+					end
+				end
+			end
+		end
+	end
+end
+ 
+function mousereleased(x, y, button)
+	if editor.active then
+		editor.context:mouseEvent(x, y, button, editor.context.mouseUp)
+	end
+end
