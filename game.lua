@@ -114,14 +114,28 @@ function game.draw()
 	--same goes for menu
 	menu.draw()
 	if editor.active then
+		local sel
 		if editor.selectedobject then
+			sel = game.map.Objects[editor.selectedobject]
 			love.graphics.setColor(100, 100, 255, 255)
 			love.graphics.setBlendMode(love.blend_additive)
-			LBP.draw(game.map.Objects[editor.selectedobject])
+			LBP.draw(sel)
 			love.graphics.setColor(255, 255, 255, 255)
 			love.graphics.setBlendMode(love.blend_normal)
 		end
 		setCamera(cameras.editor)
+		if editor.selectedobject
+					--and editor.default_action == editor.popup_place
+				then
+			local x, y = cameras.default:pos(sel._body:getX(), sel._body:getY())
+			local txt = "Layers: "..table.concat(sel._positions,", ")
+			local f = love.graphics.getFont()
+			local w, h = f:getWidth(txt), f:getHeight()
+			love.graphics.setColor(0, 0, 0, 155)
+			love.graphics.rectangle(love.draw_fill, x-w/2-5, y-h-30, w+10, h+5)
+			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.draw(txt, x-w/2, y-30)
+		end
 		local x, y = love.mouse.getPosition( )
 		if editor.cursortexture and editor.view_settings.hidden and (y > 52 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) then
 			love.graphics.setColor(255, 255, 255, 150)

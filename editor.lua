@@ -144,6 +144,29 @@ editor.popup_place.value = "Layer(s)"
 editor.popup_place:setAction(function (self)
 	editor.view_popup.hidden = true
 	--place (sh)it
+	local p = game.map.Objects[editor.selectedobject]._positions
+	local inp = false
+	local I
+	for i,v in ipairs(p) do
+		if v == game.activelayer then
+			inp = true
+			I = i
+			break
+		end
+	end
+	if inp then
+		table.remove(p, I)
+	else
+		table.insert(p, game.activelayer)
+	end
+	local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+	for i, v2 in ipairs(p) do
+		table.remove(posses, v2-i+1) -- oh god, this is awful
+	end
+	for i, v in ipairs(game.map.Objects[editor.selectedobject]._shapes) do
+		v:setCategory(unpack(p))
+		v:setMask(unpack(posses))
+	end
 end)
 preparepopup(editor.popup_place)
 editor.popup_del = LoveUI.Button:new(LoveUI.Rect:new(0, 78, 100, 26))

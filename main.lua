@@ -233,25 +233,26 @@ function keypressed(key)
 		end
 	elseif key == love.key_e and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		editor.active = not editor.active
-	elseif editor.active then
-		if menu.keypressed(key) then return end
-		editor.context:keyEvent(key, editor.context.keyDown)
-		if editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell then
-			if key == love.key_m then
-				editor.default_action = editor.popup_move
-			elseif key == love.key_r then
-				editor.default_action = editor.popup_rot
-			elseif key == love.key_l then
-				editor.default_action = editor.popup_place
-			elseif key == love.key_d then
-				editor.default_action = editor.popup_del
-			end
-		end
 	else
 		if key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 			dbg = not dbg
 		else
 			game.keypressed(key)
+		end
+		if editor.active then
+			--if menu.keypressed(key) then return end
+			editor.context:keyEvent(key, editor.context.keyDown)
+			if editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell then
+				if key == love.key_m then
+					editor.default_action = editor.popup_move
+				elseif key == love.key_r then
+					editor.default_action = editor.popup_rot
+				elseif key == love.key_l then
+					editor.default_action = editor.popup_place
+				elseif key == love.key_d then
+					editor.default_action = editor.popup_del
+				end
+			end
 		end
 	end
 end
@@ -285,31 +286,40 @@ function mousepressed(x, y, button)
 			if editor.cursorobject then
 				if editor.cursorobject._lite then
 					if editor.cursorobject._name == 'player' then
-						game.map.Objects.player = loadobject('player', editor.cursorobject._name, game.world, x, y, 0, {1})
+						game.map.Objects.player = loadobject('player', editor.cursorobject._name, game.world, x, y, 0, {game.activelayer})
 					else
 						local i = 1
 						while game.map.Objects[editor.cursorobject._name .. i] do
 							i = i + 1
 						end
-						game.map.Objects[editor.cursorobject._name .. i] = loadobject(editor.cursorobject._name .. i, editor.cursorobject._name, game.world, x, y, 0, {1})
+						game.map.Objects[editor.cursorobject._name .. i] = loadobject(editor.cursorobject._name .. i, editor.cursorobject._name, game.world, x, y, 0, {game.activelayer})
 					end
 				else
 					editor.cursorobject._body:setPosition(x, y)
 					game.map.Objects[editor.cursorobject._internalname] = editor.cursorobject
 				end
 				if editor.placeonce then
+					editor.selectedobject = editor.cursorobject._internalname
 					editor.cursorobject = nil
 					editor.cursortexture = nil
 				end
 			else
-				editor.selectedobject = getobjat(x, y)
-				--print(editor.selectedobject)
 				if editor.selectedobject then
-					if button == love.mouse_right then
-						editor.view_popup.hidden = false
-						editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 50, camera.love.graphics.getHeight()/2 - 60))
+					local newobj = getobjat(x, y)
+					if editor.selectedobject == newobj then
+						if button == love.mouse_right then
+							editor.view_popup.hidden = false
+							editor.view_popup:setOrigin(LoveUI.Point:new(camera.love.graphics.getWidth()/2 - 50, camera.love.graphics.getHeight()/2 - 60))
+						else
+							editor.default_action.cell.controlEvents[LoveUI.EventDefault]()
+						end
 					else
-						editor.default_action.cell.controlEvents[LoveUI.EventDefault]()
+						editor.selectedobject = newobj
+					end
+				else
+					editor.selectedobject = getobjat(x, y)
+					if editor.selectedobject and editor.default_action == editor.popup_del then
+						editor.default_action.cell.controlEvents[LoveUI.EventDefault]() --delete immediately
 					end
 				end
 			end
