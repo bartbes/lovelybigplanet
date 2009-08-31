@@ -190,41 +190,15 @@ function game.keypressed(key)
 		game.switchlayer(((game.activelayer-2) % game.layers) + 1)
 	--now we'll check for the number keys, if one is pressed, switch to appropriate
 	--layer, if it exists.
-	elseif key == love.key_1 or key == love.key_kp1 then
-		if game.layers >= 1 then
-			game.switchlayer(1)
+	elseif key > love.key_0 and key <= love.key_9 then
+		local l = key - love.key_0
+		if game.layers >= l then
+			game.switchlayer(l)
 		end
-	elseif key == love.key_2 or key == love.key_kp2 then
-		if game.layers >= 2 then
-			game.switchlayer(2)
-		end
-	elseif key == love.key_3 or key == love.key_kp3 then
-		if game.layers >= 3 then
-			game.switchlayer(3)
-		end
-	elseif key == love.key_4 or key == love.key_kp4 then
-		if game.layers >= 4 then
-			game.switchlayer(4)
-		end
-	elseif key == love.key_5 or key == love.key_kp5 then
-		if game.layers >= 5 then
-			game.switchlayer(5)
-		end
-	elseif key == love.key_6 or key == love.key_kp6 then
-		if game.layers >= 6 then
-			game.switchlayer(6)
-		end
-	elseif key == love.key_7 or key == love.key_kp7 then
-		if game.layers >= 7 then
-			game.switchlayer(7)
-		end
-	elseif key == love.key_8 or key == love.key_kp8 then
-		if game.layers >= 8 then
-			game.switchlayer(8)
-		end
-	elseif key == love.key_9 or key == love.key_kp9 then
-		if game.layers >= 9 then
-			game.switchlayer(9)
+	elseif key > love.key_kp0 and key <= love.key_kp9 then
+		local l = key - love.key_kp0
+		if game.layers >= l then
+			game.switchlayer(l)
 		end
 	end
 end
