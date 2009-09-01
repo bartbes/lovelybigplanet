@@ -1,3 +1,3 @@
-We need an level/map editor.
-
-At some point, we'll also need sprites for the editor. See editor.jpeg for inspiration.
+The map editor currently needs:
+ * Sprites for the objects -- this might not be used at all, because it works with object names as well
+ * Scripting: preserve existing map scripting and let players edit them with the editor

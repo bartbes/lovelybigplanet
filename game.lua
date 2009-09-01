@@ -1,4 +1,4 @@
-function startgame(map)
+function startgame(map, noplay)
 	hud.score = false
 	hud.lvl1 = false
 	hud.lvl2 = false
@@ -23,7 +23,7 @@ function startgame(map)
 	game.finished = false
 	game.score = 0
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
-	if game.map.Mission then LBP.messageBox(game.map.Mission) end
+	if game.map.Mission and not noplay then LBP.messageBox(game.map.Mission) end
 	LBP.showScore(game.map.ShowScore)
 	if game.map.init then game.map.init() end
 end
@@ -102,14 +102,49 @@ end
 
 function game.draw()
 	--draw the background, of course
-	love.graphics.draw(game.map.Resources.background, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
+	love.graphics.draw(game.map.Resources.background.resource, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	--ask the map to draw each layer, usually done using the standard functions
 	game.map:drawLayers()
 	--same goes for menu
 	menu.draw()
 	if editor.active then
+		local sel
+		if editor.selectedobject then
+			sel = game.map.Objects[editor.selectedobject]
+			love.graphics.setColor(100, 100, 255, 255)
+			love.graphics.setBlendMode(love.blend_additive)
+			LBP.draw(sel)
+			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.setBlendMode(love.blend_normal)
+		end
 		setCamera(cameras.editor)
+		if editor.selectedobject
+					--and editor.default_action == editor.popup_place
+				then
+			local x, y = cameras.default:pos(sel._body:getX(), sel._body:getY())
+			local txt = "Layers: "..table.concat(sel._positions,", ")
+			local f = love.graphics.getFont()
+			local w, h = f:getWidth(txt), f:getHeight()
+			love.graphics.setColor(0, 0, 0, 155)
+			love.graphics.rectangle(love.draw_fill, x-w/2-5, y-h-30, w+10, h+5)
+			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.draw(txt, x-w/2, y-30)
+		end
+		local x, y = love.mouse.getPosition( )
+		if editor.cursortexture and editor.view_settings.hidden and (y > 52 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) then
+			love.graphics.setColor(255, 255, 255, 150)
+			local a = editor.cursorobject._lite and 0 or -editor.cursorobject._body:getAngle()
+			love.graphics.draw(editor.cursortexture.resource, x, y)
+			love.graphics.setColor(255, 255, 255, 255)
+		end
 		editor.context:display()
+		if not editor.cursorobject then
+			love.graphics.setColor(0, 0, 0, 155)
+			local f = love.graphics.getFont()
+			love.graphics.rectangle(love.draw_fill, 460, 10, f:getWidth(editor.default_action.value)+10, f:getHeight()+10)
+			love.graphics.setColor(255, 255, 255, 255)
+			love.graphics.draw(editor.default_action.value, 465, 26)
+		end
 		setCamera(cameras.default)
 	else
 		--draw HUD
@@ -144,54 +179,20 @@ end
 function game.keypressed(key)
 	if menu.keypressed(key) then return end
 	if key == love.key_z then --z is switch to next layer
-		local layer = game.activelayer + 1
-		if layer > game.layers then
-			layer = 1
-		end
-		game.switchlayer(layer)
+		game.switchlayer((game.activelayer % game.layers) + 1)
 	elseif key == love.key_a then --a to previous
-		local layer = game.activelayer - 1
-		if layer < 1 then
-			layer = game.layers
-		end
-		game.switchlayer(layer)
+		game.switchlayer(((game.activelayer-2) % game.layers) + 1)
 	--now we'll check for the number keys, if one is pressed, switch to appropriate
 	--layer, if it exists.
-	elseif key == love.key_1 or key == love.key_kp1 then
-		if game.layers >= 1 then
-			game.switchlayer(1)
+	elseif key > love.key_0 and key <= love.key_9 then
+		local l = key - love.key_0
+		if game.layers >= l then
+			game.switchlayer(l)
 		end
-	elseif key == love.key_2 or key == love.key_kp2 then
-		if game.layers >= 2 then
-			game.switchlayer(2)
-		end
-	elseif key == love.key_3 or key == love.key_kp3 then
-		if game.layers >= 3 then
-			game.switchlayer(3)
-		end
-	elseif key == love.key_4 or key == love.key_kp4 then
-		if game.layers >= 4 then
-			game.switchlayer(4)
-		end
-	elseif key == love.key_5 or key == love.key_kp5 then
-		if game.layers >= 5 then
-			game.switchlayer(5)
-		end
-	elseif key == love.key_6 or key == love.key_kp6 then
-		if game.layers >= 6 then
-			game.switchlayer(6)
-		end
-	elseif key == love.key_7 or key == love.key_kp7 then
-		if game.layers >= 7 then
-			game.switchlayer(7)
-		end
-	elseif key == love.key_8 or key == love.key_kp8 then
-		if game.layers >= 8 then
-			game.switchlayer(8)
-		end
-	elseif key == love.key_9 or key == love.key_kp9 then
-		if game.layers >= 9 then
-			game.switchlayer(9)
+	elseif key > love.key_kp0 and key <= love.key_kp9 then
+		local l = key - love.key_kp0
+		if game.layers >= l then
+			game.switchlayer(l)
 		end
 	end
 end

@@ -85,6 +85,8 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	env.OBJECT._body:setAngle(angle)
 	env.OBJECT._shapes = {}
 	env.OBJECT._positions = positions
+	env.OBJECT._name = name
+	env.OBJECT._internalname = internalname
 	--create the shapes, data is set to the internal name (what the map calls them)
 	--category is the layers it's in, mask is what it collides with (or what it doesn't
 	--collide with actually)
@@ -119,6 +121,25 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	return env.OBJECT
 end
 
+function loadobjectlite(name)
+	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
+	local f = love.filesystem.load("objects/" .. name .. ".lua")
+	local env = {print=print}
+	env.OBJECT = {}
+	env.LBP = LBP
+	--environment is set up, apply and execute
+	setfenv(f, env)
+	f()
+	--load Resources
+	for i, v in pairs(env.OBJECT.Resources) do
+		env.OBJECT.Resources[i] = assert(loadresource(v))
+	end
+	env.OBJECT._name = name
+	env.OBJECT._lite = true
+	return env.OBJECT
+end
+
+
 function loadresource(name)
 	if resources[name] then return resources[name] end
 	local ftype = ""
@@ -129,11 +150,73 @@ function loadresource(name)
 	if ftype == "" or fext == "" then return false, "Resource " .. name .. " not found." end
 	--if it's an image, load and return it
 	if ftype == "image" then
-		resources[name] = love.graphics.newImage("resources/" .. name .. fext)
+		resources[name] = {name = name, resource = love.graphics.newImage("resources/" .. name .. fext)}
 		return resources[name]
 	end
 	--FAIL!
 	return false, "Resource " .. name .. " not found."
+end
+
+function rtos(resources)
+	local s = "{\n"
+	for i, v in pairs(resources) do
+		s = s .. string.format("\t%s = \"%s\", \n", i, v.name)
+	end
+	s = s .. "}"
+	return s
+end
+
+function otos(objects)
+	local s = "{\n"
+	for i, v in pairs(objects) do
+		if type(i) == "number" then
+			s = s .. "\t[" .. i .. "] = { "
+		else
+			s = s .. "\t" .. i .. " = { "
+		end
+		s = s .. string.format("\"%s\", %f, %f, %f, { ", v._name, v._body:getX(), v._body:getY(), v._body:getAngle())
+		for j, w in ipairs{v._shapes[1]:getCategory()} do
+			s = s .. w .. ", "
+		end
+		s = s .. "} }, \n"
+	end
+	s  = s .. "}"
+	return s
+end
+
+function generatemap(filename)
+	if not love.filesystem.exists("PLACEHOLDER") then
+		local f = love.filesystem.newFile("PLACEHOLDER", love.file_write)
+		love.filesystem.open(f)
+		love.filesystem.close(f)
+		love.filesystem.mkdir("maps")
+	end
+	local f = love.filesystem.newFile("maps/" .. filename .. ".lua", love.file_write)
+	love.filesystem.open(f)
+	local data = string.format(
+[[
+MAP.Name = "%s"
+MAP.Creator = "%s"
+MAP.Version = "%s"
+MAP.Resources = %s
+MAP.BackgroundScale = { x = %f, y = %f }
+MAP.Objects = %s
+MAP.Finish = { x = %f, y = %f, position = %d }
+MAP.Mission = "%s"
+]],
+		game.map.Name,
+		game.map.Creator,
+		game.map.Version,
+		rtos(game.map.Resources),
+		game.map.BackgroundScale.x or 1,
+		game.map.BackgroundScale.y or game.map.BackgroundScale.x or 1,
+		otos(game.map.Objects),
+		game.map.Finish.x,
+		game.map.Finish.y,
+		game.map.Finish.position,
+		string.gsub(game.map.Mission, "\n", "\\n") or "")
+	love.filesystem.write(f, data)
+	love.filesystem.close(f)
 end
 
 function draw()
@@ -149,7 +232,7 @@ end
 
 function keypressed(key)
 	--check some global keys first, if they're not used, pass it on
-	if key == love.key_q then
+	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		love.system.exit()
 	elseif key == love.key_escape then
 		if menu.state then
@@ -157,16 +240,28 @@ function keypressed(key)
 		else
 			menu.load()
 		end
-	elseif key == love.key_e then
+	elseif key == love.key_e and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		editor.active = not editor.active
-	elseif editor.active then
-		if menu.keypressed(key) then return end
-		editor.context:keyEvent(key, editor.context.keyDown)
 	else
 		if key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 			dbg = not dbg
 		else
 			game.keypressed(key)
+		end
+		if editor.active then
+			--if menu.keypressed(key) then return end
+			editor.context:keyEvent(key, editor.context.keyDown)
+			if editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell then
+				if key == love.key_m then
+					editor.default_action = editor.popup_move
+				elseif key == love.key_r then
+					editor.default_action = editor.popup_rot
+				elseif key == love.key_l then
+					editor.default_action = editor.popup_place
+				elseif key == love.key_d then
+					editor.default_action = editor.popup_del
+				end
+			end
 		end
 	end
 end
@@ -176,17 +271,17 @@ function keyreleased(key)
 		editor.context:keyEvent(key, editor.context.keyUp)
 	end
 end
- 
-function mousepressed(x, y, button)
-	if editor.active then
-		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
-	end
-end
- 
-function mousereleased(x, y, button)
-	if editor.active then
-		editor.context:mouseEvent(x, y, button, editor.context.mouseUp)
-	end
-end
 
+function getobjat(x, y)
+	for k, v in pairs(game.map.Objects) do
+		for K, V in ipairs(v._shapes) do
+			if V:testPoint(x, y) then
+				return k
+			end
+		end
+	end
+end
+ 
 --camera.lateInit()
+--editor.cursorobject=loadobjectlite("player")
+--editor.cursortexture=editor.cursorobject.Resources.texture
