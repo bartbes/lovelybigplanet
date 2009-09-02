@@ -10,11 +10,12 @@ local function msgUpdate() end
 local function msgKeypressed(key)
 	if key == love.key_return then
 		hud.messagebox = nil
-		update = oldUpdate
-		keypressed = oldKeypressed
-		joystickpressed = oldJoystickpressed
+		love.update = oldUpdate
+		love.keypressed = oldKeypressed
+		love.joystickpressed = oldJoystickpressed
 	end
 end
+
 local function msgJoystickpressed(j, key)
 	if j ~= activejoystick then return end
 	if key == 0 then
@@ -75,9 +76,9 @@ function hud.draw()
 		local x = width-120
 		local basey = love.graphics.getHeight()/2
 		local line = love.graphics.getFont():getHeight() + 2
-		love.graphics.draw("FPS: " .. love.timer.getFPS(), x, basey)
-		love.graphics.draw("Jump: " .. tostring(game.allowjump), x, basey+line)
-		love.graphics.draw("Finished: " .. tostring(game.finished), x, basey+2*line)
+		love.graphics.print("FPS: " .. love.timer.getFPS(), x, basey)
+		love.graphics.print("Jump: " .. tostring(game.allowjump), x, basey+line)
+		love.graphics.print("Finished: " .. tostring(game.finished), x, basey+2*line)
 	end
 	--mesage boxes, they are part of the HUD, so this is the perfect place
 	if hud.messagebox then
@@ -88,7 +89,7 @@ function hud.draw()
 		love.graphics.setColor(0, 0, 0, 255)
 		love.graphics.rectangle(love.draw_fill, width/4, height/4, width/2, height/4)
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.draw("Press Enter to continue", width*.75-165, height/2-10)
+		love.graphics.print("Press Enter to continue", width*.75-165, height/2-10)
 		love.graphics.drawf(hud.messagebox, width/4, height*3/8-20, width/2, love.align_center)
 		--NOTE: I don't get the feeling love.align_center works as it should
 	end
@@ -99,13 +100,13 @@ end
 
 function hud.messageBox(text) --create a message box
 	--store the callbacks, if necessary (happens once)
-	if not oldUpdate then oldUpdate = update end
-	if not oldKeypressed then oldKeypressed = keypressed end
-	if not oldJoystickpressed then oldJoystickpressed = joystickpressed end
+	if not oldUpdate then oldUpdate = love.update end
+	if not oldKeypressed then oldKeypressed = love.keypressed end
+	if not oldJoystickpressed then oldJoystickpressed = love.joystickpressed end
 	--load the new ones
-	update = msgUpdate
-	keypressed = msgKeypressed
-	joystickpressed = msgJoystickpressed
+	love.update = msgUpdate
+	love.keypressed = msgKeypressed
+	love.joystickpressed = msgJoystickpressed
 	--set the text
 	hud.messagebox = text
 end

@@ -51,7 +51,7 @@ function menu.draw() --decides what state to draw, then draws it
 		love.graphics.setColor(175, 175, 50)
 		love.graphics.rectangle(2, width/2-50, height/2-30, 300, 60)
 		love.graphics.setColor(25, 25, 25)
-		love.graphics.draw("Saving is not yet supported", width/2 - 45, height/2)
+		love.graphics.print("Saving is not yet supported", width/2 - 45, height/2)
 	end
 	if menu.state == "load" then
 		--[[love.graphics.setColor(105, 105, 20)
@@ -59,7 +59,7 @@ function menu.draw() --decides what state to draw, then draws it
 		love.graphics.setColor(175, 175, 50)
 		love.graphics.rectangle(2, width/2-50, height/2-30, 300, 60)
 		love.graphics.setColor(25, 25, 25)
-		love.graphics.draw("Loading is not yet supported", width/2 - 45, height/2)]]
+		love.graphics.print("Loading is not yet supported", width/2 - 45, height/2)]]
 		local numoptions = #menu.options.load
 		local mw = menu.bwidth+12
 		local my = numoptions*menu.bheight+40
@@ -105,13 +105,13 @@ function menu.draw() --decides what state to draw, then draws it
 		love.graphics.setColor(175, 175, 50)
 		love.graphics.rectangle(2, width/2-50, height/2-60, 300, 120)
 		love.graphics.setColor(25, 25, 25)
-		love.graphics.draw("Bartbes - General coding", width/2 - 45, height/2 - 45)
-		love.graphics.draw("Qubodup - Artwork", width/2 - 45, height/2 - 30)
-		love.graphics.draw("Osgeld - Editor & artwork", width/2 - 45, height/2 - 15)
-		love.graphics.draw("Xcmd - Ideas & testing", width/2 - 45, height/2)
-		love.graphics.draw("Appleide - Testing", width/2 - 45, height/2 + 15)
-		love.graphics.draw("Robin - Physics, editor & testing", width/2 - 45, height/2 + 30)
-		love.graphics.draw("SnakeFace - General coding & artwork", width/2 - 45, height/2 + 45)
+		love.graphics.print("Bartbes - General coding", width/2 - 45, height/2 - 45)
+		love.graphics.print("Qubodup - Artwork", width/2 - 45, height/2 - 30)
+		love.graphics.print("Osgeld - Editor & artwork", width/2 - 45, height/2 - 15)
+		love.graphics.print("Xcmd - Ideas & testing", width/2 - 45, height/2)
+		love.graphics.print("Appleide - Testing", width/2 - 45, height/2 + 15)
+		love.graphics.print("Robin - Physics, editor & testing", width/2 - 45, height/2 + 30)
+		love.graphics.print("SnakeFace - General coding & artwork", width/2 - 45, height/2 + 45)
 	end
 	love.graphics.setColor(prevcolor) --retains original colouring for game elements
 	setCamera(cameras.default) --makes sure the game behind the menu is properly drawn
@@ -127,7 +127,7 @@ function menu.drawbutton(str, x, y, selected, ep, border, width) --draws the but
 	else
 		love.graphics.setColor(25, 25, 25)
 	end
-	love.graphics.draw(str, x+2, y+12)
+	love.graphics.print(str, x+2, y+12)
 	love.graphics.setColor(prevcolorb)
 end
 

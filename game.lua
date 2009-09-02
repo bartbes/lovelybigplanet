@@ -3,8 +3,8 @@ function startgame(map, noplay)
 	hud.lvl1 = false
 	hud.lvl2 = false
 	--following needs to be replaced by a state loader
-	update = game.update
-	draw = game.draw
+	love.update = game.update
+	love.draw = game.draw
 	--ok, let's do the stuff we'd normally do in load
 	--we create a world, set gravity, the collision callback, and load the map
 	game.world = love.physics.newWorld(love.graphics.getWidth() * 2, love.graphics.getHeight() * 2)
@@ -138,7 +138,7 @@ function game.draw()
 			love.graphics.setColor(0, 0, 0, 155)
 			love.graphics.rectangle(love.draw_fill, x-w/2-5, y-h-30, w+10, h+5)
 			love.graphics.setColor(255, 255, 255, 255)
-			love.graphics.draw(txt, x-w/2, y-30)
+			love.graphics.print(txt, x-w/2, y-30)
 		end
 		local x, y = love.mouse.getPosition( )
 		if editor.cursortexture and editor.view_settings.hidden and (y > 52 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) then
@@ -153,7 +153,7 @@ function game.draw()
 			local f = love.graphics.getFont()
 			love.graphics.rectangle(love.draw_fill, 460, 10, f:getWidth(editor.default_action.value)+10, f:getHeight()+10)
 			love.graphics.setColor(255, 255, 255, 255)
-			love.graphics.draw(editor.default_action.value, 465, 26)
+			love.graphics.print(editor.default_action.value, 465, 26)
 		end
 		setCamera(cameras.default)
 	else
