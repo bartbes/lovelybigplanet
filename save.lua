@@ -1,12 +1,16 @@
 save = {}
 
 local originalkeypressed
+local originalupdate
+local originaldraw
 
 function createsave(onend, ...)
-	update = save.update
-	draw = save.draw
-	originalkeypressed = keypressed
-	keypressed = save.keypressed
+	originalupdate = love.update
+	love.update = save.update
+	originaldraw = love.draw
+	love.draw = save.draw
+	originalkeypressed = love.keypressed
+	love.keypressed = save.keypressed
 end
 
 function loadsave()

@@ -333,23 +333,37 @@ function love.graphics.draw(elem, x, y, angle, sx, sy)
 		angle = -angle
 	end
 	local	nextElem = elem
-	if type(elem) == "string" then
-		local	c = love.graphics:getFont():getHeight() * love.graphics:getFont():getLineHeight()
-		if camera.present.scaley < 0 then
-			x = x - sx * c * math.sin(math.rad(angle))
-			y = y + sy * c * math.sin(math.rad(angle))
-		end
-		for line in string.lineiter(elem) do
-			camera.love.graphics.draw(line, x, y, angle, sx, sy)
-			x = x - sx * c * math.sin(math.rad(angle))
-			y = y + sy * c * math.cos(math.rad(angle))
-		end
-	else
-		if not pcall(camera.love.graphics.draw, elem, x, y, angle, sx, sy) then
-			camera.love.graphics.draw(elem, x, y)
-		end
+	if not pcall(camera.love.graphics.draw, elem, x, y, angle, sx, sy) then
+		camera.love.graphics.draw(elem, x, y)
 	end
 end
+
+camera.love.graphics.print = love.graphics.print
+function love.graphics.print(elem, x, y, angle, sx, sy)
+	x, y = camera.present:pos(x,y)
+	angle = (angle or 0) + camera.present.rotation
+	sx = sx or 1
+	sy = sy or sx
+	sx = sx * (math.abs(math.cos(math.rad(angle))^2 * camera.present.scalex) +
+		math.abs(math.sin(math.rad(angle))^2 * camera.present.scaley))
+	sy = sy * (math.abs(math.cos(math.rad(angle))^2 * camera.present.scaley) +
+		math.abs(math.sin(math.rad(angle))^2 * camera.present.scalex))
+	if camera.present.scalex * camera.present.scaley < 0 then
+		angle = -angle
+	end
+	local	nextElem = elem
+	local	c = love.graphics:getFont():getHeight() * love.graphics:getFont():getLineHeight()
+	if camera.present.scaley < 0 then
+		x = x - sx * c * math.sin(math.rad(angle))
+		y = y + sy * c * math.sin(math.rad(angle))
+	end
+	for line in string.lineiter(elem) do
+		camera.love.graphics.print(line, x, y, angle, sx, sy)
+		x = x - sx * c * math.sin(math.rad(angle))
+		y = y + sy * c * math.cos(math.rad(angle))
+	end
+end
+
 function love.graphics.drawParticles(system, x, y)
 	x, y = camera.present:pos(x,y)
 	camera.love.graphics.draw(system, x, y)

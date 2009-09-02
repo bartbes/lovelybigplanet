@@ -195,7 +195,7 @@ editor.context:addSubview(editor.button_settings, editor.button_clear,
 	editor.view_settings, editor.view_objects, editor.view_load,
 	editor.view_popup)
 
-function mousepressed(x, y, button)
+function editor.mousepressed(x, y, button)
 	if editor.active then
 		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
 		if editor.rotatemode then
@@ -249,7 +249,7 @@ function mousepressed(x, y, button)
 	end
 end
  
-function mousereleased(x, y, button)
+function editor.mousereleased(x, y, button)
 	if editor.active then
 		editor.context:mouseEvent(x, y, button, editor.context.mouseUp)
 	end

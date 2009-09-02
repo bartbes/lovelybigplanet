@@ -1,11 +1,12 @@
-love.filesystem.require("editor.lua")
-love.filesystem.require("camera.lua")
-love.filesystem.require("api.lua")
-love.filesystem.require("game.lua")
-love.filesystem.require("map.lua")
-love.filesystem.require("hud.lua")
-love.filesystem.require("menu.lua")
-love.filesystem.require("save.lua")
+require("compat.lua")
+require("editor.lua")
+require("camera.lua")
+require("api.lua")
+require("game.lua")
+require("map.lua")
+require("hud.lua")
+require("menu.lua")
+require("save.lua")
 
 dbg = false
 resources = {}
@@ -24,7 +25,7 @@ do
 	cameras.default:scaleBy(1, -1)
 end
 
-function load()
+function love.load()
 	--set it up, font, mods, colormode, level
 	love.graphics.setFont(love.default_font)
 	local mods = love.filesystem.enumerate("mods")
@@ -219,18 +220,18 @@ MAP.Mission = "%s"
 	love.filesystem.close(f)
 end
 
-function draw()
+function love.draw()
 	--temporary, is overwritten
-	love.graphics.draw("LovelyBigPlanet.. work in progress", 5, 300)
+	love.graphics.print("LovelyBigPlanet.. work in progress", 5, 300)
 end
 
-function update(dt)
+function love.update(dt)
 	--again, overwritten
 	game.update(dt)
 	love.timer.sleep(25)
 end
 
-function keypressed(key)
+function love.keypressed(key)
 	--check some global keys first, if they're not used, pass it on
 	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		love.system.exit()
@@ -266,7 +267,7 @@ function keypressed(key)
 	end
 end
 
-function keyreleased(key)
+function love.keyreleased(key)
 	if editor.active then
 		editor.context:keyEvent(key, editor.context.keyUp)
 	end
@@ -280,6 +281,14 @@ function getobjat(x, y)
 			end
 		end
 	end
+end
+
+function love.mousepressed(x, y, button)
+	editor.mousepressed(x, y, button)
+end
+
+function love.mousereleased(x, y, button)
+	editor.mousereleased(x, y, button)
 end
  
 --camera.lateInit()
