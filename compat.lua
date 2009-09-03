@@ -33,3 +33,5 @@ end
 function love.graphics.print(...)
 	love.graphics.draw(...)
 end
+
+love.graphics.setFont(love.default_font)

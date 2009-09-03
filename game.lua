@@ -9,7 +9,15 @@ function startgame(map, noplay)
 	--we create a world, set gravity, the collision callback, and load the map
 	game.world = love.physics.newWorld(love.graphics.getWidth() * 2, love.graphics.getHeight() * 2)
 	game.world:setGravity(0, -9.81)
-	game.world:setCallback(game.collision)
+	---- COMPAT CODE that can't be placed in compat.lua
+	-- 0.5.0-only code:
+	--game.world:setCallback(game.collision)
+	-- compat code:
+	local c = game.world.setCallbacks or game.world.setCallback
+	c(game.world, game.collision)
+	-- 0.6.0-only code:
+	--game.world:setCallbacks(game.collision)
+	---- END COMPAT
 	game.map = loadmap(map, game.worlds)
 	--the player can't sleep, but this doesn't seem to help, weird..
 	game.map.Objects.player._body:setAllowSleep(false)
