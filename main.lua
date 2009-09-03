@@ -26,11 +26,10 @@ do
 end
 
 function love.load()
-	--set it up, font, mods, colormode, level
-	love.graphics.setFont(love.default_font)
+	--set it up, mods, colormode, level
 	local mods = love.filesystem.enumerate("mods")
 	for i, v in ipairs(mods) do
-		love.filesystem.require('mods/'..v)
+		require('mods/'..v)
 	end
 	love.graphics.setColorMode(love.color_modulate)
 	if love.filesystem.exists("savegame.dat") then
