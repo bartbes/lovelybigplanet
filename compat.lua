@@ -34,4 +34,12 @@ function love.graphics.print(...)
 	love.graphics.draw(...)
 end
 
+local newWorld = love.physics.newWorld
+function love.physics.newWorld(...)
+	local t = {...}
+	t[1] = t[1] / 30
+	t[2] = t[2] / 30
+	return newWorld(unpack(t))
+end
+
 love.graphics.setFont(love.default_font)

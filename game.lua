@@ -7,7 +7,7 @@ function startgame(map, noplay)
 	love.draw = game.draw
 	--ok, let's do the stuff we'd normally do in load
 	--we create a world, set gravity, the collision callback, and load the map
-	game.world = love.physics.newWorld(love.graphics.getWidth() * 2, love.graphics.getHeight() * 2)
+	game.world = love.physics.newWorld(love.graphics.getWidth() * 2 * 30, love.graphics.getHeight() * 2 * 30)
 	game.world:setGravity(0, -9.81)
 	--[[ THIS IS COMPAT CODE, REMOVE THIS ONCE COMPAT IS DROPPED
 	MARK, MARK, MARK, MARK, MARK, MARK, MARK, MARK, MARK
