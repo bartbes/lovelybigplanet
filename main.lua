@@ -29,7 +29,9 @@ function love.load()
 	--set it up, mods, colormode, level
 	local mods = love.filesystem.enumerate("mods")
 	for i, v in ipairs(mods) do
-		require('mods/'..v)
+		if v:sub(-4, -1) == "lua" then
+			require('mods/'..v)
+		end
 	end
 	love.graphics.setColorMode(love.color_modulate)
 	if love.filesystem.exists("savegame.dat") then
