@@ -62,6 +62,7 @@ function loadmap(name, worlds)
 	env.MAP = mapClass.new()
 	--API
 	env.LBP = LBP
+	env.deg2rad = math.rad
 	--constants
 	env.Foreground = 1
 	env.Background = 2
@@ -77,6 +78,14 @@ function loadmap(name, worlds)
 	end
 	env.MAP._name = name
 	return env.MAP
+end
+
+function tobitfield(t)
+	bitfield = 0
+	for i, v in ipairs(t) do
+		bitfield = bitfield + 2^(v-1)
+	end
+	return bitfield
 end
 
 function loadobject(internalname, name, world, x, y, angle, positions)
@@ -117,8 +126,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	end
 	for i, v in ipairs(env.OBJECT._shapes) do
 		v:setData(internalname)
-		--v:setCategory(unpack(positions))
-		--v:setMask(unpack(posses))
+		v:setFilterData(tobitfield(positions), tobitfield(posses), 0)
 	end
 	--if it's not static, calculate mass, set angular damping, we do not want things
 	--to roll too much
