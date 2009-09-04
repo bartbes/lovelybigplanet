@@ -28,7 +28,7 @@ function hud.draw()
 	setCamera(cameras.hud)
 	--store the stuff we need to use a lot, this saves us from calling
 	--these functions a lot, saves CPU
-	local col = love.graphics.getColor()
+	local col = {love.graphics.getColor()}
 	local width = love.graphics.getWidth()
 	local height = love.graphics.getHeight()
 	--set the color
@@ -94,7 +94,7 @@ function hud.draw()
 		--NOTE: I don't get the feeling love.align_center works as it should
 	end
 	--restore settings, we don't want to impact any other drawing
-	love.graphics.setColor(col)
+	love.graphics.setColor(unpack(col))
 	setCamera(cameras.default)
 end
 

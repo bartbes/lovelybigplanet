@@ -389,7 +389,7 @@ function love.graphics.drawf(s, x, y, limit, align, sx, sy)
 	local	mul = align == love.align_center and 0.5 or align == love.align_right and 1 or 0
 	for line in string.lineiter(s) do
 		local	width = sx * camera.getTextWidth(line)
-		camera.love.graphics.draw(line, x + (limit - width) * mul * cosrot, y + (limit - width) * mul * sinrot, angle, sx, sy)
+		camera.love.graphics.print(line, x + (limit - width) * mul * cosrot, y + (limit - width) * mul * sinrot, angle, sx, sy)
 		x = x - sx * love.graphics:getFont():getHeight() * love.graphics:getFont():getLineHeight() * sinrot
 		y = y + sy * love.graphics:getFont():getHeight() * love.graphics:getFont():getLineHeight() * cosrot
 	end

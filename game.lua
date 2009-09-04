@@ -13,7 +13,7 @@ function startgame(map, noplay)
 	game.world:setCallbacks(game.collision)
 	game.map = loadmap(map, game.worlds)
 	--the player can't sleep, but this doesn't seem to help, weird..
-	game.map.Objects.player._body:setAllowSleep(false)
+	game.map.Objects.player._body:setAllowSleeping(false)
 	center = {}
 	center.x = love.graphics.getWidth()/2
 	center.y = love.graphics.getHeight()/2
@@ -59,9 +59,9 @@ function game.update(dt)
 	--allow flying if we are debugging
 	if dbg then game.allowjump = true end
 	--FIX: setAllowSleep fails, do it manually
-	game.map.Objects.player._body:setSleep(false)
+	--game.map.Objects.player._body:setSleep(false)
 	--get the velocity, process the input, and set it, preserves untouched velocity..
-	local x, y = game.map.Objects.player._body:getVelocity()
+	local x, y = game.map.Objects.player._body:getLinearVelocity()
 	if activejoystick or true then
 		x = love.joystick.getAxis(activejoystick, love.joystick_axis_horizontal) * 3.5
 		if love.joystick.getAxis(activejoystick, love.joystick_axis_vertical) <= -0.5 and game.allowjump then
@@ -85,7 +85,7 @@ function game.update(dt)
 	if love.keyboard.isDown(love.key_down) and dbg then
 		y = - 7.5
 	end
-	game.map.Objects.player._body:setVelocity(x, y)
+	game.map.Objects.player._body:setLinearVelocity(x, y)
 	--players don't use their heads for walking
 	local angle = game.map.Objects.player._body:getAngle()
 	if angle > 80 then
