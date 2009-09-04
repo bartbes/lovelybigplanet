@@ -25,7 +25,7 @@ function menu.draw() --decides what state to draw, then draws it
 	setCamera(cameras.hud)
 	local height = love.graphics.getHeight()
 	local width = love.graphics.getWidth()
-	local prevcolor = love.graphics.getColor()
+	local prevcolor = {love.graphics.getColor()}
 	if menu.state == "main" then
 		local numoptions = #menu.options.main
 		local mw = menu.bwidth+12
@@ -113,7 +113,7 @@ function menu.draw() --decides what state to draw, then draws it
 		love.graphics.print("Robin - Physics, editor & testing", width/2 - 45, height/2 + 30)
 		love.graphics.print("SnakeFace - General coding & artwork", width/2 - 45, height/2 + 45)
 	end
-	love.graphics.setColor(prevcolor) --retains original colouring for game elements
+	love.graphics.setColor(unpack(prevcolor)) --retains original colouring for game elements
 	setCamera(cameras.default) --makes sure the game behind the menu is properly drawn
 end
 

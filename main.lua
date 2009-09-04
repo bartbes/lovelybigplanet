@@ -1,5 +1,6 @@
-require("compat.lua")
-require("editor.lua")
+--require("editor.lua")
+editor = { update = function() end }
+LoveUI = {}
 require("camera.lua")
 require("api.lua")
 require("game.lua")
@@ -39,6 +40,7 @@ function love.load()
 	--else
 		--return createsave(startgame, "testmap")
 	end
+	love.graphics.setFont(love._vera_ttf, 12)
 	startgame("testmap")
 end
 
@@ -107,8 +109,8 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	end
 	for i, v in ipairs(env.OBJECT._shapes) do
 		v:setData(internalname)
-		v:setCategory(unpack(positions))
-		v:setMask(unpack(posses))
+		--v:setCategory(unpack(positions))
+		--v:setMask(unpack(posses))
 	end
 	--if it's not static, calculate mass, set angular damping, we do not want things
 	--to roll too much
