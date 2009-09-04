@@ -14,6 +14,7 @@ function startgame(map, noplay)
 	MARK, MARK, MARK, MARK, MARK, MARK, MARK, MARK, MARK
 	I GUESS THIS IS VISIBLE NOW?!
 	]]--
+	if game.world.setMeter then game.world:setMeter(1) end
 	---- COMPAT CODE that can't be placed in compat.lua
 	-- 0.5.0-only code:
 	--game.world:setCallback(game.collision)
