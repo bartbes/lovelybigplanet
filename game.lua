@@ -78,9 +78,9 @@ function game.update(dt)
 	game.map.Objects.player._body:setLinearVelocity(x, y)
 	--players don't use their heads for walking
 	local angle = game.map.Objects.player._body:getAngle()
-	if angle > 80 then
+	if angle > 1.35 then
 		game.map.Objects.player._body:setAngle(0)
-	elseif angle < -80 then
+	elseif angle < -1.35 then
 		game.map.Objects.player._body:setAngle(0)
 	end
 	--finally, we told Box2D what we want, produce some results..

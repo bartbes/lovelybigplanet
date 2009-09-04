@@ -5,8 +5,8 @@ MAP.Resources = { background = "bartbes/samplebackground" }
 MAP.BackgroundScale = { x = 10 }
 MAP.Objects = {
 	player = { "player", -8, 8.5, 0, {Foreground} },
-	platform1 = { "platform", 2, 1, 90, {Background} },
-	platform2 = { "platform", 4, 1, 90, {Background} },
+	platform1 = { "platform", 2, 1, deg2rad(90), {Background} },
+	platform2 = { "platform", 4, 1, deg2rad(90), {Background} },
 	platform3 = { "platform", 3, -4.5, 0, {Background} },
 	platform4 = { "platform", -5, 7.5, 0, {Foreground} },
 	platform5 = { "platform", 7.5, 1, 0, {Foreground} },
