@@ -8,8 +8,8 @@ function startgame(map, noplay)
 	--ok, let's do the stuff we'd normally do in load
 	--we create a world, set gravity, the collision callback, and load the map
 	game.world = love.physics.newWorld(love.graphics.getWidth() * 2 * 30, love.graphics.getHeight() * 2 * 30)
+	game.world:setMeter(1)
 	game.world:setGravity(0, -9.81)
-	if game.world.setMeter then game.world:setMeter(1) end
 	game.world:setCallbacks(game.collision)
 	game.map = loadmap(map, game.worlds)
 	--the player can't sleep, but this doesn't seem to help, weird..
