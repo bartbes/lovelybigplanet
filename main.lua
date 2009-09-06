@@ -1,5 +1,5 @@
 --require("editor.lua")
-editor = { update = function() end }
+editor = { update = function() end, mousepressed = function() end, mousereleased = function() end, keypressed = function() end, keyreleased = function() end }
 LoveUI = {}
 require("camera.lua")
 require("api.lua")
@@ -72,14 +72,6 @@ function loadmap(name, worlds)
 	return env.MAP
 end
 
-function tobitfield(t)
-	bitfield = 0
-	for i, v in ipairs(t) do
-		bitfield = bitfield + 2^(v-1)
-	end
-	return bitfield
-end
-
 function loadobject(internalname, name, world, x, y, angle, positions)
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
@@ -94,7 +86,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 		env.OBJECT.Resources[i] = assert(loadresource(v))
 	end
 	--create and set a physics entity
-	env.OBJECT._body = love.physics.newBody(world, x, y, 0)--, env.OBJECT.Weight)
+	env.OBJECT._body = love.physics.newBody(world, x, y, 0, 0)--, env.OBJECT.Weight)
 	env.OBJECT._body:setAngle(angle)
 	env.OBJECT._shapes = {}
 	env.OBJECT._positions = positions
@@ -118,7 +110,8 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	end
 	for i, v in ipairs(env.OBJECT._shapes) do
 		v:setData(internalname)
-		v:setFilterData(tobitfield(positions), tobitfield(posses), 0)
+		v:setCategory(unpack(positions))
+		v:setMask(unpack(posses))
 	end
 	--if it's not static, calculate mass, set angular damping, we do not want things
 	--to roll too much
@@ -245,7 +238,7 @@ end
 function love.keypressed(key)
 	--check some global keys first, if they're not used, pass it on
 	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
-		love.system.exit()
+		return love.event.quit()
 	elseif key == love.key_escape then
 		if menu.state then
 			menu.cleanup()
