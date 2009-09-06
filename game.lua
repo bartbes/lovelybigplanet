@@ -59,7 +59,7 @@ function game.update(dt)
 	--allow flying if we are debugging
 	if dbg then game.allowjump = true end
 	--FIX: setAllowSleep fails, do it manually
-	--game.map.Objects.player._body:setSleep(false)
+	game.map.Objects.player._body:wakeUp()
 	--get the velocity, process the input, and set it, preserves untouched velocity..
 	local x, y = game.map.Objects.player._body:getLinearVelocity()
 	if activejoystick or true then
@@ -99,7 +99,7 @@ function game.update(dt)
 	getCamera():setOrigin(game.map.Objects.player._body:getX()-love.graphics.getWidth()/2, game.map.Objects.player._body:getY()-love.graphics.getHeight()/2)
 	--check if he finished, round the position first
 	local x, y = game.map.Objects.player._body:getPosition()
-	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position and math.abs(select(2, game.map.Objects.player._body:getVelocity())) < 0.01 then
+	if not game.finished and math.floor(x+0.5) == game.map.Finish.x and math.floor(y+0.5) == game.map.Finish.y and game.map.Objects.player._shapes[1]:getCategory() == game.map.Finish.position and math.abs(select(2, game.map.Objects.player._body:getLinearVelocity())) < 0.01 then
 		--is there a map callback, if so, call it
 		if (game.map.finished and game.map.finished()) or (not game.map.finished) then
 			game.finished = true
