@@ -22,7 +22,13 @@ end
 
 function rLBP.draw(object) --the generic draw function, only takes the object, extracts the rest from it, yay!
 	--also, scales to 150 px/m (yes, we use meters!)
-	love.graphics.draw(object.Resources.texture.resource, object._body:getX(), object._body:getY(), object._body:getAngle(), object.TextureScale.x/150, (object.TextureScale.y or object.TextureScale.x)/150)
+	--local dst = ((object.Resources.texture.resource:getWidth()/2)^2+(object.Resources.texture.resource:getHeight()/2)^2)^.5
+	local w = cameras.default:unscaleX(object.Resources.texture.resource:getWidth()/2)
+	local h = cameras.default:unscaleY(object.Resources.texture.resource:getHeight()/2)
+	local xcomp = w * math.cos(object._body:getAngle()) + h * math.cos(object._body:getAngle()+.5*math.pi)
+	local ycomp = h * math.cos(object._body:getAngle()) + w * math.cos(object._body:getAngle()+.5*math.pi)
+	love.graphics.draw(object.Resources.texture.resource, object._body:getX()-xcomp, object._body:getY()-ycomp, object._body:getAngle(), object.TextureScale.x/150, (object.TextureScale.y or object.TextureScale.x)/150, object.Resources.texture.resource:getWidth()/2, object.Resources.texture.resource:getHeight()/2)
+	love.graphics.circle(love.draw_fill, object._body:getX(), object._body:getY(), .1)
 end
 
 function rLBP.addScore(pnt) --the function to add points to the score, as suggested by TechnoKat
