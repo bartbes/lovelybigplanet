@@ -173,7 +173,7 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 		elseif menu.state == "settings" then
 			if menu.options.settings[menu.selectedbutton.settings] == "Resolution" then love.graphics.setMode(menu.options.res[menu.selectedres].x, menu.options.res[menu.selectedres].y, false, true, 0)
 				local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-				cameras.default = camera.stretchToResolution(15*aspectratio, 15)
+				cameras.default = camera.stretchToResolution(10*aspectratio, 10)
 				setCamera(cameras.default)
 				cameras.default:setScreenOrigin(0, 1)
 				cameras.default:scaleBy(1, -1)
