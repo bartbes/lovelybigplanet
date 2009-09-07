@@ -168,7 +168,9 @@ function loadresource(name)
 		resources[name] = {name = name, resource = love.graphics.newImage("resources/" .. name .. fext)}
 		return resources[name]
 	elseif ftype == "music" then
-		resources[name] = {name = name, resource = love.audio.newMusic("resources/" .. name .. fext)}
+		resources[name] = {name = name, music = love.audio.newMusic("resources/" .. name .. fext)}
+		resources[name].resource = love.audio.newSource(resources[name].music)
+		resources[name].resource:setLooping(true)
 		return resources[name]
 	end
 	--FAIL!

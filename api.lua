@@ -33,6 +33,12 @@ function rLBP.stop(music)
 	love.audio.stop(music)
 end
 
+function rLBP.setLooping(music)
+	bool = false
+	if music then bool = true end
+	music.resource:setLooping(bool)
+end
+
 function rLBP.addScore(pnt) --the function to add points to the score, as suggested by TechnoKat
 	game.score = game.score + pnt
 end
