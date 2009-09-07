@@ -37,6 +37,14 @@ function load()
 	--else
 		--return createsave(startgame, "testmap")
 	end
+	local njoysticks = love.joystick.getNumJoysticks()
+	if njoysticks == 0 then
+		activejoystick = 0
+	elseif njoysticks > 0 then
+		--this needs to be replaced, this doesn't work
+		--you need to be able to choose the joystick here
+		activejoystick = 0
+	end
 	startgame("testmap")
 end
 
@@ -270,6 +278,10 @@ function keyreleased(key)
 	if editor.active then
 		editor.context:keyEvent(key, editor.context.keyUp)
 	end
+end
+
+function joystickpressed(j, button)
+	game.joystickpressed(j, button)
 end
 
 function getobjat(x, y)

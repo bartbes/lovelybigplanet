@@ -3,6 +3,7 @@ hud = {}
 --we need to store the old ones, we do this once, to prevent EVUL things from happening
 local oldUpdate
 local oldKeypressed
+local oldJoystickpressed
 
 --new callbacks, local, nobody else needs it
 local function msgUpdate() end
@@ -11,6 +12,13 @@ local function msgKeypressed(key)
 		hud.messagebox = nil
 		update = oldUpdate
 		keypressed = oldKeypressed
+		joystickpressed = oldJoystickpressed
+	end
+end
+local function msgJoystickpressed(j, key)
+	if j ~= activejoystick then return end
+	if key == 0 then
+		msgKeypressed(love.key_return)
 	end
 end
 
@@ -93,9 +101,11 @@ function hud.messageBox(text) --create a message box
 	--store the callbacks, if necessary (happens once)
 	if not oldUpdate then oldUpdate = update end
 	if not oldKeypressed then oldKeypressed = keypressed end
+	if not oldJoystickpressed then oldJoystickpressed = joystickpressed end
 	--load the new ones
 	update = msgUpdate
 	keypressed = msgKeypressed
+	joystickpressed = msgJoystickpressed
 	--set the text
 	hud.messagebox = text
 end
