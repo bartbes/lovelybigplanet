@@ -22,9 +22,7 @@ end
 
 function rLBP.draw(object) --the generic draw function, only takes the object, extracts the rest from it, yay!
 	--also, scales to 150 px/m (yes, we use meters!)
-	--local dst = ((object.Resources.texture.resource:getWidth()/2)^2+(object.Resources.texture.resource:getHeight()/2)^2)^.5
 	love.graphics.draw(object.Resources.texture.resource, object._body:getX(), object._body:getY(), object._body:getAngle(), object.TextureScale.x/150, (object.TextureScale.y or object.TextureScale.x)/150, object.Resources.texture.resource:getWidth()/2, object.Resources.texture.resource:getHeight()/2)
-	love.graphics.circle(love.draw_fill, object._body:getX(), object._body:getY(), .1)
 end
 
 function rLBP.addScore(pnt) --the function to add points to the score, as suggested by TechnoKat
