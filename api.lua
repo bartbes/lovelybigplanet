@@ -25,6 +25,14 @@ function rLBP.draw(object) --the generic draw function, only takes the object, e
 	love.graphics.draw(object.Resources.texture.resource, object._body:getX(), object._body:getY(), object._body:getAngle(), object.TextureScale.x/150, (object.TextureScale.y or object.TextureScale.x)/150, object.Resources.texture.resource:getWidth()/2, object.Resources.texture.resource:getHeight()/2)
 end
 
+function rLBP.play(music)
+	love.audio.play(music)
+end
+
+function rLBP.stop(music)
+	love.audio.stop(music)
+end
+
 function rLBP.addScore(pnt) --the function to add points to the score, as suggested by TechnoKat
 	game.score = game.score + pnt
 end

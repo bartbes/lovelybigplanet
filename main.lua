@@ -159,11 +159,16 @@ function loadresource(name)
 	local fext = ""
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
 	if love.filesystem.exists("resources/" .. name .. ".png") then ftype = "image"; fext = ".png" end
+	if love.filesystem.exists("resources/" .. name .. ".mp3") then ftype = "music"; fext = ".png" end
+	if love.filesystem.exists("resources/" .. name .. ".ogg") then ftype = "music"; fext = ".ogg" end
 	--did we find a Resource?
 	if ftype == "" or fext == "" then return false, "Resource " .. name .. " not found." end
 	--if it's an image, load and return it
 	if ftype == "image" then
 		resources[name] = {name = name, resource = love.graphics.newImage("resources/" .. name .. fext)}
+		return resources[name]
+	elseif ftype == "music" then
+		resources[name] = {name = name, resource = love.audio.newMusic("resources/" .. name .. fext)}
 		return resources[name]
 	end
 	--FAIL!
