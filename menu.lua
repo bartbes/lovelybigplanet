@@ -45,7 +45,7 @@ function menu.draw() --decides what state to draw, then draws it
 	if menu.state == "save" then
 		local height = love.graphics.getHeight()
 		local width = love.graphics.getWidth()
-		local prevcolor = love.graphics.getColor()
+		local prevcolor = {love.graphics.getColor()}
 		love.graphics.setColor(105, 105, 20)
 		love.graphics.rectangle(2, width/2-55, height/2-35, 310, 70)
 		love.graphics.setColor(175, 175, 50)
@@ -118,7 +118,7 @@ function menu.draw() --decides what state to draw, then draws it
 end
 
 function menu.drawbutton(str, x, y, selected, ep, border, width) --draws the buttons in the menu. args: string to display, xpos, ypos, if button is selected option, extra padding incase of options being too large, whether or not to draw the border, width of button to draw(default is menu.bwidth)
-	local prevcolorb = love.graphics.getColor()
+	local prevcolorb = {love.graphics.getColor()}
 	love.graphics.setColor(125, 125, 10)
 	width = width or menu.bwidth
 	if border and width then love.graphics.rectangle(1, x, y, width + ep, menu.bheight) end
@@ -128,7 +128,7 @@ function menu.drawbutton(str, x, y, selected, ep, border, width) --draws the but
 		love.graphics.setColor(25, 25, 25)
 	end
 	love.graphics.print(str, x+2, y+12)
-	love.graphics.setColor(prevcolorb)
+	love.graphics.setColor(unpack(prevcolorb))
 end
 
 function menu.update(dt) --deprecated in use, but just to be on the safe side ;)
