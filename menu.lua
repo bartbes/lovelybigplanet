@@ -12,12 +12,12 @@ local arrowlimage = love.graphics.newImage("resources/snakeface/arrowl.png")
 local arrowrimage = love.graphics.newImage("resources/snakeface/arrowr.png")
 
 function menu.load() --hooks the menu in and 'pauses' the game
-	update = menu.update
+	love.update = menu.update
 	menu.state = "main"
 end
 
 function menu.cleanup() --reinstates normal game function and removes menu, DO NOT JUST CALL menu.state = false to remove the menu, call menu.cleanup()
-	update = game.update
+	love.update = game.update
 	menu.state = false
 end
 
