@@ -182,7 +182,7 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			end
 		elseif menu.state == "main" then
 			if menu.options.main[menu.selectedbutton.main] == "Resume" then menu.cleanup()
-			elseif menu.options.main[menu.selectedbutton.main] == "Quit" then love.system.exit()
+			elseif menu.options.main[menu.selectedbutton.main] == "Quit" then love.event.quit()
 			elseif menu.options.main[menu.selectedbutton.main] == "Restart" then menu.cleanup(); startgame(game.map._name)
 			elseif menu.options.main[menu.selectedbutton.main] == "Save" then menu.state = "save"
 			elseif menu.options.main[menu.selectedbutton.main] == "Load" then prepareload() ; menu.state = "load"
