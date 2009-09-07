@@ -130,15 +130,15 @@ function camera.class:getOrigin()
 end
 function camera.class:setRotation(rot)
 	self.rotation = rot
-	self.cosrot = math.cos(math.rad(self.rotation))
-	self.sinrot = math.sin(math.rad(self.rotation))
+	self.cosrot = math.cos(self.rotation)
+	self.sinrot = math.sin(self.rotation)
 end
 function camera.class:rotateBy(rot, ox, oy)
 	if ox then
 		self.ox = self.ox + (ox - self.ox) * (1 - self.cosrot) + (oy - self.oy) * self.sinrot
 		self.oy = self.oy + (oy - self.oy) * (1 - self.cosrot) - (ox - self.ox) * self.sinrot
 	end
-	self:setRotation((rot + self.rotation) % 360)
+	self:setRotation((rot + self.rotation) % math.rad(360))
 end
 function camera.class:getRotation()
 	return self.rotation
@@ -348,23 +348,23 @@ function love.graphics.print(elem, x, y, angle, sx, sy)
 	angle = (angle or 0) + camera.present.rotation
 	sx = sx or 1
 	sy = sy or sx
-	sx = sx * (math.abs(math.cos(math.rad(angle))^2 * camera.present.scalex) +
-		math.abs(math.sin(math.rad(angle))^2 * camera.present.scaley))
-	sy = sy * (math.abs(math.cos(math.rad(angle))^2 * camera.present.scaley) +
-		math.abs(math.sin(math.rad(angle))^2 * camera.present.scalex))
+	sx = sx * (math.abs(math.cos(angle)^2 * camera.present.scalex) +
+		math.abs(math.sin(angle)^2 * camera.present.scaley))
+	sy = sy * (math.abs(math.cos(angle)^2 * camera.present.scaley) +
+		math.abs(math.sin(angle)^2 * camera.present.scalex))
 	if camera.present.scalex * camera.present.scaley < 0 then
 		angle = -angle
 	end
 	local	nextElem = elem
 	local	c = love.graphics:getFont():getHeight() * love.graphics:getFont():getLineHeight()
 	if camera.present.scaley < 0 then
-		x = x - sx * c * math.sin(math.rad(angle))
-		y = y + sy * c * math.sin(math.rad(angle))
+		x = x - sx * c * math.sin(angle)
+		y = y + sy * c * math.sin(angle)
 	end
 	for line in string.lineiter(elem) do
 		camera.love.graphics.print(line, x, y, angle, sx, sy)
-		x = x - sx * c * math.sin(math.rad(angle))
-		y = y + sy * c * math.cos(math.rad(angle))
+		x = x - sx * c * math.sin(angle)
+		y = y + sy * c * math.cos(angle)
 	end
 end
 
