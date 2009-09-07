@@ -26,7 +26,7 @@ end
 function mapClass:drawLayers()
 	for k, v in pairs(self.Objects) do
 		if k ~= 'player' then
---			local translucent = not active(v._shapes[1])
+			local translucent = not active(v._shapes[1])
 			if translucent then love.graphics.setColor(100, 100, 100, 150) end
 			LBP.draw(v)
 			if translucent then love.graphics.setColor(255, 255, 255, 255) end
