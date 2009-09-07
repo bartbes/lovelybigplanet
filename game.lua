@@ -62,10 +62,11 @@ function game.update(dt)
 	game.map.Objects.player._body:wakeUp()
 	--get the velocity, process the input, and set it, preserves untouched velocity..
 	local x, y = game.map.Objects.player._body:getLinearVelocity()
-<<<<<<< HEAD:game.lua
-=======
-	if activejoystick or true then
-		x = love.joystick.getAxis(activejoystick, love.joystick_axis_horizontal) * 3.5
+	if activejoystick then
+		local joyx = love.joystick.getAxis(activejoystick, love.joystick_axis_horizontal)
+		if math.abs(joyx) >= 0.05 then
+			x = joyx * 3.5
+		end
 		if love.joystick.getAxis(activejoystick, love.joystick_axis_vertical) <= -0.5 and game.allowjump then
 			game.allowjump = false
 			y = 5
@@ -74,7 +75,6 @@ function game.update(dt)
 			y = -7.5
 		end
 	end
->>>>>>> 0bd26ee9f03963ee64972603f36f26c4b20036b5:game.lua
 	if love.keyboard.isDown(love.key_left) then
 		x = -3.5
 	end
@@ -210,8 +210,6 @@ function game.keypressed(key)
 		end
 	end
 end
-<<<<<<< HEAD:game.lua
-=======
 
 function game.joystickpressed(j, button)
 	if j ~= activejoystick then return end
@@ -221,4 +219,3 @@ function game.joystickpressed(j, button)
 		game.switchlayer(((game.activelayer-2) % game.layers) + 1)
 	end
 end
->>>>>>> 0bd26ee9f03963ee64972603f36f26c4b20036b5:game.lua

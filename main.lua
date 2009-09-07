@@ -285,7 +285,7 @@ function love.keyreleased(key)
 	end
 end
 
-function joystickpressed(j, button)
+function love.joystickpressed(j, button)
 	game.joystickpressed(j, button)
 end
 

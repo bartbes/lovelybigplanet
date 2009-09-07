@@ -12,8 +12,6 @@ local function msgKeypressed(key)
 		hud.messagebox = nil
 		love.update = oldUpdate
 		love.keypressed = oldKeypressed
-<<<<<<< HEAD:hud.lua
-=======
 		love.joystickpressed = oldJoystickpressed
 	end
 end
@@ -22,7 +20,6 @@ local function msgJoystickpressed(j, key)
 	if j ~= activejoystick then return end
 	if key == 0 then
 		msgKeypressed(love.key_return)
->>>>>>> 0bd26ee9f03963ee64972603f36f26c4b20036b5:hud.lua
 	end
 end
 
@@ -105,17 +102,11 @@ function hud.messageBox(text) --create a message box
 	--store the callbacks, if necessary (happens once)
 	if not oldUpdate then oldUpdate = love.update end
 	if not oldKeypressed then oldKeypressed = love.keypressed end
-<<<<<<< HEAD:hud.lua
-	--load the new ones
-	love.update = msgUpdate
-	love.keypressed = msgKeypressed
-=======
 	if not oldJoystickpressed then oldJoystickpressed = love.joystickpressed end
 	--load the new ones
 	love.update = msgUpdate
 	love.keypressed = msgKeypressed
 	love.joystickpressed = msgJoystickpressed
->>>>>>> 0bd26ee9f03963ee64972603f36f26c4b20036b5:hud.lua
 	--set the text
 	hud.messagebox = text
 end
