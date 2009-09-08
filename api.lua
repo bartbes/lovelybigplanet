@@ -33,9 +33,9 @@ function rLBP.stop(music)
 	love.audio.stop(music)
 end
 
-function rLBP.setLooping(music)
+function rLBP.setLooping(music, loop)
 	bool = false
-	if music then bool = true end
+	if loop then bool = true end
 	music.resource:setLooping(bool)
 end
 
