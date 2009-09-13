@@ -6,7 +6,7 @@ int main(int argc, char **argv)
 {
 	int enclength;
 	char *data;
-	if (argc != 2 && (argc == 3 && strcmp(argv[1], "-f")))
+	if (argc == 1)
 	{
 		printf("Usage: %s [-f] <text | filename>\n", argv[0]);
 		return 1;
