@@ -334,11 +334,11 @@ function love.graphics.draw(elem, x, y, angle, sx, sy)
 	end
 	local w = elem:getWidth()/2
 	local h = elem:getHeight()/2
-	local xcomp = w * math.cos(angle) - h * math.sin(angle)
-	local ycomp = h * math.cos(angle) + w * math.sin(angle)
+	--local xcomp = w * math.cos(angle) - h * math.sin(angle)
+	--local ycomp = h * math.cos(angle) + w * math.sin(angle)
 	local	nextElem = elem
-	if not pcall(camera.love.graphics.draw, elem, x - xcomp * sx, y - ycomp * sy, angle, sx, sy) then
-		camera.love.graphics.draw(elem, x - xcomp * sx, y - ycomp * sy)
+	if not pcall(camera.love.graphics.draw, elem, x, y, angle, sx, sy, w, h) then
+		camera.love.graphics.draw(elem, x, y, 1, 1, w, h)
 	end
 end
 
