@@ -1,0 +1,72 @@
+﻿Structure:
+| Type | Length |
+|   Data        |
+
+Location server: The server which has the location for each file and contains a few other services
+File server: Contains all files and holds dependencies
+Caret Separated values: Values separated by carets (^ characters)
+
+File request to location server:
+| rqst | Length |
+| File ID       |
+
+File ID:
+	Generated using our custom hashing algorithm, a demo file is available.
+	(called hashdemo.cpp)
+
+List request to location server:
+| list | Length |
+| List type     |
+
+List types:
+	map10 = Map top 10
+	obj10 = Object top 10
+	mapnew = Newest maps
+	objnew = Newest objects
+
+List transmission from location server:
+| rlst | Length |
+| List data     |
+
+List data:
+	Caret Separated Values, example:
+		map1^map2^map3
+
+Location specifier from location server:
+| loct | Length  |
+| Path specifier |
+
+Path specifier:
+	URL-like server specifier, example:
+		example.com:8192
+
+File request to file server:
+| file | Length |
+| File ID       |
+
+File transmission from file server:
+| serv | Length |
+| File Data     |
+
+File Data:
+	Another TLD field:
+
+	File name:
+	| fnam | Length |
+	| Raw name      |
+
+	File contents:
+	| fdat | Length |
+	| Raw contents  |
+
+Dependency request to file server:
+| deps | Length |
+| File ID       |
+
+Dependency transmission from file server:
+| dlst | Length   |
+| Dependency data |
+
+Dependency data:
+	Caret Separated Values, example:
+		DepID1^DepId2
