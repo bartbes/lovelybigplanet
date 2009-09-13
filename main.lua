@@ -170,7 +170,7 @@ function loadresource(name)
 	elseif ftype == "music" then
 		resources[name] = {name = name, music = love.audio.newMusic("resources/" .. name .. fext)}
 		resources[name].resource = love.audio.newSource(resources[name].music)
-		resources[name].resource:setLooping(true)
+		resources[name].resource:setLooping(false)
 		return resources[name]
 	end
 	--FAIL!

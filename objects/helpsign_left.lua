@@ -1,7 +1,7 @@
 OBJECT.Name = "Help Sign"
 OBJECT.Creator = "Bart Bes"
 OBJECT.Version = 0.1
-OBJECT.Resources = { texture = "qubodup/sign_left_yellow-80x100" } --took the yellow one, not definitive
+OBJECT.Resources = { texture = "qubodup/sign_left_yellow-80x100", collisionsound = "HardPCM@freesound/Wood019" } --took the yellow one, not definitive
 OBJECT.TextureScale = { x = 1 }
 
 OBJECT.Static = true
@@ -15,5 +15,12 @@ function OBJECT:checkposition(body)
 	if ((body:getX() - self._body:getX()) ^ 2 + (body:getY() - self._body:getY()) ^ 2)^.5 < .75 then
 		LBP.messageBox(OBJECT.helptext)
 		hashelped = true
+	end
+end
+
+function OBJECT:collision(other)
+	if other == "player" then
+		--LBP.rewind(self.Resources.collisionsound)
+		LBP.play(self.Resources.collisionsound, true)
 	end
 end
