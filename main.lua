@@ -41,9 +41,9 @@ function love.load()
 		--return createsave(startgame, "testmap")
 	end
 	local njoysticks = love.joystick.getNumJoysticks()
-	if njoysticks == 0 then
+	if njoysticks == 1 then
 		activejoystick = 0
-	elseif njoysticks > 0 then
+	elseif njoysticks > 1 then
 		--this needs to be replaced, this doesn't work
 		--you need to be able to choose the joystick here
 		activejoystick = 0
