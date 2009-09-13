@@ -61,7 +61,7 @@ function game.update(dt)
 	game.map.Objects.player._body:setSleep(false)
 	--get the velocity, process the input, and set it, preserves untouched velocity..
 	local x, y = game.map.Objects.player._body:getVelocity()
-	if activejoystick or true then
+	if activejoystick then
 		x = love.joystick.getAxis(activejoystick, love.joystick_axis_horizontal) * 3.5
 		if love.joystick.getAxis(activejoystick, love.joystick_axis_vertical) <= -0.5 and game.allowjump then
 			game.allowjump = false
