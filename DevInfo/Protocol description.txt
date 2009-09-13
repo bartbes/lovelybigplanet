@@ -13,6 +13,12 @@ File request to location server:
 File ID:
 	Generated using our custom hashing algorithm, a demo file is available.
 	(called hashdemo.cpp)
+	The ID is generated using the following method, where the hash algorithm has
+	been replaced with hash.
+	hash(filename) + hash(version) + hash(data) concatenated after each other.
+	Filename is the filename relative to the save dir, so, for my background resource:
+		resources/bartbes/samplebackground.png
+	Note that the file DOES have an extension here, where it doesn't in the engine itself.
 
 List request to location server:
 | list | Length |
