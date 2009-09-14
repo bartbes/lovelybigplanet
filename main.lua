@@ -62,7 +62,6 @@ function loadmap(name, worlds)
 	env.MAP = mapClass.new()
 	--API
 	env.LBP = LBP
-	env.deg2rad = math.rad
 	--constants
 	env.Foreground = 1
 	env.Background = 2
@@ -95,7 +94,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	end
 	--create and set a physics entity
 	env.OBJECT._body = love.physics.newBody(world, x, y, 0, 0)--, env.OBJECT.Weight)
-	env.OBJECT._body:setAngle(angle)
+	env.OBJECT._body:setAngle(math.rad(angle))
 	env.OBJECT._shapes = {}
 	env.OBJECT._positions = positions
 	env.OBJECT._name = name
