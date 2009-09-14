@@ -26,8 +26,11 @@ function rLBP.draw(object) --the generic draw function, only takes the object, e
 end
 
 function rLBP.play(music, loop)
-	LBP.setLooping(music, loop)
-	love.audio.play(music.music)
+	if loop then
+		love.audio.play(music.resource)
+	else
+		love.audio.play(music.music)
+	end
 end
 
 function rLBP.stop(music)
