@@ -6,6 +6,7 @@ require("api.lua")
 require("game.lua")
 require("map.lua")
 require("hud.lua")
+require("mainmenu.lua")
 require("menu.lua")
 require("save.lua")
 
@@ -21,7 +22,6 @@ cameras.editor = camera.new()
 do
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
-	setCamera(cameras.default)
 	cameras.default:setScreenOrigin(0, 1)
 	cameras.default:scaleBy(1, -1)
 end
@@ -49,7 +49,7 @@ function love.load()
 		activejoystick = 0
 	end
 	love.graphics.setFont(love._vera_ttf, 12)
-	startgame("testmap")
+	mainmenu.load()
 end
 
 --here it comes, the magic
@@ -251,6 +251,10 @@ end
 
 function love.keypressed(key)
 	--check some global keys first, if they're not used, pass it on
+	if mainmenu.active then
+		mainmenu.keypressed(key)
+		return
+	end
 	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		return love.event.quit()
 	elseif key == love.key_escape then
