@@ -1,6 +1,6 @@
 menu = {} --master table
 menu.state = false --menu.state defines what menu or submenu is shown ( see: menu.draw() )
-menu.options = { main = { "Resume", "Restart", "Save", "Load", "Editor", "Settings", "Credits", "Main menu", "Quit" },
+menu.options = { main = { "Resume", "Restart", "Main menu", "Quit" },
                  settings = { "Resume", "Fullscreen", "Resolution"  },
 				 res = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} },
 				 load = {} }  --defines the options per menu
@@ -29,11 +29,11 @@ function menu.draw() --decides what state to draw, then draws it
 	if menu.state == "main" then
 		local numoptions = #menu.options.main
 		local mw = menu.bwidth+12
-		local my = numoptions*menu.bheight+40
+		local my = numoptions*menu.bheight+25
 		love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-mw/2-5, height/2-my/2-5, mw+10, my+10)
+		love.graphics.rectangle(2, width/2-mw/2-10, height/2-my/2-5, mw+20, my+10)
 		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw, my)
+		love.graphics.rectangle(2, width/2-mw/2-5, height/2-my/2, mw+10, my)
 		for i = 1, numoptions do
 			if i == menu.selectedbutton.main then
 				menu.drawbutton(menu.options.main[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 0, true)
@@ -121,13 +121,13 @@ function menu.drawbutton(str, x, y, selected, ep, border, width) --draws the but
 	local prevcolorb = {love.graphics.getColor()}
 	love.graphics.setColor(125, 125, 10)
 	width = width or menu.bwidth
-	if border and width then love.graphics.rectangle(1, x, y, width + ep, menu.bheight) end
+	if border and width then love.graphics.rectangle(1, x-5, y, width + ep + 10, menu.bheight) end
 	if selected then
 		love.graphics.setColor(255, 255, 255)
 	else
 		love.graphics.setColor(25, 25, 25)
 	end
-	love.graphics.print(str, x+2, y+12)
+	love.graphics.print(str, x-2, y+12)
 	love.graphics.setColor(unpack(prevcolorb))
 end
 

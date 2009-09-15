@@ -6,7 +6,8 @@ mainmenu = {
 	actions = {
 			main = {function () startgame'testmap' end, function () startgame'map1' end,
 					function () startgame'testmap' end, function () end,
-					function () end, function () mainmenu.start'settings' end,
+					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
+					function () mainmenu.start'settings' end,
 					function () love.event.quit() end
 					},
 			settings = {function () mainmenu.start'main' end, function () end,

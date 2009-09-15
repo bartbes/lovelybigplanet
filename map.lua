@@ -1,6 +1,6 @@
 mapClass = {}
-function mapClass.new()
-	local t = {}
+function mapClass.new(t)
+	t = t or {}
 	setmetatable(t, {__index=mapClass})
 	return t
 end
