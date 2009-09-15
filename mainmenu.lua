@@ -17,7 +17,7 @@ mainmenu = {
 					function () startgame'testmap' end, function () end,
 					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
 					function () mainmenu.start'settings' end,
-					function () mainmenu.state=3 end,
+					function () mainmenu.credits.start() end,
 					function () love.event.quit() end
 					},
 			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen();mainmenu.start'settings' end,
@@ -52,7 +52,27 @@ mainmenu = {
 		else
 			mainmenu.fadeincountdown = mainmenu.fadetime
 		end
-	end,}
+	end,
+	credits = {
+			names = {
+					"Bartbes", "Project starter, general coding",
+					"Robin", "Physics, editor, main menu & testing",
+					"SnakeFace", "General coding & artwork",
+					"Qubodup", "Artwork"
+				},
+			index = 0,
+			x = 0,
+			timeout = 0,
+		start = function()
+			mainmenu.credits.index = 0
+			mainmenu.credits.x = love.graphics.getWidth()+10
+			mainmenu.credits.timeout = 0
+			mainmenu.state=3
+			mainmenu.fadeincountdown = mainmenu.fadetime
+			mainmenu.fadeoutcountdown = nil
+		end
+		},
+	}
 
 function mainmenu.load ()
 	setCamera(cameras.hud)
@@ -97,13 +117,43 @@ function mainmenu.update (dt)
 		end
 	elseif mainmenu.state==3 then
 		--credits
+		local c = mainmenu.credits
+		local halfw = love.graphics.getWidth()*.5-50
+		if c.timeout > 0 then
+			c.timeout = c.timeout - dt
+		else
+			if c.x > halfw then
+				c.x = c.x - ((c.x-halfw)*3.8+20)*dt
+				if c.x < halfw then
+					c.timeout = .1
+				end
+			else
+				c.x = c.x - ((halfw-c.x)*3.8+20)*dt
+				if c.x < -100 then
+					c.index = c.index + 1
+					if c.index*2+1 > #c.names then
+						mainmenu.start'main'
+					end
+					c.x = halfw*2+110
+					c.timeout = .1
+				end
+			end
+		end
+		if mainmenu.fadeoutcountdown then
+			mainmenu.fadeoutcountdown = mainmenu.fadeoutcountdown - dt
+			if mainmenu.fadeoutcountdown < 0 then mainmenu.start'main' end
+		end
+		if mainmenu.fadeincountdown then
+			mainmenu.fadeincountdown = mainmenu.fadeincountdown - dt
+			if mainmenu.fadeincountdown < 0 then mainmenu.fadeincountdown=nil end
+		end
 	end
 	love.timer.sleep(15)
 end
 
 function mainmenu.draw ()
+	love.graphics.setColor(0,0,0)
 	if mainmenu.state==1 then
-		love.graphics.setColor(0,0,0)
 		for i,v in ipairs(mainmenu.options[mainmenu.current]) do
 			love.graphics.print(v, mainmenu.itemx, mainmenu.ys[i])
 		end
@@ -115,20 +165,35 @@ function mainmenu.draw ()
 		love.graphics.line(0, mainmenu.lines+5, love.graphics.getWidth(), mainmenu.lines+5)
 		love.graphics.setColor(0,255,0,50)
 		love.graphics.rectangle(love.draw_fill, 0, mainmenu.lines-13, love.graphics.getWidth(), 20)
-		if mainmenu.fadeoutcountdown then
-			love.graphics.setColor(255,255,255,255-(mainmenu.fadeoutcountdown/mainmenu.fadetime*255))
-			love.graphics.rectangle(love.draw_fill, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-		end
-		if mainmenu.fadeincountdown then
-			love.graphics.setColor(255,255,255,(mainmenu.fadeincountdown/mainmenu.fadetime*255))
-			love.graphics.rectangle(love.draw_fill, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
-		end
-		--?
 	elseif mainmenu.state==3 then
 		--credits
+		local c = mainmenu.credits
+		love.graphics.print(c.names[c.index*2+1], c.x, 200)
+		love.graphics.print(c.names[c.index*2+2], c.x, 240)
+		love.graphics.setColor(0,255,0)
+		local x
+		local x2
+		if c.x >love.graphics.getWidth()/2-50 then
+			x = love.graphics.getWidth()-c.x-160
+			x2 = x+20
+		else
+			x = c.x-60
+			x2 = x+20
+		end
+		love.graphics.line(x, 0, x, love.graphics.getHeight())
+		love.graphics.line(x2, 0, x2, love.graphics.getHeight())
+		love.graphics.setColor(0,255,0,50)
+		love.graphics.rectangle(love.draw_fill, x, 0, x2-x, love.graphics.getHeight())
 	else
-		love.graphics.setColor(0,0,0)
 		love.graphics.print("Not yet implemented... press escape...", 100, 100)
+	end
+	if mainmenu.fadeoutcountdown then
+		love.graphics.setColor(255,255,255,255-(mainmenu.fadeoutcountdown/mainmenu.fadetime*255))
+		love.graphics.rectangle(love.draw_fill, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
+	end
+	if mainmenu.fadeincountdown then
+		love.graphics.setColor(255,255,255,(mainmenu.fadeincountdown/mainmenu.fadetime*255))
+		love.graphics.rectangle(love.draw_fill, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 	end
 end
 
@@ -149,7 +214,7 @@ function mainmenu.keypressed(key)
 		end
 	else
 		if key==love.key_escape then
-			mainmenu.start('main')
+			mainmenu.fadeoutcountdown = mainmenu.fadetime
 		end
 	end
 end
