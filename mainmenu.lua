@@ -1,6 +1,6 @@
 mainmenu = {
 	options = {
-			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Start editor', 'Settings', 'Exit'},
+			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Start editor', 'Settings', 'Credits', 'Exit'},
 			settings = {'Back', 'Fullscreen', 'Screensize'}
 			},
 	actions = {
@@ -8,6 +8,7 @@ mainmenu = {
 					function () startgame'testmap' end, function () end,
 					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
 					function () mainmenu.start'settings' end,
+					function () end,
 					function () love.event.quit() end
 					},
 			settings = {function () mainmenu.start'main' end, function () end,
@@ -15,7 +16,6 @@ mainmenu = {
 					}
 			},
 	itemx = 600,
-	lines = 250,
 	logox = -400,
 	logodx = 50,
 	state = 1,
@@ -25,6 +25,7 @@ mainmenu = {
 		mainmenu.current = new
 		mainmenu.ys = {}
 		mainmenu.y_tos = {}
+		mainmenu.lines = 900
 		for i,v in ipairs(mainmenu.options[new]) do
 			mainmenu.ys[i] = -10
 			mainmenu.y_tos[i] = i*20+180
@@ -40,8 +41,8 @@ mainmenu = {
 	end,}
 
 function mainmenu.load ()
-	mainmenu.start('main', true)
 	setCamera(cameras.hud)
+	mainmenu.start('main', true)
 	love.graphics.setBackgroundColor(255, 255, 255)
 	love.graphics.setLineWidth(2)
 	mainmenu.active = true
@@ -121,7 +122,9 @@ function mainmenu.keypressed(key)
 			mainmenu.selected = mainmenu.selected + 1
 			if mainmenu.selected > #mainmenu.options[mainmenu.current] then mainmenu.selected = 1 end
 		elseif key == love.key_return or key == love.key_space then
-			mainmenu.y_tos = {-100, -100, -100, -100, -100, -100, -100}
+			for i=1,#mainmenu.ys do
+				mainmenu.y_tos[i] = -i*30
+			end
 			mainmenu.y_tos[mainmenu.selected] = mainmenu.ys[mainmenu.selected]
 			mainmenu.fadeoutcountdown = mainmenu.fadetime
 		end
