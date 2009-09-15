@@ -4,8 +4,8 @@ mainmenu = {
 			settings = {'Back', 'Fullscreen', 'Screensize'}
 			},
 	actions = {
-			main = {function () mainmenu.unload();startgame('testmap') end, function () end,
-					function () end, function () end,
+			main = {function () startgame'testmap' end, function startgame'map1' () end,
+					function () startgame'testmap' end, function () end,
 					function () end, function () mainmenu.start'settings' end,
 					function () love.event.quit() end
 					},
@@ -104,6 +104,8 @@ function mainmenu.draw ()
 			love.graphics.rectangle(love.draw_fill, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 		end
 		--?
+	else
+		love.graphics.print("Not yet implemented... press escape...", 100, 100)
 	end
 end
 
