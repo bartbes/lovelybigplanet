@@ -40,6 +40,7 @@ mainmenu = {
 
 function mainmenu.load ()
 	mainmenu.start('main', true)
+	setCamera(cameras.hud)
 	love.graphics.setBackgroundColor(255, 255, 255)
 	love.graphics.setLineWidth(2)
 	mainmenu.active = true
@@ -105,6 +106,7 @@ function mainmenu.draw ()
 		end
 		--?
 	else
+		love.graphics.setColor(0,0,0)
 		love.graphics.print("Not yet implemented... press escape...", 100, 100)
 	end
 end
