@@ -21,6 +21,6 @@ end
 function OBJECT:collision(other)
 	if other == "player" then
 		--LBP.rewind(self.Resources.collisionsound)
-		LBP.play(self.Resources.collisionsound, true)
+		LBP.play(self.Resources.collisionsound, false)
 	end
 end
