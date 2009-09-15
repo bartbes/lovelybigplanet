@@ -4,7 +4,7 @@ mainmenu = {
 			settings = {'Back', 'Fullscreen', 'Screensize'}
 			},
 	actions = {
-			main = {function () startgame'testmap' end, function startgame'map1' () end,
+			main = {function () startgame'testmap' end, function () startgame'map1' end,
 					function () startgame'testmap' end, function () end,
 					function () end, function () mainmenu.start'settings' end,
 					function () love.event.quit() end
