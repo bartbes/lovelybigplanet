@@ -1,18 +1,32 @@
+function setRes(x, y)
+	love.graphics.setMode(x, y, false, true, 0)
+	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
+	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
+	cameras.default:setScreenOrigin(0, 1)
+	cameras.default:scaleBy(1, -1)
+	mainmenu.start'settings'
+end
 mainmenu = {
 	options = {
 			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Start editor', 'Settings', 'Credits', 'Exit'},
-			settings = {'Back', 'Fullscreen', 'Screensize'}
+			settings = {'Back', 'Fullscreen', 'Screensize'},
+			resolution = {'Back', '640x360', '800x600', '1024x700', '1280x720', '1680x1050' }
 			},
 	actions = {
 			main = {function () startgame'testmap' end, function () startgame'map1' end,
 					function () startgame'testmap' end, function () end,
 					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
 					function () mainmenu.start'settings' end,
-					function () end,
+					function () mainmenu.state=3 end,
 					function () love.event.quit() end
 					},
-			settings = {function () mainmenu.start'main' end, function () end,
-						function () end,
+			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen();mainmenu.start'settings' end,
+						function () mainmenu.start'resolution' end,
+					},
+			resolution = {function () mainmenu.start'settings' end,
+							function () setRes(640,360) end, function () setRes(800,600) end,
+							function () setRes(1024,700) end, function () setRes(1280,720) end, 
+							function () setRes(1680,1050) end, 
 					}
 			},
 	itemx = 600,
@@ -81,7 +95,10 @@ function mainmenu.update (dt)
 		elseif mainmenu.logox < 50 then
 			mainmenu.logodx = mainmenu.logodx + (50-mainmenu.logox)/10
 		end
+	elseif mainmenu.state==3 then
+		--credits
 	end
+	love.timer.sleep(15)
 end
 
 function mainmenu.draw ()
@@ -107,6 +124,8 @@ function mainmenu.draw ()
 			love.graphics.rectangle(love.draw_fill, 0, 0, love.graphics.getWidth(), love.graphics.getHeight())
 		end
 		--?
+	elseif mainmenu.state==3 then
+		--credits
 	else
 		love.graphics.setColor(0,0,0)
 		love.graphics.print("Not yet implemented... press escape...", 100, 100)
