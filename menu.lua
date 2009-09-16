@@ -1,8 +1,7 @@
 menu = {} --master table
 menu.state = false --menu.state defines what menu or submenu is shown ( see: menu.draw() )
 menu.options = { main = { "Resume", "Restart", "Main menu", "Quit" },
-                 settings = { "Resume", "Fullscreen", "Resolution"  },
-				 res = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} },
+				 --res = { {x = 640, y = 360}, {x = 800, y = 600}, {x = 1024, y = 700}, {x = 1280, y = 720}, {x = 1680, y = 1050} },
 				 load = {} }  --defines the options per menu
 menu.bwidth = 64 --width of a menu button
 menu.bheight = 16 --height of a menu button
@@ -41,77 +40,6 @@ function menu.draw() --decides what state to draw, then draws it
 				menu.drawbutton(menu.options.main[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 0, true)
 			end
 		end
-	end
-	if menu.state == "save" then
-		local height = love.graphics.getHeight()
-		local width = love.graphics.getWidth()
-		local prevcolor = {love.graphics.getColor()}
-		love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-55, height/2-35, 310, 70)
-		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-50, height/2-30, 300, 60)
-		love.graphics.setColor(25, 25, 25)
-		love.graphics.print("Saving is not yet supported", width/2 - 45, height/2)
-	end
-	if menu.state == "load" then
-		--[[love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-55, height/2-35, 310, 70)
-		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-50, height/2-30, 300, 60)
-		love.graphics.setColor(25, 25, 25)
-		love.graphics.print("Loading is not yet supported", width/2 - 45, height/2)]]
-		local numoptions = #menu.options.load
-		local mw = menu.bwidth+12
-		local my = numoptions*menu.bheight+40
-		love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-mw/2-5, height/2-my/2-5, mw+10, my+10)
-		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw, my)
-		for i = 1, numoptions do
-			if i == menu.selectedbutton.load then
-				menu.drawbutton(menu.options.load[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 0, true)
-			else
-				menu.drawbutton(menu.options.load[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 0, true)
-			end
-		end
-
-	end
-	if menu.state == "settings" then
-		local numoptions = #menu.options.settings
-		local mw = menu.bwidth+8
-		local my = numoptions*menu.bheight+32
-		love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-mw/2-5, height/2-my/2-5, mw+18, my+20)
-		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-mw/2, height/2-my/2, mw+8, my+10)
-		for i = 1, numoptions + 1 do
-			if i <= numoptions then
-				if i == menu.selectedbutton.settings then
-					menu.drawbutton(menu.options.settings[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), true, 2, true, 66)
-				else
-					menu.drawbutton(menu.options.settings[i], width/2-menu.bwidth/2, height/2-12-my/2+i*(menu.bheight+4), false, 2, true, 66)
-				end
-			end
-			if i > numoptions then 
-				menu.drawbutton(menu.options.res[menu.selectedres].x .. "x" .. menu.options.res[menu.selectedres].y, width/2-menu.bwidth/2+2, height/2-12-my/2+i*(menu.bheight+4), false, 2, false, 66)
-			end
-		end
-		love.graphics.draw(arrowlimage, width/2-mw/2+4, height/2+my/2-3)
-		love.graphics.draw(arrowrimage, width/2+mw/2+2, height/2+my/2-3)
-	end
-	if menu.state == "credits" then
-		love.graphics.setColor(105, 105, 20)
-		love.graphics.rectangle(2, width/2-55, height/2-65, 310, 130)
-		love.graphics.setColor(175, 175, 50)
-		love.graphics.rectangle(2, width/2-50, height/2-60, 300, 120)
-		love.graphics.setColor(25, 25, 25)
-		love.graphics.print("Bartbes - General coding", width/2 - 45, height/2 - 45)
-		love.graphics.print("Qubodup - Artwork", width/2 - 45, height/2 - 30)
-		love.graphics.print("Osgeld - Editor & artwork", width/2 - 45, height/2 - 15)
-		love.graphics.print("Xcmd - Ideas & testing", width/2 - 45, height/2)
-		love.graphics.print("Appleide - Testing", width/2 - 45, height/2 + 15)
-		love.graphics.print("Robin - Physics, editor & testing", width/2 - 45, height/2 + 30)
-		love.graphics.print("SnakeFace - General coding & artwork", width/2 - 45, height/2 + 45)
 	end
 	love.graphics.setColor(unpack(prevcolor)) --retains original colouring for game elements
 	setCamera(cameras.default) --makes sure the game behind the menu is properly drawn
@@ -152,45 +80,11 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 			end
 		end
 	end
-	if menu.state == "settings" and menu.options.settings[menu.selectedbutton.settings] == "Resolution" then
-		if key == love.key_left then
-			menu.selectedres = menu.selectedres - 1
-			if menu.selectedres < 1 then
-				menu.selectedres = #menu.options.res
-			end
-		end
-		if key == love.key_right then
-			menu.selectedres = menu.selectedres + 1
-			if menu.selectedres > #menu.options.res then
-				menu.selectedres = 1
-			end
-		end
-	end
 	if key == love.key_return then
-		if menu.state == "save" then menu.cleanup()
-		elseif menu.state == "load" then menu.cleanup(); startgame(menu.options.load[menu.selectedbutton.load])
-		elseif menu.state == "credits" then menu.cleanup()
-		elseif menu.state == "settings" then
-			if menu.options.settings[menu.selectedbutton.settings] == "Resolution" then love.graphics.setMode(menu.options.res[menu.selectedres].x, menu.options.res[menu.selectedres].y, false, true, 0)
-				local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-				cameras.default = camera.stretchToResolution(10*aspectratio, 10)
-				setCamera(cameras.default)
-				cameras.default:setScreenOrigin(0, 1)
-				cameras.default:scaleBy(1, -1)
-			elseif menu.options.settings[menu.selectedbutton.settings] == "Fullscreen" then love.graphics.toggleFullscreen()
-			elseif menu.options.settings[menu.selectedbutton.settings] == "Resume" then menu.cleanup()
-			end
-		elseif menu.state == "main" then
-			if menu.options.main[menu.selectedbutton.main] == "Resume" then menu.cleanup()
-			elseif menu.options.main[menu.selectedbutton.main] == "Quit" then love.event.quit()
-			elseif menu.options.main[menu.selectedbutton.main] == "Main menu" then mainmenu.load()
-			elseif menu.options.main[menu.selectedbutton.main] == "Restart" then menu.cleanup(); startgame(game.map._name)
-			elseif menu.options.main[menu.selectedbutton.main] == "Save" then menu.state = "save"
-			elseif menu.options.main[menu.selectedbutton.main] == "Load" then prepareload() ; menu.state = "load"
-			elseif menu.options.main[menu.selectedbutton.main] == "Editor" then menu.cleanup() ; editor.active = not editor.active
-			elseif menu.options.main[menu.selectedbutton.main] == "Settings" then menu.state = "settings"
-			elseif menu.options.main[menu.selectedbutton.main] == "Credits" then menu.state = "credits"
-			end
+		if menu.options.main[menu.selectedbutton.main] == "Resume" then menu.cleanup()
+		elseif menu.options.main[menu.selectedbutton.main] == "Quit" then love.event.quit()
+		elseif menu.options.main[menu.selectedbutton.main] == "Main menu" then menu.cleanup(); mainmenu.load()
+		elseif menu.options.main[menu.selectedbutton.main] == "Restart" then menu.cleanup(); startgame(game.map._name)
 		end
 	end
 	return true --we were in the menu, return true, the game won't parse the keypress any further

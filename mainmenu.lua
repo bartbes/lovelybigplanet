@@ -1,5 +1,5 @@
 function setRes(x, y)
-	love.graphics.setMode(x, y, false, true, 0)
+	love.graphics.setMode(x, y, mainmenu.fullscreen, true, 0)
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
 	cameras.default:setScreenOrigin(0, 1)
@@ -20,7 +20,7 @@ mainmenu = {
 					function () mainmenu.credits.start() end,
 					function () love.event.quit() end
 					},
-			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen();mainmenu.start'settings' end,
+			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen(); mainmenu.fullscreen = true; mainmenu.start'settings' end,
 						function () mainmenu.start'resolution' end,
 					},
 			resolution = {function () mainmenu.start'settings' end,
@@ -72,6 +72,7 @@ mainmenu = {
 			mainmenu.fadeoutcountdown = nil
 		end
 		},
+	fullscreen = false
 	}
 
 function mainmenu.load ()
@@ -213,8 +214,8 @@ function mainmenu.keypressed(key)
 			mainmenu.fadeoutcountdown = mainmenu.fadetime
 		end
 	else
-		if key==love.key_escape then
-			mainmenu.fadeoutcountdown = mainmenu.fadetime
+		if key == love.key_escape then
+			mainmenu.start("main")
 		end
 	end
 end
