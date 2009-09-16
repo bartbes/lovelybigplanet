@@ -1,4 +1,4 @@
-function setRes(x, y)
+local function setRes(x, y)
 	love.graphics.setMode(x, y, mainmenu.fullscreen, true, 0)
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
@@ -6,15 +6,33 @@ function setRes(x, y)
 	cameras.default:scaleBy(1, -1)
 	mainmenu.start'settings'
 end
+local function loadGame()
+	startgame(mainmenu.options.load[mainmenu.selected])
+end
+local function prepareload ()
+	mainmenu.options.load = {'Back'}
+	mainmenu.actions.load = {function () mainmenu.start'main' end}
+	local maps = love.filesystem.enumerate("maps")
+	for i, v in ipairs(maps) do
+		if string.sub(v, 1, 3) ~= 'map' and --can't load campaign scenarios
+					v ~= 'newmap.lua' then --don't show newmap
+			table.insert(mainmenu.options.load, string.sub(v, 1, -5))
+			table.insert(mainmenu.actions.load, loadGame)
+		end
+	end
+	mainmenu.start'load'
+end
+
 mainmenu = {
 	options = {
 			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Start editor', 'Settings', 'Credits', 'Exit'},
 			settings = {'Back', 'Fullscreen', 'Screensize'},
-			resolution = {'Back', '640x360', '800x600', '1024x700', '1280x720', '1680x1050' }
+			resolution = {'Back', '640x360', '800x600', '1024x700', '1280x720', '1680x1050' },
+			load = {'?'}
 			},
 	actions = {
 			main = {function () startgame'testmap' end, function () startgame'map1' end,
-					function () startgame'testmap' end, function () end,
+					function () startgame'testmap' end, prepareload,
 					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
 					function () mainmenu.start'settings' end,
 					function () mainmenu.credits.start() end,
@@ -27,7 +45,8 @@ mainmenu = {
 							function () setRes(640,360) end, function () setRes(800,600) end,
 							function () setRes(1024,700) end, function () setRes(1280,720) end, 
 							function () setRes(1680,1050) end, 
-					}
+					},
+			load = {loadGame}
 			},
 	itemx = 600,
 	logox = -400,
