@@ -17,6 +17,7 @@ resources = {}
 cameras = {}
 cameras.hud = camera.new()
 cameras.editor = camera.new()
+cameras.mainmenu = camera.new()
 
 --in a do-end structure for the local, we do not want to pollute the global environment
 do

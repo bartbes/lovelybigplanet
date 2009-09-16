@@ -7,6 +7,7 @@ local function setRes(x, y)
 	mainmenu.start'settings'
 end
 local function loadGame()
+	mainmenu.unload()
 	startgame(mainmenu.options.load[mainmenu.selected])
 end
 local function prepareload ()
@@ -31,8 +32,8 @@ mainmenu = {
 			load = {'?'}
 			},
 	actions = {
-			main = {function () startgame'testmap' end, function () startgame'map1' end,
-					function () startgame'testmap' end, prepareload,
+			main = {function () mainmenu.unload();startgame'testmap' end, function () mainmenu.unload();startgame'map1' end,
+					function () mainmenu.unload();startgame'testmap' end, prepareload,
 					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
 					function () mainmenu.start'settings' end,
 					function () mainmenu.credits.start() end,
@@ -95,7 +96,7 @@ mainmenu = {
 	}
 
 function mainmenu.load ()
-	setCamera(cameras.hud)
+	setCamera(cameras.mainmenu)
 	mainmenu.start('main', true)
 	love.graphics.setBackgroundColor(255, 255, 255)
 	love.graphics.setLineWidth(2)
@@ -105,11 +106,12 @@ function mainmenu.load ()
 end
 function mainmenu.unload ()
 	love.graphics.setBackgroundColor(0,0,0)
+	setCamera(cameras.hud) --> strangely, I have to do this to fix line width
 	love.graphics.setLineWidth(1)
+	setCamera(cameras.default)
 	mainmenu.active = false
 	love.update = game.update
 	love.draw = game.draw
-	setCamera(cameras.default)
 end
 
 
