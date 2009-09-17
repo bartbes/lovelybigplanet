@@ -4,8 +4,8 @@ function startgame(map, noplay)
 	hud.lvl1 = false
 	hud.lvl2 = false
 	--following needs to be replaced by a state loader
-	love.update = game.update
-	love.draw = game.draw
+	--[[love.update = game.update
+	love.draw = game.draw]]
 	--ok, let's do the stuff we'd normally do in load
 	--we create a world, set gravity, the collision callback, and load the map
 	game.world = love.physics.newWorld(love.graphics.getWidth() * 2 * 30, love.graphics.getHeight() * 2 * 30)
@@ -34,6 +34,7 @@ end
 game = {}
 
 function game.update(dt)
+	console:update()
 	if editor.active then
 		editor.context:update(dt)
 		local x, y = love.mouse.getPosition( )

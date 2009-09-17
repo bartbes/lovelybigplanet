@@ -95,6 +95,7 @@ function hud.draw()
 	end
 	--restore settings, we don't want to impact any other drawing
 	love.graphics.setColor(unpack(col))
+	console:draw()
 	setCamera(cameras.default)
 end
 

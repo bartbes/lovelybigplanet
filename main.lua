@@ -9,6 +9,7 @@ require("hud.lua")
 require("mainmenu.lua")
 require("menu.lua")
 require("save.lua")
+require("libs/console.lua")
 
 dbg = false
 resources = {}
@@ -28,6 +29,8 @@ do
 end
 
 function love.load()
+	console:load()
+	console:setToggleKey(love.key_home)
 	--set it up, mods, colormode, level
 	local mods = love.filesystem.enumerate("mods")
 	for i, v in ipairs(mods) do
@@ -240,18 +243,20 @@ MAP.Mission = "%s"
 end
 
 function love.draw()
-	--temporary, is overwritten
-	love.graphics.print("LovelyBigPlanet.. work in progress", 5, 300)
+	--we should stop overwriting this
+	game.draw()
+	setCamera(cameras.hud)
+	console:draw()
+	setCamera(cameras.default)
 end
 
 function love.update(dt)
-	--again, overwritten
 	game.update(dt)
-	love.timer.sleep(25)
 end
 
-function love.keypressed(key)
+function love.keypressed(key, u)
 	--check some global keys first, if they're not used, pass it on
+	if dbg and console:keypressed(key, u) then return end
 	if mainmenu.active then
 		mainmenu.keypressed(key)
 		return
@@ -270,7 +275,7 @@ function love.keypressed(key)
 		if key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 			dbg = not dbg
 		else
-			game.keypressed(key)
+			game.keypressed(key, u)
 		end
 		if editor.active then
 			--if menu.keypressed(key) then return end
