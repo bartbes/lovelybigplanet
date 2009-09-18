@@ -35,7 +35,7 @@ function rLBP.setProperty(object, property, value)
 	if not object then
 		return error("No object")
 	end
-	local lasts = ""
+	local lasts
 	for s in property:gmatch("[^%.]+") do
 		if lasts then
 			object = object[lasts]
