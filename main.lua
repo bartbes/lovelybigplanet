@@ -42,6 +42,7 @@ end
 function love.load()
 	console:load()
 	console:setToggleKey(love.key_home)
+	console:setQuitFunction(quitgame)
 	log("Starting up LovelyBigPlanet")
 	--set it up, mods, colormode, level
 	log("Loading mods")
