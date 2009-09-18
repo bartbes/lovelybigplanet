@@ -145,7 +145,11 @@ function console:keyreleased(key, u)
 end
 
 function console:print(...)
-	local str = table.concat({...}, "      ")
+	local t = {...}
+	for i, v in pairs(t) do
+		t[i] = tostring(v)
+	end
+	local str = table.concat(t, "      ")
 	for s in str:gmatch("[^\n]+") do
 		table.insert(self.scrollback, s)
 	end
@@ -155,6 +159,7 @@ function console:print(...)
 end
 
 function console:execute(text)
+	text = text:gsub("^=", "return ")
 	table.insert(self.oldcommands, text)
 	if #self.oldcommands == self.oldcommandlength then
 		table.remove(self.oldcommands, 1)
