@@ -28,19 +28,34 @@ do
 	cameras.default:scaleBy(1, -1)
 end
 
+function log(...)
+	console:print(...)
+	print(...)
+	return ...
+end
+
+function quitgame()
+	log("Quitting...\nThanks for playing LovelyBigPlanet!")
+	return love.event.quit()
+end
+
 function love.load()
 	console:load()
 	console:setToggleKey(love.key_home)
+	log("Starting up LovelyBigPlanet")
 	--set it up, mods, colormode, level
+	log("Loading mods")
 	local mods = love.filesystem.enumerate("mods")
 	for i, v in ipairs(mods) do
 		if v:sub(-4, -1) == "lua" then
 			require('mods/'..v)
+			log("Loaded mod " .. v)
 		end
 	end
 	love.graphics.setColorMode(love.color_modulate)
 	if love.filesystem.exists("savegame.dat") then
 		loadsave()
+		log("Loaded save game")
 	--else
 		--return createsave(startgame, "testmap")
 	end
@@ -52,12 +67,16 @@ function love.load()
 		--you need to be able to choose the joystick here
 		activejoystick = 0
 	end
+	if activejoystick then
+		log("Activated joystick control")
+	end
 	love.graphics.setFont(love._vera_ttf, 12)
 	mainmenu.load()
 end
 
 --here it comes, the magic
 function loadmap(name, worlds)
+	log("Loading map " .. name)
 	if not love.filesystem.exists("maps/" .. name .. ".lua") then return false, "FILE " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("maps/" .. name .. ".lua")
 	local env = {}
@@ -80,10 +99,12 @@ function loadmap(name, worlds)
 		env.MAP.Resources[i] = assert(loadresource(v))
 	end
 	env.MAP._name = name
+	log("Loaded map " .. name)
 	return env.MAP
 end
 
 function loadobject(internalname, name, world, x, y, angle, positions)
+	log("Loading object " .. internalname .. " (" .. name .. ")")
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {print=print}
@@ -134,6 +155,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	if name == "player" then
 		env.OBJECT._body:setAngularDamping(150)
 	end
+	log("Loaded object " .. internalname)
 	return env.OBJECT
 end
 
@@ -157,6 +179,7 @@ end
 
 
 function loadresource(name)
+	log("Loading resource " .. name)
 	if resources[name] then return resources[name] end
 	local ftype = ""
 	local fext = ""
@@ -169,11 +192,13 @@ function loadresource(name)
 	--if it's an image, load and return it
 	if ftype == "image" then
 		resources[name] = {name = name, resource = love.graphics.newImage("resources/" .. name .. fext)}
+		log("Loaded resource " .. name .. " (image)")
 		return resources[name]
 	elseif ftype == "music" then
 		resources[name] = {name = name, music = love.audio.newMusic("resources/" .. name .. fext)}
 		resources[name].resource = love.audio.newSource(resources[name].music)
 		resources[name].resource:setLooping(true)
+		log("Loaded resource " .. name .. " (music)")
 		return resources[name]
 	end
 	--FAIL!
@@ -240,6 +265,7 @@ MAP.Mission = "%s"
 		string.gsub(game.map.Mission, "\n", "\\n") or "")
 	love.filesystem.write(f, data)
 	love.filesystem.close(f)
+	log("Saved map to " .. filename)
 end
 
 function love.draw()
@@ -262,7 +288,7 @@ function love.keypressed(key, u)
 		return
 	end
 	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
-		return love.event.quit()
+		return quitgame()
 	elseif key == love.key_escape then
 		if menu.state then
 			menu.cleanup()

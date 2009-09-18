@@ -79,6 +79,7 @@ end
 
 function rLBP.messageBox(msg) --give me a messagebox NOW!
 	if type(msg) ~= "string" then return end
+	log("Message: ", msg)
 	hud.messageBox(msg)
 end
 

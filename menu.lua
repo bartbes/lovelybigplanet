@@ -82,7 +82,7 @@ function menu.keypressed(key) --catches all keypresses and changes the menu disp
 	end
 	if key == love.key_return then
 		if menu.options.main[menu.selectedbutton.main] == "Resume" then menu.cleanup()
-		elseif menu.options.main[menu.selectedbutton.main] == "Quit" then love.event.quit()
+		elseif menu.options.main[menu.selectedbutton.main] == "Quit" then quitgame()
 		elseif menu.options.main[menu.selectedbutton.main] == "Main menu" then menu.cleanup(); mainmenu.load()
 		elseif menu.options.main[menu.selectedbutton.main] == "Restart" then menu.cleanup(); startgame(game.map._name)
 		end

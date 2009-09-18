@@ -37,7 +37,7 @@ mainmenu = {
 					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
 					function () mainmenu.start'settings' end,
 					function () mainmenu.credits.start() end,
-					function () love.event.quit() end
+					function () quitgame() end
 					},
 			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen(); mainmenu.fullscreen = true; mainmenu.start'settings' end,
 						function () mainmenu.start'resolution' end,

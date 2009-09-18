@@ -45,11 +45,12 @@ function console:load()
 	self.oldcommandlength = 10
 	self.oldcommandindex = 0
 	self.fenv = _G
+	self.quitf = love.event.quit
 	function self.printoverride(...)
 		self:print(...)
 	end
 	function self.quitoverride()
-		love.event.quit()
+		self.quitf()
 	end
 	self.mt = {}
 	function self.mt.__index(t, i)
@@ -68,6 +69,10 @@ end
 
 function console:setfenv(t)
 	self.fenv = t
+end
+
+function console:setQuitFunction(f)
+	self.quitf = f
 end
 
 function console:update(dt)
