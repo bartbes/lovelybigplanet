@@ -53,7 +53,7 @@ end
 
 function rLBP.setProperty(object, property, value)
 	object = getObject(object)
-	local lasts = ""
+	local lasts
 	for s in property:gmatch("[^%.]+") do
 		if lasts then
 			object = object[lasts]
