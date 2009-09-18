@@ -15,26 +15,44 @@ local function propertylookup(prop)
 	return prop
 end
 
-function rLBP.getProperty(object, property)
+local function getObject(object, useplayer)
+	if not object and useplayer then object = 'player' end
 	if type(object) ~= "table" then
-		object = game.map.Objects[object or 1]
+		object = game.map.Objects[object]
 	end
 	if not object then
 		return error("No object")
 	end
+	return object
+end
+
+function rLBP.getProperty(object, property)
+	object = getObject(object)
 	for s in property:gmatch("[^%.]+") do
 		object = object[propertylookup(s)]
 	end
 	return object
 end
 
+function rLBP.getX(object)
+	return getObject(object, true)._body:getX()
+end
+function rLBP.getY(object)
+	return getObject(object, true)._body:getY()
+end
+function rLBP.getName(object)
+	return getObject(object, true)._name
+end
+function rLBP.getMass(object)
+	return getObject(object, true)._body:getMass()
+end
+function rLBP.getLayers(object)
+	return table.concat(getObject(object, true)._positions, ', ')
+end
+
+
 function rLBP.setProperty(object, property, value)
-	if type(object) ~= "table" then
-		object = game.map.Objects[object or 1]
-	end
-	if not object then
-		return error("No object")
-	end
+	object = getObject(object)
 	local lasts = ""
 	for s in property:gmatch("[^%.]+") do
 		if lasts then
