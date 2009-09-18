@@ -1,7 +1,7 @@
 --require("editor.lua")
 editor = { update = function() end, mousepressed = function() end, mousereleased = function() end, keypressed = function() end, keyreleased = function() end }
 LoveUI = {}
-require("camera.lua")
+require("libs/camera.lua")
 require("api.lua")
 require("game.lua")
 require("map.lua")
