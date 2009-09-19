@@ -299,7 +299,9 @@ function love.keypressed(key, u)
 			menu.load()
 		end
 	elseif key == love.key_e and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
-		editor.active = not editor.active
+		if editor.allowed then
+			editor.active = not editor.active
+		end
 	else
 		if key == love.key_d and love.keyboard.isDown(love.key_lalt) and love.keyboard.isDown(love.key_lshift) then
 			dbg = not dbg

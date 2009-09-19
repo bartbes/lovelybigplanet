@@ -1,7 +1,7 @@
 require "libs/LoveUI/LoveUI.lua"
 LoveUI.requireall()
 
-editor = { active = false, cursortexture = nil, cursorobject = nil }
+editor = { active = false, cursortexture = nil, cursorobject = nil, allowed = false }
 
 local clr = {255,255,255}
 local function preparebutton(btn)

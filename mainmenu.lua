@@ -7,8 +7,7 @@ local function setRes(x, y)
 	mainmenu.start'settings'
 end
 local function loadGame()
-	mainmenu.unload()
-	startgame(mainmenu.options.load[mainmenu.selected])
+	startplaying(mainmenu.options.load[mainmenu.selected])
 end
 local function prepareload ()
 	mainmenu.options.load = {'Back'}
@@ -24,6 +23,12 @@ local function prepareload ()
 	mainmenu.start'load'
 end
 
+local function startplaying(name)
+	mainmenu.unload()
+	editor.allowed = false
+	startgame(name)
+end
+
 mainmenu = {
 	options = {
 			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Start editor', 'Settings', 'Credits', 'Exit'},
@@ -32,9 +37,9 @@ mainmenu = {
 			load = {'?'}
 			},
 	actions = {
-			main = {function () mainmenu.unload();startgame'testmap' end, function () mainmenu.unload();startgame'map1' end,
-					function () mainmenu.unload();startgame'testmap' end, prepareload,
-					function () mainmenu.unload();startgame('newmap', true);editor.active=true end,
+			main = {function () startplaying'testmap' end, function () startplaying'map1' end,
+					function () startplaying'testmap' end, prepareload,
+					function () startplaying('newmap', true);editor.allowed=true;editor.active=true end,
 					function () mainmenu.start'settings' end,
 					function () mainmenu.credits.start() end,
 					function () quitgame() end
