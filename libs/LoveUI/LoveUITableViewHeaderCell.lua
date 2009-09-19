@@ -35,7 +35,7 @@ function LoveUI.TableViewHeaderCell:display()
 	LoveUI.graphics.setFont(LoveUI.DEFAULT_FONT);
 	LoveUI.graphics.setColor(unpack(self.textColor));
 	LoveUI.graphics.draw(tostring(self.value) or '', 10, self.frame.size.height/2+5);
-	LoveUI.graphics.setColor(unpack(0, 0, 0))
+	LoveUI.graphics.setColor(0, 0, 0)
 	LoveUI.graphics.line(self.frame.size.width, 0, self.frame.size.width, self.frame.size.height)
 end
 
