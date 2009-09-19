@@ -44,6 +44,7 @@ love.filesystem.setIdentity("lovelybigplanet")
 function love.load()
 	console:load()
 	console:setToggleKey(love.key_home)
+	console:setOutputFunction(log)
 	console:setQuitFunction(quitgame)
 	log("Starting up LovelyBigPlanet")
 	--set it up, mods, colormode, level

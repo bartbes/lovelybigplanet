@@ -45,9 +45,10 @@ function console:load()
 	self.oldcommandlength = 10
 	self.oldcommandindex = 0
 	self.fenv = _G
+	self.outf = function(...) self:print(...) end
 	self.quitf = love.event.quit
 	function self.printoverride(...)
-		self:print(...)
+		self.outf(...)
 	end
 	function self.quitoverride()
 		self.quitf()
@@ -65,6 +66,10 @@ function console:load()
 		self.fenv[i] = v
 	end
 	self.env = setmetatable({}, self.mt)
+end
+
+function console:setOutputFunction(f)
+	self.outf = f
 end
 
 function console:setfenv(t)
@@ -170,7 +175,7 @@ function console:execute(text)
 		table.remove(self.oldcommands, 1)
 	end
 	self.oldcommandindex = #self.oldcommands+1
-	self:print("> " .. text)
+	self.outf("> " .. text)
 	local block, err = loadstring(text, "Console input")
 	if not block then
 		self:print(err)
