@@ -176,7 +176,8 @@ if LoveUI==nil then
 	LoveUI.defaultForegroundColor={160, 160, 200};
 	LoveUI.defaultSecondaryColor={0, 0, 128};
 	LoveUI.defaultTextColor={0, 0, 0};
-	LoveUI.defaultSelectColor={50,50,255,92};
+	LoveUI.defaultSelectColor={0,0,0,100};
+	LoveUI.defaultSelectBgColor={255,255,255,40};
 	
 	--Control Events
 	LoveUI.EventDefault=1;
