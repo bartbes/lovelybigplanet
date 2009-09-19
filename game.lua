@@ -157,7 +157,10 @@ function game.draw()
 		if editor.cursortexture and editor.view_settings.hidden and (y > 52 or x > 460) and (editor.view_objects.hidden or (x < 370 or x > 480 or y > 42+42 * #editor.objectbuttons)) then
 			love.graphics.setColor(255, 255, 255, 150)
 			local a = editor.cursorobject._lite and 0 or -editor.cursorobject._body:getAngle()
-			love.graphics.draw(editor.cursortexture.resource, x, y, a, .5)
+			setCamera(cameras.default)
+			local Px, Py = cameras.default:unpos(x, y)
+			love.graphics.draw(editor.cursortexture.resource, Px, Py, a, 1/150)
+			setCamera(cameras.hud)
 			love.graphics.setColor(255, 255, 255, 255)
 		end
 		editor.context:display()
