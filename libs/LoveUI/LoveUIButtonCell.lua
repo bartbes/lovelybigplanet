@@ -19,9 +19,9 @@ end
 
 function LoveUI.ButtonCell:drawImage(frame, view)
 	if self.controlView.enabled then
-		LoveUI.graphics.setColor(self.controlView.backgroundColor)
+		LoveUI.graphics.setColor(unpack(self.controlView.backgroundColor))
 	else
-		LoveUI.graphics.setColor(255, 255, 255)
+		LoveUI.graphics.setColor(unpack(255, 255, 255))
 	end
 	local size=frame.size;
 	
@@ -105,6 +105,6 @@ end
 function LoveUI.ButtonCell:drawTitle(frame, view)
 	local curTitle=self.controlView.value;
 	LoveUI.graphics.setFont(view.font);
-	LoveUI.graphics.setColor(self.controlView.textColor);
+	LoveUI.graphics.setColor(unpack(self.controlView.textColor));
 	LoveUI.graphics.draw(self.controlView.value, frame.size.width/2-view.font:getWidth(self.controlView.value)/2, frame.size.height/2+view.font:getHeight()/2-1)
 end

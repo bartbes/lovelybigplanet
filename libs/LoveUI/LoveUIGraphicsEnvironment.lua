@@ -15,8 +15,8 @@ function LoveUI.GraphicsEnvironment:restore()
 	else
 		LoveUI.graphics.setScissor();
 	end
-	LoveUI.graphics.setColor(self.currentColor);
-	LoveUI.graphics.setBackgroundColor(self.currentBackgroundColor);
+	LoveUI.graphics.setColor(unpack(self.currentColor));
+	LoveUI.graphics.setBackgroundColor(unpack(self.currentBackgroundColor));
 	if self.currentFont then
 		LoveUI.graphics.setFont(self.currentFont);
 	end
@@ -37,8 +37,8 @@ end
 
 function LoveUI.GraphicsEnvironment:store()
 	self.currentScissorFrame=LoveUI.Rect:new(LoveUI.graphics.getScissor())
-	self.currentColor=LoveUI.graphics.getColor()
-	self.currentBackgroundColor=LoveUI.graphics.getBackgroundColor()
+	self.currentColor={LoveUI.graphics.getColor()}
+	self.currentBackgroundColor={LoveUI.graphics.getBackgroundColor()}
 	self.currentFont=LoveUI.graphics.getFont()
 	self.currentLineWidth=LoveUI.graphics.getLineWidth()
 	self.currentLineStyle=LoveUI.graphics.getLineStyle()

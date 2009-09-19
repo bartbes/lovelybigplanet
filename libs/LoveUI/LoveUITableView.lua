@@ -51,7 +51,7 @@ function LoveUI.TableView:init(frame, datasource, ...)
 		function headerView.display(hself)	
 			if self.opaque then
 				local size=self.frame.size;
-				LoveUI.graphics.setColor(hself.backgroundColor)
+				LoveUI.graphics.setColor(unpack(hself.backgroundColor))
 				LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
 			end
 			local frame=hself.frame;
@@ -214,7 +214,7 @@ function LoveUI.TableView:reloadData()
 						if self.selectedIndex==j then
 							currentColor=self.selectColor;
 						end
-						LoveUI.graphics.setColor(currentColor)
+						LoveUI.graphics.setColor(unpack(currentColor))
 						LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
 					end
 				end

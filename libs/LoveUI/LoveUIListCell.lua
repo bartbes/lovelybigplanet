@@ -19,13 +19,13 @@ function LoveUI.ListCell:display()
 	LoveUI.graphics.setFont(LoveUI.DEFAULT_FONT);
 	if self.selected then
 		if self.enabled then
-			LoveUI.graphics.setColor(self.listView.selectColor);
+			LoveUI.graphics.setColor(unpack(self.listView.selectColor));
 		else
-			LoveUI.graphics.setColor(50,50,50,32);
+			LoveUI.graphics.setColor(unpack(50,50,50,32));
 		end
 		LoveUI.graphics.rectangle(2, 0,0,self.frame.size:get())
 	end
-	LoveUI.graphics.setColor(self.textColor);
+	LoveUI.graphics.setColor(unpack(self.textColor));
 	LoveUI.graphics.draw(tostring(self.value) or '', 10, 20);
 end
 

@@ -60,9 +60,9 @@ if LoveUI==nil then
 	
 	local lg, lm=love.graphics, love.mouse
 	--The following code is for emulating pushMatrix/Translate/popMatrix
-	LoveUI.graphics.draw=function(subject, x, y, ...) lg.draw(subject, x + lo.x, y+ lo.y, ...) end
-	LoveUI.graphics.drawf=function(subject, x, y, ...) lg.drawf(subject, x + lo.x, y+ lo.y, ...) end
-	LoveUI.graphics.draws=function(subject, x, y, ...) lg.draws(subject, x + lo.x, y+ lo.y, ...) end
+	LoveUI.graphics.draw=function(subject, x, y, ...) if type(subject) == "string" then lg.print(subject, x + lo.x, y + lo.y, ...) else lg.draw(subject, x + lo.x, y+ lo.y, ...) end end
+	LoveUI.graphics.drawf=function(subject, x, y, ...) lg.printf(subject, x + lo.x, y+ lo.y, ...) end
+	LoveUI.graphics.draws=function(subject, x, y, ...) lg.prints(subject, x + lo.x, y+ lo.y, ...) end
 	LoveUI.graphics.point=function(x, y) lg.point( x + lo.x, y+ lo.y) end
 	LoveUI.graphics.line=function(x1, y1, x2, y2) lg.line(x1 + lo.x, y1+ lo.y, x2 + lo.x, y2+ lo.y) end
 	LoveUI.graphics.rectangle=function(t, x, y, w, h) lg.rectangle(t, x + lo.x, y+ lo.y, w, h) end
@@ -166,17 +166,17 @@ if LoveUI==nil then
 	LoveUI.ASCENDING=1;
 	LoveUI.DESCENDING=-1;
 	
-	LoveUI.DEFAULT_FONT=LoveUI.graphics.newFont(love.default_font, 12)
-	LoveUI.SMALL_FONT=LoveUI.graphics.newFont(love.default_font, 10)
+	LoveUI.DEFAULT_FONT=LoveUI.graphics.newFont(love._vera_ttf, 12)
+	LoveUI.SMALL_FONT=LoveUI.graphics.newFont(love._vera_ttf, 10)
 	
 	
 	
-	LoveUI.defaultBackgroundColor=LoveUI.graphics.newColor(255, 255, 255);
-	LoveUI.defaultMetalColor=LoveUI.graphics.newColor(192, 192, 192);
-	LoveUI.defaultForegroundColor=LoveUI.graphics.newColor(160, 160, 200);
-	LoveUI.defaultSecondaryColor=LoveUI.graphics.newColor(0, 0, 128);
-	LoveUI.defaultTextColor=LoveUI.graphics.newColor(0, 0, 0);
-	LoveUI.defaultSelectColor=LoveUI.graphics.newColor(50,50,255,92);
+	LoveUI.defaultBackgroundColor={255, 255, 255};
+	LoveUI.defaultMetalColor={192, 192, 192};
+	LoveUI.defaultForegroundColor={160, 160, 200};
+	LoveUI.defaultSecondaryColor={0, 0, 128};
+	LoveUI.defaultTextColor={0, 0, 0};
+	LoveUI.defaultSelectColor={50,50,255,92};
 	
 	--Control Events
 	LoveUI.EventDefault=1;
@@ -199,7 +199,7 @@ if LoveUI==nil then
 	end
 	
 	LoveUI.require=function(fileName)
-		love.filesystem.require(LoveUI.PATH.."/"..fileName);
+		require(LoveUI.PATH.."/"..fileName);
 	end
 	
 	LoveUI.copy=function(aTable)
@@ -212,15 +212,15 @@ if LoveUI==nil then
 	
 	LoveUI.requireall=function()
 		local dir=LoveUI.PATH;
-		love.filesystem.require(dir.."/LoveUIContext.lua");
-		love.filesystem.require(dir.."/LoveUIClipView.lua");
-		love.filesystem.require(dir.."/LoveUILabel.lua");
-		love.filesystem.require(dir.."/LoveUITextfield.lua");
-		love.filesystem.require(dir.."/LoveUIButton.lua");
-		love.filesystem.require(dir.."/LoveUIScrollView.lua");
-		love.filesystem.require(dir.."/LoveUIListView.lua");
-		love.filesystem.require(dir.."/LoveUITextView.lua");
-		love.filesystem.require(dir.."/LoveUITableView.lua");
+		require(dir.."/LoveUIContext.lua");
+		require(dir.."/LoveUIClipView.lua");
+		require(dir.."/LoveUILabel.lua");
+		require(dir.."/LoveUITextfield.lua");
+		require(dir.."/LoveUIButton.lua");
+		require(dir.."/LoveUIScrollView.lua");
+		require(dir.."/LoveUIListView.lua");
+		require(dir.."/LoveUITextView.lua");
+		require(dir.."/LoveUITableView.lua");
 	end
 	
 	LoveUI.pushMatrix = function()
@@ -243,7 +243,7 @@ if LoveUI==nil then
 	end
 	
 	if class==nil then
-		love.filesystem.require(LoveUI.PATH.."/class.lua");
+		require(LoveUI.PATH.."/class.lua");
 	end
 	
 	LoveUI.require("LoveUIStack.lua");

@@ -10,7 +10,7 @@ function LoveUI.TextView:init(frame, contentSize, ...)
 	self.contentView.opaque=true
 	self.contentView.display=function(view)
 		love.graphics.setFont(LoveUI.DEFAULT_FONT)
-		love.graphics.setColor(LoveUI.defaultTextColor);
+		love.graphics.setColor(unpack(LoveUI.defaultTextColor));
 		LoveUI.graphics.drawf(self.value, 10, 20, contentSize.width-30);
 	end
 	self.scrollView=LoveUI.ScrollView:new(LoveUI.Rect:new(0,0,frame.size:get()), contentSize);

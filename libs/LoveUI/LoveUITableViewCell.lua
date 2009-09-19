@@ -14,6 +14,6 @@ end
 function LoveUI.TableViewCell:display()
 	LoveUI.View.display(self);
 	LoveUI.graphics.setFont(LoveUI.DEFAULT_FONT);
-	LoveUI.graphics.setColor(self.textColor);
+	LoveUI.graphics.setColor(unpack(self.textColor));
 	LoveUI.graphics.draw(tostring(self.value) or '', 10, self.frame.size.height/2+LoveUI.DEFAULT_FONT:getHeight()/2-2);
 end

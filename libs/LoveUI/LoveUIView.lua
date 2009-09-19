@@ -46,7 +46,7 @@ function LoveUI.View:display()
 	--if self.class.className()=="Button" then error("b") end
 	if self.opaque then
 		local size=self.frame.size;
-		LoveUI.graphics.setColor(self.backgroundColor)
+		LoveUI.graphics.setColor(unpack(self.backgroundColor))
 		LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
 	end
 end
@@ -142,7 +142,7 @@ end
 function LoveUI.View:postDisplay()
 	local size=self.frame.size;
 	if self.tabAccessible and self.context.firstResponder == self then
-		LoveUI.graphics.setColor(LoveUI.defaultSelectColor)
+		LoveUI.graphics.setColor(unpack(LoveUI.defaultSelectColor))
 		LoveUI.graphics.setLine(4)
 		LoveUI.graphics.rectangle(1, self.frame.origin.x+1, self.frame.origin.y+1 , size.width-2, size.height-2)
 		--LoveUI.graphics.rectangle(1, 1, 1 , size.width-2, size.height-2)

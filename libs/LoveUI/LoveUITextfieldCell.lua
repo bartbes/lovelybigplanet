@@ -89,7 +89,7 @@ function LoveUI.TextfieldCell:insertText(text, sender)
 end
 
 function LoveUI.TextfieldCell:drawImage(frame, view)
-	LoveUI.graphics.setColor(self.controlView.backgroundColor)
+	LoveUI.graphics.setColor(unpack(self.controlView.backgroundColor))
 	local size=frame.size;
 	
 	if view.opaque then
@@ -274,7 +274,7 @@ end
 function LoveUI.TextfieldCell:drawText(frame, view)
 	self.value=tostring(self.value);
 	LoveUI.graphics.setFont(view.font);
-	LoveUI.graphics.setColor(self.controlView.textColor);
+	LoveUI.graphics.setColor(unpack(self.controlView.textColor));
 	LoveUI.graphics.draw((self.value or ''), self.cushion-self.offset, frame.size.height/2+5)
 end
 
@@ -285,12 +285,12 @@ function LoveUI.TextfieldCell:drawSelection(frame, view)
 		local xloc=view.font:getWidth(string.sub(self.value, 1, self.selectStart))+self.cushion-self.offset
 		if self.selectLength==0 then
 			if self.showCursor and view.isFirstResponder then
-				LoveUI.graphics.setColor(self.controlView.textColor)
+				LoveUI.graphics.setColor(unpack(self.controlView.textColor))
 				LoveUI.graphics.line(xloc, 3,xloc ,frame.size.height-3)
 			end
 			
 		else
-			LoveUI.graphics.setColor(self.controlView.selectColor) --select rect color
+			LoveUI.graphics.setColor(unpack(self.controlView.selectColor)) --select rect color
 			if self.selectLength>0 then
 				LoveUI.graphics.rectangle(love.draw_fill, xloc, 3, view.font:getWidth(string.sub(self.value,self.selectStart+1,self.selectStart+self.selectLength)) ,frame.size.height-6)
 			else

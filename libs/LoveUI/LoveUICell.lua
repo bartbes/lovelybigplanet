@@ -5,7 +5,7 @@ function LoveUI.Cell:init(value, ...)
 	-- e.g local o=LoveUI.Object:alloc():init();
 	self.value=value;
 	
-	self.backgroundColor=LoveUI.graphics.newColor(255, 255, 255);
+	self.backgroundColor={255, 255, 255};
 	
 	self.enabled=true;
 	

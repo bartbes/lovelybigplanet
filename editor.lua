@@ -3,7 +3,7 @@ LoveUI.requireall()
 
 editor = { active = false, cursortexture = nil, cursorobject = nil }
 
-local clr = love.graphics.newColor(255,255,255)
+local clr = {255,255,255}
 local function preparebutton(btn)
 	btn.opaque = false
 	btn.textColor = clr
