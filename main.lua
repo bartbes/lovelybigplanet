@@ -39,6 +39,8 @@ function quitgame()
 	return love.event.quit()
 end
 
+love.filesystem.setIdentity("lovelybigplanet")
+
 function love.load()
 	console:load()
 	console:setToggleKey(love.key_home)
@@ -235,13 +237,13 @@ end
 
 function generatemap(filename)
 	if not love.filesystem.exists("PLACEHOLDER") then
-		local f = love.filesystem.newFile("PLACEHOLDER", love.file_write)
-		love.filesystem.open(f)
-		love.filesystem.close(f)
+		local f = love.filesystem.newFile("PLACEHOLDER")
+		f:open(love.file_write)
+		f:close()
 		love.filesystem.mkdir("maps")
 	end
-	local f = love.filesystem.newFile("maps/" .. filename .. ".lua", love.file_write)
-	love.filesystem.open(f)
+	local f = love.filesystem.newFile("maps/" .. filename .. ".lua")
+	f:open(love.file_write)
 	local data = string.format(
 [[
 MAP.Name = "%s"
@@ -251,7 +253,7 @@ MAP.Resources = %s
 MAP.BackgroundScale = { x = %f, y = %f }
 MAP.Objects = %s
 MAP.Finish = { x = %f, y = %f, position = %d }
-MAP.Mission = "%s"
+MAP.Mission = %s
 ]],
 		game.map.Name,
 		game.map.Creator,
@@ -263,9 +265,9 @@ MAP.Mission = "%s"
 		game.map.Finish.x,
 		game.map.Finish.y,
 		game.map.Finish.position,
-		string.gsub(game.map.Mission, "\n", "\\n") or "")
-	love.filesystem.write(f, data)
-	love.filesystem.close(f)
+		string.format("%q", game.map.Mission or ''))
+	f:write(data)
+	f:close()
 	log("Saved map to " .. filename)
 end
 
