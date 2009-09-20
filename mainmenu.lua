@@ -1,11 +1,3 @@
-local function setRes(x, y)
-	love.graphics.setMode(x, y, mainmenu.fullscreen, true, 0)
-	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
-	cameras.default:setScreenOrigin(0, 1)
-	cameras.default:scaleBy(1, -1)
-	mainmenu.start'settings'
-end
 local function loadGame()
 	startplaying(mainmenu.options.load[mainmenu.selected])
 end
@@ -29,11 +21,12 @@ local function startplaying(name)
 	startgame(name)
 end
 
+
 mainmenu = {
 	options = {
 			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Start editor', 'Settings', 'Credits', 'Exit'},
 			settings = {'Back', 'Fullscreen', 'Screensize'},
-			resolution = {'Back', '640x360', '800x600', '1024x700', '1280x720', '1680x1050' },
+			resolution = {'Back', },
 			load = {'?'}
 			},
 	actions = {
@@ -47,11 +40,7 @@ mainmenu = {
 			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen(); mainmenu.fullscreen = true; mainmenu.start'settings' end,
 						function () mainmenu.start'resolution' end,
 					},
-			resolution = {function () mainmenu.start'settings' end,
-							function () setRes(640,360) end, function () setRes(800,600) end,
-							function () setRes(1024,700) end, function () setRes(1280,720) end, 
-							function () setRes(1680,1050) end, 
-					},
+			resolution = {function () mainmenu.start'settings' end, },
 			load = {loadGame}
 			},
 	itemx = 600,
@@ -244,4 +233,17 @@ function mainmenu.keypressed(key)
 			mainmenu.start("main")
 		end
 	end
+end
+
+local function setRes(x, y)
+	love.graphics.setMode(x, y, mainmenu.fullscreen, true, 0)
+	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
+	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
+	cameras.default:setScreenOrigin(0, 1)
+	cameras.default:scaleBy(1, -1)
+	mainmenu.start'settings'
+end
+for i,mode in ipairs(love.graphics.getModes()) do
+	table.insert(mainmenu.options.resolution, mode.width .. 'x' .. mode.height)
+	table.insert(mainmenu.actions.resolution, function () setRes(mode.width, mode.height) end)
 end
