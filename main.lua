@@ -35,13 +35,22 @@ function log(...)
 end
 
 function quitgame()
+	log("Saving...")
+	save.createsave(startgame, "testmap")
 	log("Quitting...\nThanks for playing LovelyBigPlanet!")
 	return love.event.quit()
 end
 
-love.filesystem.setIdentity("lovelybigplanet")
+function setRes(w, h, fs)
+	love.graphics.setMode(w, h, fs, 0)
+	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
+	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
+	cameras.default:setScreenOrigin(0, 1)
+	cameras.default:scaleBy(1, -1)
+end
 
 function love.load()
+	love.filesystem.setIdentity("lovelybigplanet")
 	console:load()
 	console:setToggleKey(love.key_home)
 	console:setOutputFunction(log)
@@ -58,11 +67,14 @@ function love.load()
 	end
 	love.graphics.setColorMode(love.color_modulate)
 	if love.filesystem.exists("savegame.dat") then
-		loadsave()
+		local savedata = save.loadsave()
+		setRes(savedata.width, savedata.height, savedata.fullscreen)
+		mainmenu.fullscreen = savedata.fullscreen
 		log("Loaded save game")
-	--else
-		--return createsave(startgame, "testmap")
+	else
+		setRes(1280, 720, false)
 	end
+	love.graphics.setCaption("LovelyBigPlanet")
 	local njoysticks = love.joystick.getNumJoysticks()
 	if njoysticks == 1 then
 		activejoystick = 0

@@ -1,27 +1,22 @@
 save = {}
 
-local originalkeypressed
-local originalupdate
-local originaldraw
+local savedatamockup = [[
+width = %d
+height = %d
+fullscreen = %s
+]]
 
-function createsave(onend, ...)
-	originalupdate = love.update
-	love.update = save.update
-	originaldraw = love.draw
-	love.draw = save.draw
-	originalkeypressed = love.keypressed
-	love.keypressed = save.keypressed
+function save.createsave(onend, ...)
+	local f = love.filesystem.newFile("savegame.dat")
+	f:open(love.file_write)
+	f:write(savedatamockup:format(love.graphics.getWindowWidth(), love.graphics.getWindowHeight(), tostring(mainmenu.fullscreen)))
+	f:close()
 end
 
-function loadsave()
-	love.filesystem.require("savegame.dat")
+function save.loadsave()
+	local savedata = {}
+	local f = love.filesystem.load("savegame.dat")
+	setfenv(f, savedata)()
+	return savedata
 end
 
-function save.update(dt)
-end
-
-function save.draw()
-end
-
-function save.keypressed(key)
-end

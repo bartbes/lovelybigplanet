@@ -235,15 +235,8 @@ function mainmenu.keypressed(key)
 	end
 end
 
-local function setRes(x, y)
-	love.graphics.setMode(x, y, mainmenu.fullscreen, true, 0)
-	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
-	cameras.default:setScreenOrigin(0, 1)
-	cameras.default:scaleBy(1, -1)
-	mainmenu.start'settings'
-end
+
 for i,mode in ipairs(love.graphics.getModes()) do
 	table.insert(mainmenu.options.resolution, mode.width .. 'x' .. mode.height)
-	table.insert(mainmenu.actions.resolution, function () setRes(mode.width, mode.height) end)
+	table.insert(mainmenu.actions.resolution, function () setRes(mode.width, mode.height, mainmenu.fullscreen); mainmenu.start "settings" end)
 end
