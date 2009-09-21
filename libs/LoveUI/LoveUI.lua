@@ -101,7 +101,6 @@ if LoveUI==nil then
 			
 		
 	
-	
 	function LoveUI.error(message, level)
 		-- custom error function
 		-- if level is 1, then console will show the function that called LoveUI.error
@@ -168,8 +167,6 @@ if LoveUI==nil then
 	
 	LoveUI.DEFAULT_FONT=LoveUI.graphics.newFont(love._vera_ttf, 12)
 	LoveUI.SMALL_FONT=LoveUI.graphics.newFont(love._vera_ttf, 10)
-	
-	
 	
 	LoveUI.defaultBackgroundColor={255, 255, 255};
 	LoveUI.defaultMetalColor={192, 192, 192};
@@ -255,4 +252,3 @@ else
 	LoveUI={}
 	LoveUI.version=version
 end
-
