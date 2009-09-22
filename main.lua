@@ -1,35 +1,9 @@
-require("editor.lua")
---editor = { update = function() end, mousepressed = function() end, mousereleased = function() end, keypressed = function() end, keyreleased = function() end }
---LoveUI = {}
-require("libs/camera.lua")
-require("api.lua")
-require("game.lua")
-require("map.lua")
-require("hud.lua")
-require("mainmenu.lua")
-require("menu.lua")
 require("save.lua")
-require("libs/console.lua")
-
 dbg = false
 resources = {}
 
---create the cameras
-cameras = {}
-cameras.hud = camera.new()
-cameras.editor = camera.new()
-cameras.mainmenu = camera.new()
-
---in a do-end structure for the local, we do not want to pollute the global environment
-do
-	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
-	cameras.default:setScreenOrigin(0, 1)
-	cameras.default:scaleBy(1, -1)
-end
-
 function log(...)
-	console:print(...)
+	if console then console:print(...) end
 	print(...)
 	return ...
 end
@@ -44,17 +18,16 @@ end
 function setRes(w, h, fs)
 	love.graphics.setMode(w, h, fs, 0)
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
+	if cameras then
 	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
 	cameras.default:setScreenOrigin(0, 1)
 	cameras.default:scaleBy(1, -1)
+	end
 end
 
 function love.load()
+	require("mainmenu.lua")
 	love.filesystem.setIdentity("lovelybigplanet")
-	console:load()
-	console:setToggleKey(love.key_home)
-	console:setOutputFunction(log)
-	console:setQuitFunction(quitgame)
 	log("Starting up LovelyBigPlanet")
 	--set it up, mods, colormode, level
 	log("Loading mods")
@@ -65,7 +38,6 @@ function love.load()
 			log("Loaded mod " .. v)
 		end
 	end
-	love.graphics.setColorMode(love.color_modulate)
 	if love.filesystem.exists("savegame.dat") then
 		local savedata = save.loadsave()
 		setRes(savedata.width, savedata.height, savedata.fullscreen)
@@ -74,7 +46,33 @@ function love.load()
 	else
 		setRes(1280, 720, false)
 	end
+	love.graphics.setColorMode(love.color_modulate)
+
 	love.graphics.setCaption("LovelyBigPlanet")
+	require("editor.lua")
+	require("api.lua")
+	require("game.lua")
+	require("map.lua")
+	require("hud.lua")
+	require("menu.lua")
+	require("libs/console.lua")
+	require("libs/camera.lua")
+	--create the cameras
+	cameras = {}
+	cameras.hud = camera.new()
+	cameras.mainmenu = camera.new()
+	cameras.default = camera.new()
+	--in a do-end structure for the local, we do not want to pollute the global environment
+	do
+		local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
+		cameras.default = camera.stretchToResolution(10*aspectratio, 10)
+		cameras.default:setScreenOrigin(0, 1)
+		cameras.default:scaleBy(1, -1)
+	end
+	console:load()
+	console:setToggleKey(love.key_home)
+	console:setOutputFunction(log)
+	console:setQuitFunction(quitgame)
 	local njoysticks = love.joystick.getNumJoysticks()
 	if njoysticks == 1 then
 		activejoystick = 0
@@ -118,6 +116,7 @@ function loadmap(name, worlds)
 	log("Loaded map " .. name)
 	return env.MAP
 end
+
 
 function loadobject(internalname, name, world, x, y, angle, positions)
 	log("Loading object " .. internalname .. " (" .. name .. ")")
