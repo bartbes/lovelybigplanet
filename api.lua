@@ -54,7 +54,7 @@ end
 
 
 function rLBP.setProperty(object, property, value)
-	object = rLBP.getObject(object)
+	object = game.map.Objects
 	local lasts
 	for s in property:gmatch("[^%.]+") do
 		if lasts then
