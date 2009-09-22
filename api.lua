@@ -1,4 +1,5 @@
 LBP = {}
+CustomCommands = {}
 local rLBP = {}
 
 local replaceprops = {
@@ -121,7 +122,7 @@ end
 
 local mt = {}
 function mt:__index(i)
-	return rLBP[i]
+	return rLBP[i] or CustomCommands[i]
 end
 
 function mt:__newindex(i, v)
