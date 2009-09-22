@@ -1,4 +1,5 @@
 LBP = {}
+MOD = {}
 CustomCommands = {}
 local rLBP = {}
 
@@ -129,4 +130,14 @@ function mt:__newindex(i, v)
 	error("[GENERAL PROTECTION ERROR]:\nAPI OVERWRITE DETECTED\nACTION PROHIBITED")
 end
 
+local MOD_mt = {}
+function MOD_mt:__index(i)
+	return CustomCommands[i] or rLBP[i]
+end
+
+function MOD_mt:__newindex(i, v)
+	error("[GENERAL PROTECTION ERROR]:\nAPI OVERWRITE DETECTED\nACTION PROHIBITED")
+end
+
 setmetatable(LBP, mt)
+setmetatable(MOD, MOD_mt)
