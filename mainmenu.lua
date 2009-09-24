@@ -24,14 +24,14 @@ end
 
 mainmenu = {
 	options = {
-			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Start editor', 'Settings', 'Credits', 'Exit'},
+			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Marketplace', 'Start editor', 'Settings', 'Credits', 'Exit'},
 			settings = {'Back', 'Fullscreen', 'Screensize'},
 			resolution = {'Back', },
 			load = {'?'}
 			},
 	actions = {
 			main = {function () startplaying'testmap' end, function () startplaying'map1' end,
-					function () startplaying'testmap' end, prepareload,
+					function () startplaying'testmap' end, prepareload, function () mainmenu.unload() ;marketplace.load() end, 
 					function () startplaying('newmap', true);editor.allowed=true;editor.active=true end,
 					function () mainmenu.start'settings' end,
 					function () mainmenu.credits.start() end,

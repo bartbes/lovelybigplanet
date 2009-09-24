@@ -34,6 +34,8 @@ end
 game = {}
 
 function game.update(dt)
+	if marketplace.active then marketplace.update(dt) return end
+	if mainmenu.active then mainmenu.update(dt) return end
 	console:update()
 	if editor.active then
 		editor.context:update(dt)
@@ -124,6 +126,8 @@ function game.update(dt)
 end
 
 function game.draw()
+	if marketplace.active then marketplace.draw() return end
+	if mainmenu.active then mainmenu.draw() return end
 	--draw the background, of course
 	love.graphics.draw(game.map.Resources.background.resource, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
 	--ask the map to draw each layer, usually done using the standard functions

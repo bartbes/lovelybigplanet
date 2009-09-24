@@ -55,13 +55,16 @@ function love.load()
 	require("map.lua")
 	require("hud.lua")
 	require("menu.lua")
+	require("marketplace.lua")
 	require("libs/console.lua")
 	require("libs/camera.lua")
 	--create the cameras
-	cameras = {}
-	cameras.hud = camera.new()
-	cameras.mainmenu = camera.new()
-	cameras.default = camera.new()
+	cameras = {
+		hud = camera.new(),
+		mainmenu = camera.new(),
+		default = camera.new(),
+		marketplace = camera.new(),
+	}
 	--in a do-end structure for the local, we do not want to pollute the global environment
 	do
 		local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
@@ -301,6 +304,9 @@ function love.keypressed(key, u)
 	if mainmenu.active then
 		mainmenu.keypressed(key)
 		return
+	end
+	if marketplace.active then
+		marketplace.keypressed(key)
 	end
 	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		return quitgame()
