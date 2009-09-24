@@ -349,6 +349,9 @@ function love.keyreleased(key)
 	if editor.active then
 		editor.context:keyEvent(key, editor.context.keyUp)
 	end
+	if marketplace.active then
+		marketplace.context:keyEvent(key, editor.context.keyUp)
+	end
 end
 
 function love.joystickpressed(j, button)
@@ -367,10 +370,12 @@ end
 
 function love.mousepressed(x, y, button)
 	editor.mousepressed(x, y, button)
+	marketplace.mousepressed(x, y, button)
 end
 
 function love.mousereleased(x, y, button)
 	editor.mousereleased(x, y, button)
+	marketplace.mousereleased(x, y, button)
 end
  
 --camera.lateInit()
