@@ -307,6 +307,7 @@ function love.keypressed(key, u)
 	end
 	if marketplace.active then
 		marketplace.keypressed(key)
+		return
 	end
 	if key == love.key_q and (not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell) then
 		return quitgame()
