@@ -1,6 +1,13 @@
+local function startplaying(name)
+	mainmenu.unload()
+	editor.allowed = false
+	startgame(name)
+end
+
 local function loadGame()
 	startplaying(mainmenu.options.load[mainmenu.selected])
 end
+
 local function prepareload ()
 	mainmenu.options.load = {'Back'}
 	mainmenu.actions.load = {function () mainmenu.start'main' end}
@@ -13,12 +20,6 @@ local function prepareload ()
 		end
 	end
 	mainmenu.start'load'
-end
-
-local function startplaying(name)
-	mainmenu.unload()
-	editor.allowed = false
-	startgame(name)
 end
 
 
