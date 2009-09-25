@@ -24,18 +24,21 @@ end
 
 mainmenu = {
 	options = {
-			main = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Marketplace', 'Start editor', 'Settings', 'Credits', 'Exit'},
+			main = {'Play', 'Share', 'Edit', 'Settings', 'Credits', 'Exit'},
+			play = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Back'},
 			settings = {'Back', 'Fullscreen', 'Screensize'},
 			resolution = {'Back', },
 			load = {'?'}
 			},
 	actions = {
-			main = {function () startplaying'testmap' end, function () startplaying'map1' end,
-					function () startplaying'testmap' end, prepareload, function () mainmenu.unload() ;marketplace.load() end, 
+			main = {function () mainmenu.start'play' end, function () mainmenu.unload() ;marketplace.load() end, 
 					function () startplaying('newmap', true);editor.allowed=true;editor.active=true end,
 					function () mainmenu.start'settings' end,
 					function () mainmenu.credits.start() end,
 					function () quitgame() end
+					},
+			play = {function () startplaying'testmap' end, function () startplaying'map1' end,
+					function () startplaying'testmap' end, prepareload, function () mainmenu.start'main' end
 					},
 			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen(); mainmenu.fullscreen = true; mainmenu.start'settings' end,
 						function () mainmenu.start'resolution' end,
