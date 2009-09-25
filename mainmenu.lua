@@ -9,8 +9,8 @@ local function loadGame()
 end
 
 local function prepareload ()
-	mainmenu.options.load = {'Back'}
-	mainmenu.actions.load = {function () mainmenu.start'main' end}
+	mainmenu.options.load = {}
+	mainmenu.actions.load = {}
 	local maps = love.filesystem.enumerate("maps")
 	for i, v in ipairs(maps) do
 		if 		v:sub(-4, -1) == ".lua" and --only load .lua files
@@ -20,6 +20,8 @@ local function prepareload ()
 			table.insert(mainmenu.actions.load, loadGame)
 		end
 	end
+	table.insert(mainmenu.options.load, 'Back')
+	table.insert(mainmenu.actions.load, function () mainmenu.start'play' end)
 	mainmenu.start'load'
 end
 
@@ -28,7 +30,7 @@ mainmenu = {
 	options = {
 			main = {'Play', 'Share', 'Edit', 'Settings', 'Credits', 'Exit'},
 			play = {'Start game', 'Start campaign', 'Start tutorial', 'Load game', 'Back'},
-			settings = {'Back', 'Fullscreen', 'Screensize'},
+			settings = {'Screensize', 'Fullscreen', 'Back', },
 			resolution = {'Back', },
 			load = {'?'}
 			},
@@ -42,8 +44,8 @@ mainmenu = {
 			play = {function () startplaying'testmap' end, function () startplaying'map1' end,
 					function () startplaying'testmap' end, prepareload, function () mainmenu.start'main' end
 					},
-			settings = {function () mainmenu.start'main' end, function () love.graphics.toggleFullscreen(); mainmenu.fullscreen = true; mainmenu.start'settings' end,
-						function () mainmenu.start'resolution' end,
+			settings = {function () mainmenu.start'resolution' end, function () love.graphics.toggleFullscreen(); mainmenu.fullscreen = true; mainmenu.start'settings' end,
+						function () mainmenu.start'main' end,
 					},
 			resolution = {function () mainmenu.start'settings' end, },
 			load = {loadGame}
@@ -59,10 +61,12 @@ mainmenu = {
 		mainmenu.ys = {}
 		mainmenu.y_tos = {}
 		mainmenu.lines = 900
-		for i,v in ipairs(mainmenu.options[new]) do
+		local n = #mainmenu.options[new]
+		for i=1,n do
 			mainmenu.ys[i] = -10
 			mainmenu.y_tos[i] = i*20+180
 		end
+		mainmenu.y_tos[n] = n*20+183
 		mainmenu.selected = 1
 		mainmenu.state = 1
 		mainmenu.fadeoutcountdown = nil
@@ -242,6 +246,6 @@ end
 
 
 for i,mode in ipairs(love.graphics.getModes()) do
-	table.insert(mainmenu.options.resolution, mode.width .. 'x' .. mode.height)
-	table.insert(mainmenu.actions.resolution, function () setRes(mode.width, mode.height, mainmenu.fullscreen); mainmenu.start "settings" end)
+	table.insert(mainmenu.options.resolution, 1, mode.width .. 'x' .. mode.height)
+	table.insert(mainmenu.actions.resolution, 1, function () setRes(mode.width, mode.height, mainmenu.fullscreen); mainmenu.start "settings" end)
 end
