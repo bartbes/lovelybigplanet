@@ -150,12 +150,12 @@ function mainmenu.update (dt)
 			c.timeout = c.timeout - dt
 		else
 			if c.x > halfw then
-				c.x = c.x - ((c.x-halfw)*3.8+20)*dt
+				c.x = c.x - ((c.x-halfw)*4.8+10)*dt
 				if c.x < halfw then
-					c.timeout = .1
+					c.timeout = .15+ 0.01*(#c.names[c.index*2+1]+#c.names[c.index*2+2])
 				end
 			else
-				c.x = c.x - ((halfw-c.x)*3.8+20)*dt
+				c.x = c.x - ((halfw-c.x)*6.8+7)*dt
 				if c.x < -100 then
 					c.index = c.index + 1
 					if c.index*2+1 > #c.names then
