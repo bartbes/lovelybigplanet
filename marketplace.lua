@@ -18,7 +18,7 @@ local width = 120
 local swidth = sep+width
 
 marketplace = {context = LoveUI.Context:new(), active = false}
-marketplace.view = LoveUI.View:new(LoveUI.Rect:new(100, 100, 800, 500), LoveUI.Size:new(500, 500))
+marketplace.view = LoveUI.View:new(LoveUI.Rect:new(100, 100, 800, 500), LoveUI.Size:new(800, 600))
 marketplace.button_news = LoveUI.Button:new(LoveUI.Rect:new(10, 10, width, 32));
 marketplace.button_news.value = "News"
 marketplace.button_news:setAction(setmode)
@@ -41,12 +41,11 @@ marketplace.button_share:setAction(setmode)
 preparebutton(marketplace.button_share)
 setmode(marketplace.button_news)
 
---marketplace.textview = LoveUI.TextView:new(LoveUI.Rect:new(10, 42, 800, 400), LoveUI.Size:new(500, 500))
---marketplace.textview.value = "adsfjaldskf asdlkjf a;sdkjf a;lskjd"
---marketplace.textview.hidden = true
+marketplace.textview = LoveUI.TextView:new(LoveUI.Rect:new(10, 42, 604, 500), LoveUI.Size:new(400, 800))
+marketplace.textview.value = 'test'
 marketplace.view:addSubview(marketplace.button_news, marketplace.button_topmaps, marketplace.button_topobjs,
-		marketplace.button_search, marketplace.button_share
-		--marketplace.textview
+		marketplace.button_search, marketplace.button_share,
+		marketplace.textview
 		)
 
 marketplace.context:addSubview(marketplace.view)

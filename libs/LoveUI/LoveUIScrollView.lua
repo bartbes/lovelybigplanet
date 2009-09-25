@@ -255,7 +255,7 @@ end
 
 function LoveUI.ScrollView:postDisplay()
 	--After displaying subviews
-		LoveUI.graphics.setColor(unpack(0,0,0))
+		LoveUI.graphics.setColor(0,0,0,0)
 		LoveUI.graphics.rectangle(1,self.frame:get())
 end
 
