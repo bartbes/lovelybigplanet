@@ -29,7 +29,7 @@ function LoveUI.ButtonCell:drawImage(frame, view)
 		LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
 	end
 	local curImage=self.image;
-	if self.state==LoveUI.ON then
+	if self.state==LoveUI.ON or self.isdown then
 		curImage=self.alternateImage
 	end
 	LoveUI.graphics.draw(curImage, frame.size.width/2, frame.size.height/2,0, frame.size.width/self.image:getWidth(), frame.size.height/self.image:getHeight());

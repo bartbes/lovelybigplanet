@@ -1,17 +1,53 @@
+local function setmode(self)
+	marketplace.button_news.cell.isdown = false
+	marketplace.button_topmaps.cell.isdown = false
+	marketplace.button_topobjs.cell.isdown = false
+	marketplace.button_search.cell.isdown = false
+	marketplace.button_share.cell.isdown = false
+	marketplace.viewmode = self.value
+	self.cell.isdown = true
+end
+local function preparebutton(btn)
+	btn.opaque = false
+	--btn.textColor = {255,255,255}
+	--btn.backgroundColor = {0,255,0,100}
+end
+
+local sep = 1
+local width = 120
+local swidth = sep+width
+
 marketplace = {context = LoveUI.Context:new(), active = false}
-marketplace.view = LoveUI.View:new(LoveUI.Rect:new(100, 100, 500, 500), LoveUI.Size:new(500, 500))
-marketplace.button_news = LoveUI.Button:new(LoveUI.Rect:new(10, 10, 80, 32));
+marketplace.view = LoveUI.View:new(LoveUI.Rect:new(100, 100, 800, 500), LoveUI.Size:new(500, 500))
+marketplace.button_news = LoveUI.Button:new(LoveUI.Rect:new(10, 10, width, 32));
 marketplace.button_news.value = "News"
-marketplace.button_topmaps = LoveUI.Button:new(LoveUI.Rect:new(90, 10, 80, 32));
+marketplace.button_news:setAction(setmode)
+preparebutton(marketplace.button_news)
+marketplace.button_topmaps = LoveUI.Button:new(LoveUI.Rect:new(10+swidth, 10, width, 32));
 marketplace.button_topmaps.value = "Top maps"
-marketplace.button_topobjs = LoveUI.Button:new(LoveUI.Rect:new(170, 10, 80, 32));
+marketplace.button_topmaps:setAction(setmode)
+preparebutton(marketplace.button_topmaps)
+marketplace.button_topobjs = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*2, 10, width, 32));
 marketplace.button_topobjs.value = "Top objects"
-marketplace.button_search = LoveUI.Button:new(LoveUI.Rect:new(250, 10, 80, 32));
+marketplace.button_topobjs:setAction(setmode)
+preparebutton(marketplace.button_topobjs)
+marketplace.button_search = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*3, 10, width, 32));
 marketplace.button_search.value = "Search"
-marketplace.button_share = LoveUI.Button:new(LoveUI.Rect:new(330, 10, 80, 32));
+marketplace.button_search:setAction(setmode)
+preparebutton(marketplace.button_search)
+marketplace.button_share = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*4, 10, width, 32));
 marketplace.button_share.value = "Share"
+marketplace.button_share:setAction(setmode)
+preparebutton(marketplace.button_share)
+setmode(marketplace.button_news)
+
+--marketplace.textview = LoveUI.TextView:new(LoveUI.Rect:new(10, 42, 800, 400), LoveUI.Size:new(500, 500))
+--marketplace.textview.value = "adsfjaldskf asdlkjf a;sdkjf a;lskjd"
+--marketplace.textview.hidden = true
 marketplace.view:addSubview(marketplace.button_news, marketplace.button_topmaps, marketplace.button_topobjs,
-		marketplace.button_search, marketplace.button_share)
+		marketplace.button_search, marketplace.button_share
+		--marketplace.textview
+		)
 
 marketplace.context:addSubview(marketplace.view)
 
