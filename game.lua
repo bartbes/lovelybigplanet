@@ -163,6 +163,7 @@ function game.draw()
 			setCamera(cameras.hud)
 			love.graphics.setColor(255, 255, 255, 255)
 		end
+		setCamera(cameras.hud)
 		editor.context:display()
 		if not editor.cursorobject then
 			love.graphics.setColor(0, 0, 0, 155)
