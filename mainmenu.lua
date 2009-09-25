@@ -62,11 +62,12 @@ mainmenu = {
 		mainmenu.y_tos = {}
 		mainmenu.lines = 900
 		local n = #mainmenu.options[new]
+		local basey = love.graphics.getHeight()/4
 		for i=1,n do
 			mainmenu.ys[i] = -10
-			mainmenu.y_tos[i] = i*20+180
+			mainmenu.y_tos[i] = i*20+basey
 		end
-		mainmenu.y_tos[n] = n*20+183
+		mainmenu.y_tos[n] = n*20+basey+3
 		mainmenu.selected = 1
 		mainmenu.state = 1
 		mainmenu.fadeoutcountdown = nil
@@ -75,6 +76,7 @@ mainmenu = {
 		else
 			mainmenu.fadeincountdown = mainmenu.fadetime
 		end
+		mainmenu.itemx = love.graphics.getWidth()/2
 	end,
 	credits = {
 			names = {
