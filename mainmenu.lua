@@ -13,7 +13,7 @@ local function prepareload ()
 	mainmenu.actions.load = {function () mainmenu.start'main' end}
 	local maps = love.filesystem.enumerate("maps")
 	for i, v in ipairs(maps) do
-		if 		v:sub(-3, -1) == 'lua' and --only load .lua files
+		if 		v:sub(-4, -1) == ".lua" and --only load .lua files
 				v:sub(1, 3) ~= 'map' and --can't load campaign scenarios
 				v ~= 'newmap.lua' then --don't show newmap
 			table.insert(mainmenu.options.load, string.sub(v, 1, -5))

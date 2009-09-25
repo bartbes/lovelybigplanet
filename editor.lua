@@ -85,10 +85,12 @@ local function placeobject (self)
 	editor.view_objects.hidden = true
 end
 for i, v in ipairs(objs) do
-	editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
-	editor.objectbuttons[i].value = string.sub(v, 1, -5)
-	editor.objectbuttons[i]:setAction(placeobject)
-	preparebutton(editor.objectbuttons[i])
+	if v:sub(-4, -1) == ".lua" then
+		editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
+		editor.objectbuttons[i].value = string.sub(v, 1, -5)
+		editor.objectbuttons[i]:setAction(placeobject)
+		preparebutton(editor.objectbuttons[i])
+	end
 end
 local i = #objs + 1
 editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
