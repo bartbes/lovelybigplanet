@@ -109,7 +109,7 @@ function LoveUI.ListView:reloadData()
 		ncell:setContentView(self.dataSource:viewForRow(self, i+1, ncell) or LoveUI.View:new(LoveUI.Rect:new(0,0,0,0)))
 		
 		if i%2==1 then
-			ncell.backgroundColor=love.graphics.newColor(128, 128, 255, 32)
+			ncell.backgroundColor={128, 128, 255, 32}
 		end
 		
 		LoveUI.bind(ncell, "enabled", self, "enabled",

@@ -41,11 +41,29 @@ marketplace.button_share:setAction(setmode)
 preparebutton(marketplace.button_share)
 setmode(marketplace.button_news)
 
-marketplace.textview = LoveUI.TextView:new(LoveUI.Rect:new(10, 42, 604, 500), LoveUI.Size:new(400, 800))
-marketplace.textview.value = 'test'
+local entries = {}
+local datasource={}
+function datasource:viewForRow(aListView, rowIndex)
+	local newView=LoveUI.View:new(LoveUI.rectZero);
+	function newView:display()
+		love.graphics.setColor(0,0,0);
+		LoveUI.graphics.draw(entries[rowIndex], 10, 20);
+	end
+	return newView;
+end
+function datasource:numberOfRows(aListView)
+	return #entries
+end
+function datasource:columnWidth(aListView)
+	return 400
+end
+marketplace.list = LoveUI.ListView:new(LoveUI.Rect:new(10, 42, 604, 500), datasource)
+marketplace.detailstext = LoveUI.TextView:new(LoveUI.Rect:new(650, 40, 750, 500), LoveUI.Size:new(100, 460))
+marketplace.detailstext.value = "Details"
+marketplace.detailstext.enabled = false
 marketplace.view:addSubview(marketplace.button_news, marketplace.button_topmaps, marketplace.button_topobjs,
 		marketplace.button_search, marketplace.button_share,
-		marketplace.textview
+		marketplace.list, marketplace.detailstext
 		)
 
 marketplace.context:addSubview(marketplace.view)
@@ -99,6 +117,10 @@ end
 
 network:setcallback(function(type, length, data)
 	if type == "rlst" then
-		marketplace.textview.value = table.concat(network:uncsv(data), "\n")
+		local t = network:uncsv(data)
+		for i, v in ipairs(t) do
+			table.insert(entries, v)
+		end
+		marketplace.list:reloadData()
 	end
 end)
