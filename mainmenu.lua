@@ -106,6 +106,7 @@ function mainmenu.load ()
 	love.graphics.setBackgroundColor(255, 255, 255)
 	love.graphics.setLineWidth(2)
 	mainmenu.active = true
+	editor.active = false
 	love.update = mainmenu.update
 	love.draw = mainmenu.draw
 end
