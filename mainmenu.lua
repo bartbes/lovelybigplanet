@@ -196,22 +196,20 @@ function mainmenu.draw ()
 	elseif mainmenu.state==3 then
 		--credits
 		local c = mainmenu.credits
-		love.graphics.print(c.names[c.index*2+1], c.x, 200)
-		love.graphics.print(c.names[c.index*2+2], c.x, 240)
+		local basey = love.graphics.getHeight()/4
+		love.graphics.print(c.names[c.index*2+1], c.x, basey)
+		love.graphics.print(c.names[c.index*2+2], c.x, basey+40)
 		love.graphics.setColor(0,255,0)
 		local x
-		local x2
 		if c.x >love.graphics.getWidth()/2-50 then
 			x = love.graphics.getWidth()-c.x-160
-			x2 = x+20
 		else
 			x = c.x-60
-			x2 = x+20
 		end
 		love.graphics.line(x, 0, x, love.graphics.getHeight())
-		love.graphics.line(x2, 0, x2, love.graphics.getHeight())
+		love.graphics.line(x+20, 0, x+20, love.graphics.getHeight())
 		love.graphics.setColor(0,255,0,50)
-		love.graphics.rectangle(love.draw_fill, x, 0, x2-x, love.graphics.getHeight())
+		love.graphics.rectangle(love.draw_fill, x, 0, 20, love.graphics.getHeight())
 	else
 		love.graphics.print("Not yet implemented... press escape...", 100, 100)
 	end
