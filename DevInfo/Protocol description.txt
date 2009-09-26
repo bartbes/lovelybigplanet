@@ -29,6 +29,7 @@ List types:
 	obj10 = Object top 10
 	mapnew = Newest maps
 	objnew = Newest objects
+	news = News
 
 List transmission from location server:
 | rlst | Length |
