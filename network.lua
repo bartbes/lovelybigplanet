@@ -15,6 +15,7 @@ local function extract(data, what)
 		local b = length:byte(2)
 		local c = length:byte(3)
 		local d = length:byte(4)
+		if not (a and b and c and d) then return 0 end
 		length = d + c * 256 + b * 65536 + a * 16777216
 		return length
 	end
@@ -81,8 +82,10 @@ function network:setcallback(cb)
 end
 
 function network:update()
-	local data = self.socket:receive()
-	if data and self.callback then
+	local data = self.socket:receive(8)
+	if not data then return end
+	data = data .. (self.socket:receive(extract(data, "length") or 0) or "")
+	if self.callback then
 		self.callback(unpackmessage(data))
 	end
 end

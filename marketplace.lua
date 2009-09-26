@@ -1,3 +1,11 @@
+local entries = {}
+
+local function cleartable(t)
+	for i, v in pairs(t) do
+		t[i] = nil
+	end
+end
+
 local function setmode(self)
 	marketplace.button_news.cell.isdown = false
 	marketplace.button_topmaps.cell.isdown = false
@@ -6,6 +14,15 @@ local function setmode(self)
 	marketplace.button_share.cell.isdown = false
 	marketplace.viewmode = self.value
 	self.cell.isdown = true
+	if marketplace.list then
+		cleartable(entries)
+		marketplace.list:reloadData()
+		if self.value == "Top maps" then
+			network:getlist("map10")
+		elseif self.value == "Top objects" then
+			network:getlist("obj10")
+		end
+	end
 end
 local function preparebutton(btn)
 	btn.opaque = false
@@ -41,7 +58,7 @@ marketplace.button_share:setAction(setmode)
 preparebutton(marketplace.button_share)
 setmode(marketplace.button_news)
 
-local entries = {}
+
 local datasource={}
 function datasource:viewForRow(aListView, rowIndex)
 	local newView=LoveUI.View:new(LoveUI.rectZero);
