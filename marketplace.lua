@@ -53,6 +53,7 @@ marketplace.context:addSubview(marketplace.view)
 
 function marketplace.update(dt)
 	marketplace.context:update(dt)
+	network:update()
 	love.timer.sleep(15)
 end
 
@@ -66,9 +67,12 @@ function marketplace.load()
 	love.update = marketplace.update
 	love.draw = marketplace.draw
 	marketplace.active = true
+	network:connect()
+	network:getlist("map10")
 end
 
 function marketplace.unload()
+	network:disconnect()
 	marketplace.active = false
 	mainmenu.load()
 end
@@ -92,3 +96,9 @@ function marketplace.mousepressed(x, y, button)
 		marketplace.context:mouseEvent(x, y, button, marketplace.context.mouseDown)
 	end
 end
+
+network:setcallback(function(type, length, data)
+	if type == "rlst" then
+		marketplace.textview.value = table.concat(network:uncsv(data), "\n")
+	end
+end)
