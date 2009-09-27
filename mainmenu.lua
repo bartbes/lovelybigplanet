@@ -154,7 +154,7 @@ function mainmenu.update (dt)
 			if c.x > halfw then
 				c.x = c.x - ((c.x-halfw)*4.8+10)*dt
 				if c.x < halfw then
-					c.timeout = .15+ 0.01*(#c.names[c.index*2+1]+#c.names[c.index*2+2])
+					c.timeout = .15+ 0.01*(#c.names[c.index*3+1]+#c.names[c.index*3+2]+#c.names[c.index*3+3])
 				end
 			else
 				c.x = c.x - ((halfw-c.x)*6.8+7)*dt
