@@ -1,7 +1,7 @@
 local socket = require "socket"
 
 local server = "bartbes.ath.cx" --my computer (bartbes)
-local port = 8188				--temporary port, only because this one is open
+local port = 8371				--this should be the final port
 
 network = {}
 
