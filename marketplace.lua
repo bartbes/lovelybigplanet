@@ -118,6 +118,8 @@ function marketplace.load()
 	love.update = marketplace.update
 	love.draw = marketplace.draw
 	marketplace.active = true
+	entries = {'Connecting...'}
+	marketplace.list:reloadData()
 	network:connect()
 	setmode(marketplace.button_news)
 end
