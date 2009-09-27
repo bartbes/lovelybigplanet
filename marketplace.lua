@@ -10,6 +10,8 @@ local function setmode(self)
 	marketplace.button_news.cell.isdown = false
 	marketplace.button_topmaps.cell.isdown = false
 	marketplace.button_topobjs.cell.isdown = false
+	marketplace.button_newmaps.cell.isdown = false
+	marketplace.button_newobjs.cell.isdown = false
 	marketplace.button_search.cell.isdown = false
 	marketplace.button_share.cell.isdown = false
 	marketplace.viewmode = self.value
@@ -21,6 +23,10 @@ local function setmode(self)
 			network:getlist("map10")
 		elseif self.value == "Top objects" then
 			network:getlist("obj10")
+		elseif self.value == "New maps" then
+			network:getlist("mapnew")
+		elseif self.value == "New objects" then
+			network:getlist("objnew")
 		elseif self.value == "News" then
 			network:getlist("news")
 		end
@@ -37,7 +43,7 @@ local width = 120
 local swidth = sep+width
 
 marketplace = {context = LoveUI.Context:new(), active = false}
-marketplace.view = LoveUI.View:new(LoveUI.Rect:new(100, 100, 800, 500), LoveUI.Size:new(800, 600))
+marketplace.view = LoveUI.View:new(LoveUI.Rect:new(100, 100, 10+swidth*7+500, 500), LoveUI.Size:new(10+swidth*7, 600))
 marketplace.button_news = LoveUI.Button:new(LoveUI.Rect:new(10, 10, width, 32));
 marketplace.button_news.value = "News"
 marketplace.button_news:setAction(setmode)
@@ -50,11 +56,19 @@ marketplace.button_topobjs = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*2, 10, 
 marketplace.button_topobjs.value = "Top objects"
 marketplace.button_topobjs:setAction(setmode)
 preparebutton(marketplace.button_topobjs)
-marketplace.button_search = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*3, 10, width, 32));
+marketplace.button_newmaps = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*3, 10, width, 32));
+marketplace.button_newmaps.value = "New maps"
+marketplace.button_newmaps:setAction(setmode)
+preparebutton(marketplace.button_newmaps)
+marketplace.button_newobjs = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*4, 10, width, 32));
+marketplace.button_newobjs.value = "New objects"
+marketplace.button_newobjs:setAction(setmode)
+preparebutton(marketplace.button_newobjs)
+marketplace.button_search = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*5, 10, width, 32));
 marketplace.button_search.value = "Search"
 marketplace.button_search:setAction(setmode)
 preparebutton(marketplace.button_search)
-marketplace.button_share = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*4, 10, width, 32));
+marketplace.button_share = LoveUI.Button:new(LoveUI.Rect:new(10+swidth*6, 10, width, 32));
 marketplace.button_share.value = "Share"
 marketplace.button_share:setAction(setmode)
 preparebutton(marketplace.button_share)
@@ -76,12 +90,12 @@ end
 function datasource:columnWidth(aListView)
 	return 400
 end
-marketplace.list = LoveUI.ListView:new(LoveUI.Rect:new(10, 42, 604, 500), datasource)
-marketplace.detailstext = LoveUI.TextView:new(LoveUI.Rect:new(650, 40, 900, 800), LoveUI.Size:new(250, 760))
+marketplace.list = LoveUI.ListView:new(LoveUI.Rect:new(10, 42, 10+swidth*7, 500), datasource)
+marketplace.detailstext = LoveUI.TextView:new(LoveUI.Rect:new(10+swidth*7, 40, 10+swidth*7+300, 800), LoveUI.Size:new(300, 760))
 marketplace.detailstext.value = "Details"
 marketplace.detailstext.enabled = false
 marketplace.view:addSubview(marketplace.button_news, marketplace.button_topmaps, marketplace.button_topobjs,
-		marketplace.button_search, marketplace.button_share,
+		marketplace.button_newmaps, marketplace.button_newobjs, marketplace.button_search, marketplace.button_share,
 		marketplace.list, marketplace.detailstext
 		)
 
