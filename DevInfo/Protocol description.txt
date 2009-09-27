@@ -39,6 +39,20 @@ List data:
 	Caret Separated Values, example:
 		map1^map2^map3
 
+Info request to location server:
+| info | Length |
+| Identifier    |
+
+Identifier:
+	Is a code as returned in a list
+
+Info from location server:
+| rinf | Length |
+| Info          |
+
+Info:
+	A plaintext string
+
 Location specifier from location server:
 | loct | Length  |
 | Path specifier |
