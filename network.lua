@@ -50,6 +50,7 @@ function network:disconnect()
 		return true
 	end
 	self.socket:close()
+	self.socket = nil
 	return true
 end
 

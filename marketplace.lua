@@ -119,7 +119,7 @@ function marketplace.load()
 	love.draw = marketplace.draw
 	marketplace.active = true
 	network:connect()
-	network:getlist("news")
+	setmode(marketplace.button_news)
 end
 
 function marketplace.unload()
