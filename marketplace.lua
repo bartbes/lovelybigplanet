@@ -21,6 +21,8 @@ local function setmode(self)
 			network:getlist("map10")
 		elseif self.value == "Top objects" then
 			network:getlist("obj10")
+		elseif self.value == "News" then
+			network:getlist("news")
 		end
 	end
 end
@@ -103,7 +105,7 @@ function marketplace.load()
 	love.draw = marketplace.draw
 	marketplace.active = true
 	network:connect()
-	network:getlist("map10")
+	network:getlist("news")
 end
 
 function marketplace.unload()
