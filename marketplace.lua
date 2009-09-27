@@ -77,7 +77,7 @@ function datasource:columnWidth(aListView)
 	return 400
 end
 marketplace.list = LoveUI.ListView:new(LoveUI.Rect:new(10, 42, 604, 500), datasource)
-marketplace.detailstext = LoveUI.TextView:new(LoveUI.Rect:new(650, 40, 750, 500), LoveUI.Size:new(100, 460))
+marketplace.detailstext = LoveUI.TextView:new(LoveUI.Rect:new(650, 40, 900, 800), LoveUI.Size:new(250, 760))
 marketplace.detailstext.value = "Details"
 marketplace.detailstext.enabled = false
 marketplace.view:addSubview(marketplace.button_news, marketplace.button_topmaps, marketplace.button_topobjs,
@@ -141,5 +141,11 @@ network:setcallback(function(type, length, data)
 			table.insert(entries, v)
 		end
 		marketplace.list:reloadData()
+	elseif type == "rinf" then
+		marketplace.detailstext.value = "Details:\n" .. data
 	end
 end)
+
+marketplace.list:setAction(function(obj)
+	network:getinfo(entries[obj:getSelectedIndex()])
+end, LoveUI.EventValueChanged)

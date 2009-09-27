@@ -57,6 +57,9 @@ function network:getlist(t)
 	if not self.socket then
 		return false, "Not connected"
 	end
+	if not t then
+		return false, "No data"
+	end
 	self.socket:send(packmessage("list", t))
 	return true
 end
@@ -65,7 +68,21 @@ function network:getfile(f)
 	if not self.socket then
 		return false, "Not connected"
 	end
+	if not f then
+		return false, "No data"
+	end
 	self.socket:send(packmessage("rqst", f))
+	return true
+end
+
+function network:getinfo(s)
+	if not self.socket then
+		return false, "Not connected"
+	end
+	if not s then
+		return false, "No data"
+	end
+	self.socket:send(packmessage("info", s))
 	return true
 end
 
