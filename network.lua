@@ -1,7 +1,7 @@
 local socket = require "socket"
 
-local server = "127.0.0.1"
-local port = 9000
+local server = "bartbes.ath.cx" --my computer (bartbes)
+local port = 8188				--temporary port, only because this one is open
 
 network = {}
 
@@ -41,6 +41,13 @@ function network:connect()
 	self.socket = socket.tcp()
 	if not self.socket then return false end
 	self.socket:settimeout(0)
+	--- This one includes a debug statement
+	-- MARK MARK MARK
+	-- PLEASE REMOVE THIS BEFORE RELEASE
+	-- MARK SOME MORE
+	server, port = serverOverride or server, portOverride or port
+	-- END DEBUG STATEMENT
+	log("Connecting to server: " .. server .. ":" .. port)
 	self.socket:connect(server, port)
 	return true
 end
@@ -51,6 +58,7 @@ function network:disconnect()
 	end
 	self.socket:close()
 	self.socket = nil
+	log("Closed connection to server")
 	return true
 end
 
