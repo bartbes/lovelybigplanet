@@ -176,6 +176,7 @@ editor.popup_del.value = "Delete"
 editor.popup_del:setAction(function (self)
 	editor.view_popup.hidden = true
 	--delete (sh)it
+	if editor.selectedobject == 'player' then log("Can't delete player object!") return end
 	game.map.Objects[editor.selectedobject] = nil
 	editor.selectedobject = nil
 end)
