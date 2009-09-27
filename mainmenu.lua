@@ -80,10 +80,11 @@ mainmenu = {
 	end,
 	credits = {
 			names = {
-					"Bartbes", "Project starter, general coding",
-					"Robin", "Physics, editor, main menu & testing",
-					"SnakeFace", "General coding & artwork",
-					"Qubodup", "Artwork"
+					"Bart van Strien", "bartbes", "Project starter, general coding",
+					"Robin Wellner", "Robin", "Physics, editor, main menu & testing",
+					"SnakeFace", "", "General coding & artwork",
+					"Qubodup", "", "Artwork",
+					"Linus Sjogren", "thelinx", "Donates host"
 				},
 			index = 0,
 			x = 0,
@@ -159,7 +160,7 @@ function mainmenu.update (dt)
 				c.x = c.x - ((halfw-c.x)*6.8+7)*dt
 				if c.x < -100 then
 					c.index = c.index + 1
-					if c.index*2+1 > #c.names then
+					if c.index*3+1 > #c.names then
 						mainmenu.start'main'
 					end
 					c.x = halfw*2+110
@@ -197,8 +198,9 @@ function mainmenu.draw ()
 		--credits
 		local c = mainmenu.credits
 		local basey = love.graphics.getHeight()/4
-		love.graphics.print(c.names[c.index*2+1], c.x, basey)
-		love.graphics.print(c.names[c.index*2+2], c.x, basey+40)
+		love.graphics.print(c.names[c.index*3+1], c.x, basey)
+		love.graphics.print(c.names[c.index*3+2], c.x, basey+20)
+		love.graphics.print(c.names[c.index*3+3], c.x, basey+60)
 		love.graphics.setColor(0,255,0)
 		local x
 		if c.x >love.graphics.getWidth()/2-50 then

@@ -1,7 +1,7 @@
 local socket = require "socket"
 
-local server = "bartbes.ath.cx" --my computer (bartbes)
-local port = 8371				--this should be the final port
+local server = "uapps.org" 	--a shell server I have access to thanks to thelinx
+local port = 8371			--this should be the final port
 
 network = {}
 
