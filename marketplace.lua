@@ -39,11 +39,11 @@ local function preparebutton(btn)
 end
 
 local sep = 1
-local width = 120
+local width = 78
 local swidth = sep+width
 
 marketplace = {context = LoveUI.Context:new(), active = false}
-marketplace.view = LoveUI.View:new(LoveUI.Rect:new(100, 100, 10+swidth*7+500, 500), LoveUI.Size:new(10+swidth*7, 600))
+marketplace.view = LoveUI.View:new(LoveUI.Rect:new(20, 30, 10+swidth*7+300, 500), LoveUI.Size:new(10+swidth*7, 600))
 marketplace.button_news = LoveUI.Button:new(LoveUI.Rect:new(10, 10, width, 32));
 marketplace.button_news.value = "News"
 marketplace.button_news:setAction(setmode)
@@ -91,7 +91,7 @@ function datasource:columnWidth(aListView)
 	return 400
 end
 marketplace.list = LoveUI.ListView:new(LoveUI.Rect:new(10, 42, 10+swidth*7, 500), datasource)
-marketplace.detailstext = LoveUI.TextView:new(LoveUI.Rect:new(10+swidth*7, 40, 10+swidth*7+300, 800), LoveUI.Size:new(300, 760))
+marketplace.detailstext = LoveUI.TextView:new(LoveUI.Rect:new(10+swidth*7, 40, 10+swidth*7+250, 800), LoveUI.Size:new(250, 760))
 marketplace.detailstext.value = "Details"
 marketplace.detailstext.enabled = false
 marketplace.view:addSubview(marketplace.button_news, marketplace.button_topmaps, marketplace.button_topobjs,
