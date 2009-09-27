@@ -118,6 +118,9 @@ function game.update(dt)
 			game.score = game.score + 10000
 		end
 	end
+	if x < -30 or x > 30 and y > 20 or y < -20 then
+		startgame(game.map._name)
+	end
 	if game.map.update then game.map.update(dt) end
 	--preserve some CPU, may need some tweaking when the engine becomes heavier
 	love.timer.sleep(15)
