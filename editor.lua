@@ -84,23 +84,24 @@ local function placeobject (self)
 	editor.placeonce = false
 	editor.view_objects.hidden = true
 end
-for i, v in ipairs(objs) do
-	if v:sub(-4, -1) == ".lua" then
-		editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
-		editor.objectbuttons[i].value = string.sub(v, 1, -5)
-		editor.objectbuttons[i]:setAction(placeobject)
-		preparebutton(editor.objectbuttons[i])
-	end
-end
-local i = #objs + 1
-editor.objectbuttons[i] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*i-32, 100, 32));
-editor.objectbuttons[i].value = "Select"
-editor.objectbuttons[i]:setAction(function (self)
+editor.objectbuttons[1] = LoveUI.Button:new(LoveUI.Rect:new(10, 42-32, 100, 32));
+editor.objectbuttons[1].value = "Select"
+editor.objectbuttons[1]:setAction(function (self)
 	editor.cursorobject=nil
 	editor.cursortexture=nil
 	editor.view_objects.hidden = true
 end)
-preparebutton(editor.objectbuttons[i])
+preparebutton(editor.objectbuttons[1])
+local j = 1
+for i, v in ipairs(objs) do
+	if v:sub(-4, -1) == ".lua" then
+		j = j + 1
+		editor.objectbuttons[j] = LoveUI.Button:new(LoveUI.Rect:new(10, 42*j-32, 100, 32));
+		editor.objectbuttons[j].value = string.sub(v, 1, -5)
+		editor.objectbuttons[j]:setAction(placeobject)
+		preparebutton(editor.objectbuttons[j])
+	end
+end
 editor.view_objects:addSubview(unpack(editor.objectbuttons))
 
 editor.view_load = LoveUI.View:new(LoveUI.Rect:new(190, 42, 200, 300), LoveUI.Size:new(400, 400))
