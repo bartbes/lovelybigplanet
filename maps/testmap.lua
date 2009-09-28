@@ -5,6 +5,7 @@ MAP.Resources = { background = "bartbes/samplebackground" } --I need only this r
 MAP.BackgroundScale = { x = 10 }
 MAP.Objects = { player = { "player", 2, 5, 0, {Foreground} }, platform = { "platform", 2, 1, -2, {Foreground} }, gadget1 = { "gadget", 2.2, 11, 0, {Foreground} },
 enemy = { "enemy", 2, 8, 0, {Background} },
+fgadget = { "floatinggadget", 2.6, 5, 0, {Foreground} },
 gadget2 = { "gadgetb", 2.2, 10, 0, {Foreground} },
 bridge = { "bridge", 4, 5, 0, {Foreground, Background} },
 gadget3 = { "gadget", 2.4, 9, 0, {Foreground} },
