@@ -144,7 +144,7 @@ function game.draw()
 			love.graphics.setBlendMode(love.blend_alpha)
 		end
 		setCamera(cameras.editor)
-		if editor.selectedobject
+		if editor.selectedobject and sel
 					--and editor.default_action == editor.popup_place
 				then
 			local x, y = cameras.default:pos(sel._body:getX(), sel._body:getY())
