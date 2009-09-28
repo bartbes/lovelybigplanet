@@ -9,3 +9,6 @@ OBJECT.Polygon = { {-.4, -.4, -.4, .4, .4, .4, .4, -.4} }
 
 function OBJECT:collision(a)
 end
+function OBJECT:Init()
+	OBJECT._body:setMass(0,0,0,0)
+end

@@ -174,6 +174,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	if name == "player" then
 		env.OBJECT._body:setAngularDamping(150)
 	end
+	if env.OBJECT.Init then env.OBJECT:Init() end
 	log("Loaded object " .. internalname)
 	return env.OBJECT
 end
