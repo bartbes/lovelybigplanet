@@ -24,7 +24,7 @@ preparebutton(editor.button_settings)
 editor.button_clear=LoveUI.Button:new(LoveUI.Rect:new(100, 10, 80, 32));
 editor.button_clear.value = "Clear"
 editor.button_clear:setAction(function ()
-	game.map.Objects = {}
+	game.map.Objects = {game.map.Objects.player}
 end)
 preparebutton(editor.button_clear)
 editor.button_load=LoveUI.Button:new(LoveUI.Rect:new(190, 10, 80, 32));
