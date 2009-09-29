@@ -211,21 +211,23 @@ end
 
 function game.keypressed(key)
 	if menu.keypressed(key) then return end
-	if key == love.key_z then --z is switch to next layer
-		game.switchlayer((game.activelayer % game.layers) + 1)
-	elseif key == love.key_a then --a to previous
-		game.switchlayer(((game.activelayer-2) % game.layers) + 1)
-	--now we'll check for the number keys, if one is pressed, switch to appropriate
-	--layer, if it exists.
-	elseif key > love.key_0 and key <= love.key_9 then
-		local l = key - love.key_0
-		if game.layers >= l then
-			game.switchlayer(l)
-		end
-	elseif key > love.key_kp0 and key <= love.key_kp9 then
-		local l = key - love.key_kp0
-		if game.layers >= l then
-			game.switchlayer(l)
+	if not editor.active or editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell then
+		if key == love.key_z then --z is switch to next layer
+			game.switchlayer((game.activelayer % game.layers) + 1)
+		elseif key == love.key_a then --a to previous
+			game.switchlayer(((game.activelayer-2) % game.layers) + 1)
+		--now we'll check for the number keys, if one is pressed, switch to appropriate
+		--layer, if it exists.
+		elseif key > love.key_0 and key <= love.key_9 then
+			local l = key - love.key_0
+			if game.layers >= l then
+				game.switchlayer(l)
+			end
+		elseif key > love.key_kp0 and key <= love.key_kp9 then
+			local l = key - love.key_kp0
+			if game.layers >= l then
+				game.switchlayer(l)
+			end
 		end
 	end
 end
