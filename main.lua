@@ -242,7 +242,7 @@ function otos(objects)
 		else
 			s = s .. "\t" .. i .. " = { "
 		end
-		s = s .. string.format("\"%s\", %f, %f, %f, { ", v._name, v._body:getX(), v._body:getY(), v._body:getAngle())
+		s = s .. string.format("\"%s\", %f, %f, %f, { ", v._name, v._body:getX(), v._body:getY(), math.deg(v._body:getAngle()))
 		for j, w in ipairs{v._shapes[1]:getCategory()} do
 			s = s .. w .. ", "
 		end
