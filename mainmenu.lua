@@ -227,18 +227,20 @@ end
 
 function mainmenu.keypressed(key)
 	if mainmenu.state==1 then
-		if key == love.key_up then
-			mainmenu.selected = mainmenu.selected - 1
-			if mainmenu.selected < 1 then mainmenu.selected = #mainmenu.options[mainmenu.current] end
-		elseif key == love.key_down then
-			mainmenu.selected = mainmenu.selected + 1
-			if mainmenu.selected > #mainmenu.options[mainmenu.current] then mainmenu.selected = 1 end
-		elseif key == love.key_return or key == love.key_space then
-			for i=1,#mainmenu.ys do
-				mainmenu.y_tos[i] = -i*30
+		if not mainmenu.fadeoutcountdown and not mainmenu.fadeincountdown then
+			if key == love.key_up then
+				mainmenu.selected = mainmenu.selected - 1
+				if mainmenu.selected < 1 then mainmenu.selected = #mainmenu.options[mainmenu.current] end
+			elseif key == love.key_down then
+				mainmenu.selected = mainmenu.selected + 1
+				if mainmenu.selected > #mainmenu.options[mainmenu.current] then mainmenu.selected = 1 end
+			elseif key == love.key_return or key == love.key_space then
+				for i=1,#mainmenu.ys do
+					mainmenu.y_tos[i] = -i*30
+				end
+				mainmenu.y_tos[mainmenu.selected] = mainmenu.ys[mainmenu.selected]
+				mainmenu.fadeoutcountdown = mainmenu.fadetime
 			end
-			mainmenu.y_tos[mainmenu.selected] = mainmenu.ys[mainmenu.selected]
-			mainmenu.fadeoutcountdown = mainmenu.fadetime
 		end
 	else
 		if key == love.key_escape then
