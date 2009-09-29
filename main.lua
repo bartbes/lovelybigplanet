@@ -42,9 +42,11 @@ function love.load()
 		local savedata = save.loadsave()
 		setRes(savedata.width, savedata.height, savedata.fullscreen)
 		mainmenu.fullscreen = savedata.fullscreen
+		campaignmap = savedata.campaignmap
 		log("Loaded save game")
 	else
 		setRes(1280, 720, false)
+		campaignmap = 0
 	end
 	love.graphics.setColorMode(love.color_modulate)
 

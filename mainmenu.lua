@@ -41,7 +41,7 @@ mainmenu = {
 					function () mainmenu.credits.start() end,
 					function () quitgame() end
 					},
-			play = {function () startplaying'testmap' end, function () startplaying'map1' end,
+			play = {function () startplaying'testmap' end, function () startplaying("map" .. campaignmap) end,
 					function () startplaying'testmap' end, prepareload, function () mainmenu.start'main' end
 					},
 			settings = {function () mainmenu.start'resolution' end, function () love.graphics.toggleFullscreen(); mainmenu.fullscreen = true; mainmenu.start'settings' end,

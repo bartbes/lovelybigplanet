@@ -4,12 +4,13 @@ local savedatamockup = [[
 width = %d
 height = %d
 fullscreen = %s
+campaignmap = %d
 ]]
 
 function save.createsave(onend, ...)
 	local f = love.filesystem.newFile("savegame.dat")
 	f:open(love.file_write)
-	f:write(savedatamockup:format(love.graphics.getWindowWidth(), love.graphics.getWindowHeight(), tostring(mainmenu.fullscreen)))
+	f:write(savedatamockup:format(love.graphics.getWindowWidth(), love.graphics.getWindowHeight(), tostring(mainmenu.fullscreen), campaignmap))
 	f:close()
 end
 
