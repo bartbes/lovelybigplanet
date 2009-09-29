@@ -163,7 +163,7 @@ function game.draw()
 			local a = editor.cursorobject._lite and 0 or -editor.cursorobject._body:getAngle()
 			setCamera(cameras.default)
 			local Px, Py = cameras.default:unpos(x, y)
-			love.graphics.draw(editor.cursortexture.resource, Px, Py, a, 1/150)
+			love.graphics.draw(editor.cursortexture.resource, Px, Py, a, editor.cursorobject.TextureScale.x/150, (editor.cursorobject.TextureScale.y or editor.cursorobject.TextureScale.x)/150)
 			setCamera(cameras.hud)
 			love.graphics.setColor(255, 255, 255, 255)
 		end
