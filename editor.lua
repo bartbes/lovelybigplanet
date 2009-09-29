@@ -199,6 +199,13 @@ editor.context:addSubview(editor.button_settings, editor.button_clear,
 	editor.view_settings, editor.view_objects, editor.view_load,
 	editor.view_popup)
 
+function editor.mapstarted()
+	editor.settings_title.value = game.map.Name
+	editor.settings_author.value = game.map.Creator
+	editor.settings_version.value = game.map.Version
+	editor.settings_filename.value = game.map._name
+end
+
 function editor.mousepressed(x, y, button)
 	if editor.active then
 		editor.context:mouseEvent(x, y, button, editor.context.mouseDown)
