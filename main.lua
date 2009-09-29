@@ -120,6 +120,12 @@ function loadmap(name, worlds)
 	end
 	env.MAP._name = name
 	log("Loaded map " .. name)
+	f = love.filesystem.newFile("maps/" .. name .. ".lua")
+	f:open()
+	local code = f:read()
+	f:close()
+	code = code:match("----CODE----\n(.*)")
+	env.MAP._code = code or ""
 	return env.MAP
 end
 
@@ -273,6 +279,8 @@ MAP.BackgroundScale = { x = %f, y = %f }
 MAP.Objects = %s
 MAP.Finish = { x = %f, y = %f, position = %d }
 MAP.Mission = %s
+
+----CODE----
 ]],
 		game.map.Name,
 		game.map.Creator,
@@ -286,6 +294,7 @@ MAP.Mission = %s
 		game.map.Finish.position,
 		string.format("%q", game.map.Mission or ''))
 	f:write(data)
+	f:write(game.map._code)
 	f:close()
 	log("Saved map to " .. filename)
 end
