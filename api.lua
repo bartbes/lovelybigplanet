@@ -133,6 +133,14 @@ function rLBP.round(n) --round a number
 	return math.floor(n+0.5)
 end
 
+function rLBP.finish()
+	--is there a map callback, if so, call it
+	if (game.map.finished and game.map.finished()) or (not game.map.finished) then
+		game.finished = true
+		game.score = game.score + 10000
+	end
+end
+
 local mt = {}
 function mt:__index(i)
 	return rLBP[i] or CustomCommands[i]
