@@ -65,6 +65,18 @@ function rLBP.setProperty(object, property, value)
 	object[lasts] = value
 end
 
+-- bartbes: is it okay to expose this function?
+function rLBP.setLayers(object, positions)
+	local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
+	for i, v2 in ipairs(positions) do
+		table.remove(posses, v2-i+1)
+	end
+	for i, v in ipairs(OBJECT._shapes) do
+		v:setCategory(unpack(positions))
+		v:setMask(unpack(posses))
+	end
+end
+
 function rLBP.showScore(show) --do we want to show the score?
 	hud.score = show
 end
