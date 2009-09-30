@@ -137,6 +137,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 	local env = {print=print}
 	env.OBJECT = {}
 	env.LBP = LBP
+	env.math = math
 	--environment is set up, apply and execute
 	setfenv(f, env)
 	f()
