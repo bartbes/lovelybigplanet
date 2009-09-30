@@ -102,6 +102,7 @@ mainmenu = {
 	}
 
 function mainmenu.load ()
+	stopallsounds()
 	setCamera(cameras.mainmenu)
 	mainmenu.start('main', true)
 	love.graphics.setBackgroundColor(255, 255, 255)

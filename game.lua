@@ -1,4 +1,5 @@
 function startgame(map, noplay)
+	stopallsounds()
 	mainmenu.unload()
 	hud.score = false
 	hud.lvl1 = false

@@ -301,6 +301,17 @@ MAP.Mission = %s
 	log("Saved map to " .. filename)
 end
 
+function stopallsounds()
+	if game.map then
+		for i, v in pairs(game.map.Resources) do
+			if v.music then
+				love.audio.stop(v.music)
+				love.audio.stop(v.resource)
+			end
+		end
+	end
+end
+
 function love.draw()
 	--we should stop overwriting this
 	game.draw()
