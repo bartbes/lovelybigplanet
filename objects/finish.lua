@@ -9,7 +9,7 @@ OBJECT.Circle = { { 1/3 } }
 
 function OBJECT.autofinish(player)
 	local px, py = LBP.getX(player), LBP.getY(py)
-	local fx, fy = LBP.getX(self), LBP.getY(self)
+	local fx, fy = LBP.getX(OBJECT), LBP.getY(OBJECT)
 	if math.abs(px-fx) < 0.5 and math.abs(py-fy) < 0.5 then
 		LBP.finish()
 	end
