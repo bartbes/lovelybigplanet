@@ -19,7 +19,7 @@ function setRes(w, h, fs)
 	love.graphics.setMode(w, h, fs, 0)
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 	if cameras then
-	cameras.default = camera.stretchToResolution(10*aspectratio, 10)
+	cameras.default = camera.new(150,150)
 	cameras.default:setScreenOrigin(0, 1)
 	cameras.default:scaleBy(1, -1)
 	end
@@ -71,7 +71,7 @@ function love.load()
 	--in a do-end structure for the local, we do not want to pollute the global environment
 	do
 		local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
-		cameras.default = camera.stretchToResolution(10*aspectratio, 10)
+		cameras.default = camera.new(150,150)
 		cameras.default:setScreenOrigin(0, 1)
 		cameras.default:scaleBy(1, -1)
 	end

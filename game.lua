@@ -9,7 +9,7 @@ function startgame(map, noplay)
 	love.draw = game.draw]]
 	--ok, let's do the stuff we'd normally do in load
 	--we create a world, set gravity, the collision callback, and load the map
-	game.world = love.physics.newWorld(love.graphics.getWidth() * 2 * 30, love.graphics.getHeight() * 2 * 30)
+	game.world = love.physics.newWorld(1830, 1230)
 	game.world:setMeter(1)
 	game.world:setGravity(0, -9.81)
 	game.world:setCallbacks(game.collision)
@@ -225,6 +225,10 @@ function game.keypressed(key)
 			if game.layers >= l then
 				game.switchlayer(l)
 			end
+		elseif key == love.key_minus then
+			cameras.default:scaleBy(.8, .8)
+		elseif key == love.key_equals then
+			cameras.default:scaleBy(1.25, 1.25)
 		end
 	end
 end
