@@ -1,9 +1,0 @@
-An introductory level, should learn the player how to play LBP.
-
-First part - Controls
-Second part - Climbing walls
-Third part - Switching layers
-Fourth part - Combining all of those
-Finish
-
-I added a sketch, enjoy!
