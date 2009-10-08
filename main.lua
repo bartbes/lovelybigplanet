@@ -183,7 +183,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 		env.OBJECT._body:setAngularDamping(150)
 	end
 	if env.OBJECT.Init then env.OBJECT:Init() end
-	log("Loaded object " .. internalname)
+	log("Loaded object " .. internalname .. " (" .. name .. ")")
 	return env.OBJECT
 end
 
@@ -202,7 +202,7 @@ function loadobjectlite(name)
 	end
 	env.OBJECT._name = name
 	env.OBJECT._lite = true
-	log("Loaded object " .. internalname)
+	log("Loaded object " .. internalname .. " (" .. name .. ")")
 	return env.OBJECT
 end
 
