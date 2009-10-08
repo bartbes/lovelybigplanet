@@ -131,7 +131,6 @@ end
 
 
 function loadobject(internalname, name, world, x, y, angle, positions)
-	log("Loading object " .. internalname .. " (" .. name .. ")")
 	if not love.filesystem.exists("objects/" .. name .. ".lua") then log("[ERROR]: Object " .. name .. " doesn't exist.")  return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {print=print}
@@ -203,13 +202,13 @@ function loadobjectlite(name)
 	end
 	env.OBJECT._name = name
 	env.OBJECT._lite = true
+	log("Loaded object " .. internalname)
 	return env.OBJECT
 end
 
 
 function loadresource(name)
 	if resources[name] then return resources[name] end
-	log("Loading resource " .. name)
 	local ftype = ""
 	local fext = ""
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
