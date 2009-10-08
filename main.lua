@@ -97,7 +97,7 @@ end
 --here it comes, the magic
 function loadmap(name, worlds)
 	log("Loading map " .. name)
-	if not love.filesystem.exists("maps/" .. name .. ".lua") then return false, "FILE " .. name .. ".lua doesn't exist" end
+	if not love.filesystem.exists("maps/" .. name .. ".lua") then log("[ERROR]: Map " .. name .. " doesn't exist.") return false, "FILE " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("maps/" .. name .. ".lua")
 	local env = {}
 	--we'll create an environment, sandboxing, remember?
@@ -132,7 +132,7 @@ end
 
 function loadobject(internalname, name, world, x, y, angle, positions)
 	log("Loading object " .. internalname .. " (" .. name .. ")")
-	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
+	if not love.filesystem.exists("objects/" .. name .. ".lua") then log("[ERROR]: Object " .. name .. " doesn't exist.")  return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {print=print}
 	env.OBJECT = {}
@@ -189,7 +189,7 @@ function loadobject(internalname, name, world, x, y, angle, positions)
 end
 
 function loadobjectlite(name)
-	if not love.filesystem.exists("objects/" .. name .. ".lua") then return false, "File " .. name .. ".lua doesn't exist" end
+	if not love.filesystem.exists("objects/" .. name .. ".lua") then log("[ERROR]: Object " .. name .. " doesn't exist.") return false, "File " .. name .. ".lua doesn't exist" end
 	local f = love.filesystem.load("objects/" .. name .. ".lua")
 	local env = {print=print}
 	env.OBJECT = {}
@@ -208,8 +208,8 @@ end
 
 
 function loadresource(name)
-	log("Loading resource " .. name)
 	if resources[name] then return resources[name] end
+	log("Loading resource " .. name)
 	local ftype = ""
 	local fext = ""
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
@@ -232,6 +232,7 @@ function loadresource(name)
 		return resources[name]
 	end
 	--FAIL!
+	log("[ERROR]: Resource " .. name .. " not found.")
 	return false, "Resource " .. name .. " not found."
 end
 
