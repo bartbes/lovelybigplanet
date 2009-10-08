@@ -1,4 +1,4 @@
-hud = {}
+hud = {msgFadetimemax = .15, msgFadeouttime = 0, msgFadeintime = 0}
 
 --we need to store the old ones, we do this once, to prevent EVUL things from happening
 local oldUpdate
@@ -6,13 +6,27 @@ local oldKeypressed
 local oldJoystickpressed
 
 --new callbacks, local, nobody else needs it
-local function msgUpdate() end
+local function msgUpdate(dt)
+	if hud.msgFadeintime > 0 then
+		hud.msgFadeintime = hud.msgFadeintime - dt
+		if hud.msgFadeintime < 0 then
+			hud.msgFadeintime = 0
+		end
+	end
+	if hud.msgFadeouttime > 0 then
+		hud.msgFadeouttime = hud.msgFadeouttime - dt
+		if hud.msgFadeouttime < 0 then
+			hud.msgFadeouttime = 0
+			hud.messagebox = nil
+			love.update = oldUpdate
+			love.keypressed = oldKeypressed
+			love.joystickpressed = oldJoystickpressed
+		end
+	end
+end
 local function msgKeypressed(key)
 	if key == love.key_return then
-		hud.messagebox = nil
-		love.update = oldUpdate
-		love.keypressed = oldKeypressed
-		love.joystickpressed = oldJoystickpressed
+		hud.msgFadeouttime = hud.msgFadetimemax-hud.msgFadeintime
 	end
 end
 
@@ -86,11 +100,21 @@ function hud.draw()
 		love.graphics.setColor(0, 0, 0, 100)
 		love.graphics.rectangle(love.draw_fill, 0, 0, width, height)
 		--now start drawing those contents
-		love.graphics.setColor(0, 0, 0, 255)
-		love.graphics.rectangle(love.draw_fill, width/4, height/4, width/2, height/4)
 		love.graphics.setColor(255, 255, 255)
-		love.graphics.print("Press Enter to continue", width*.75-165, height/2-10)
-		love.graphics.drawf(hud.messagebox, width/4, height*3/8-20, width/2, love.align_center)
+		local lineheight = (hud.msgFadeouttime > 0 and hud.msgFadeouttime/hud.msgFadetimemax or (hud.msgFadeintime > 0 and 1-hud.msgFadeintime/hud.msgFadetimemax or 1)) * height/4
+		love.graphics.rectangle(love.draw_fill, 0, height/4, width, lineheight)
+		love.graphics.setColor(0,255,0)
+		love.graphics.setLineWidth(2)
+		love.graphics.line(0, height/4, width, height/4)
+		love.graphics.line(0, height/4+lineheight, width, height/4+lineheight)
+		love.graphics.line(0, height/4+lineheight-20, width, height/4+lineheight-20)
+		love.graphics.setColor(0,255,0,100)
+		love.graphics.rectangle(love.draw_fill, 0, height/4+lineheight-20, width, 20)
+		love.graphics.setColor(0, 0, 0)
+		love.graphics.print("Press Enter to continue", width*.75-165, height/4+lineheight-6)
+		if hud.msgFadeintime ==0 and hud.msgFadeouttime ==0 then
+			love.graphics.drawf(hud.messagebox, width/4, height*3/8-20, width/2, love.align_center)
+		end
 		--NOTE: I don't get the feeling love.align_center works as it should
 	end
 	--restore settings, we don't want to impact any other drawing
@@ -110,4 +134,5 @@ function hud.messageBox(text) --create a message box
 	love.joystickpressed = msgJoystickpressed
 	--set the text
 	hud.messagebox = text
+	hud.msgFadeintime = hud.msgFadetimemax
 end
