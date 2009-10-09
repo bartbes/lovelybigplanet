@@ -402,6 +402,30 @@ function love.mousereleased(x, y, button)
 	marketplace.mousereleased(x, y, button)
 end
 
+local olderrhand = love.errhand
+
+function love.errhand(msg)
+	if dbg then return olderrhand end
+	if not love.graphics or not love.event then
+		return error_printer(msg)
+	end
+	love.graphics.setScissor()
+	love.graphics.setBackgroundColor(89, 157, 220)
+	local font = love.graphics.newFont(love._vera_ttf, 18)
+	love.graphics.setFont(font)
+	love.graphics.setColor(255, 255, 255, 255)
+	love.graphics.clear()
+	love.graphics.print("Oops an error occured:\n    " .. msg:match(".-:.-: (.*)") .. "\n\n" .. "By default you should take no action,\n" .. "however, if this occurs a lot and you think\n" .. "the development team doesn't know\n" .. "please inform us.", 30, 30)
+	love.graphics.present()
+	local e
+	while true do
+		e = love.event.wait()
+		if e == love.event_quit or e == love.event_keypressed or e == love.event_mousepressed then
+			return
+		end
+	end
+end
+
 --camera.lateInit()
 --editor.cursorobject=loadobjectlite("player")
 --editor.cursortexture=editor.cursorobject.Resources.texture
