@@ -19,10 +19,24 @@ function setRes(w, h, fs)
 	love.graphics.setMode(w, h, fs, 0)
 	local aspectratio = love.graphics.getWidth()/love.graphics.getHeight()
 	if cameras then
-	cameras.default = camera.new(150,150)
-	cameras.default:setScreenOrigin(0, 1)
-	cameras.default:scaleBy(1, -1)
+		cameras.default = camera.new(150,150)
+		cameras.default:setScreenOrigin(0, 1)
+		cameras.default:scaleBy(1, -1)
 	end
+end
+
+local function parsearguments(args)
+	local s
+	local map
+	for i, v in ipairs(args) do
+		s = v:match("--map=(.*)")
+		if v == "-d" then
+			dbg = true
+		elseif s then
+			map = s
+		end
+	end
+	return map
 end
 
 function love.load()
@@ -91,7 +105,12 @@ function love.load()
 		log("Activated joystick control")
 	end
 	love.graphics.setFont(love._vera_ttf, 12)
-	mainmenu.load()
+	local m = parsearguments(arg)
+	if m then
+		startgame(m)
+	else
+		mainmenu.load()
+	end
 end
 
 --here it comes, the magic
@@ -402,11 +421,9 @@ function love.mousereleased(x, y, button)
 	marketplace.mousereleased(x, y, button)
 end
 
-local olderrhand = love.errhand
-
 function love.errhand(msg)
-	if dbg then return olderrhand end
-	if not love.graphics or not love.event then
+	if dbg then error_printer(msg) end
+	if not love.graphics or not love.event or not cameras then
 		return error_printer(msg)
 	end
 	love.graphics.setScissor()
