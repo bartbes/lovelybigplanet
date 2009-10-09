@@ -31,6 +31,8 @@ function menu.draw() --decides what state to draw, then draws it
 			love.graphics.print(menu.options[i], width/3, height/2-my/2+i*(menu.bheight+4))
 		end
 		love.graphics.setColor(0,255,0)
+		love.graphics.line(0, height/2-my/2-5.1, width, height/2-my/2-5.1)
+		love.graphics.line(0, height/2+my/2+5.1, width, height/2+my/2+5.1)
 		love.graphics.line(0, menu.bary-13, width, menu.bary-13)
 		love.graphics.line(0, menu.bary+5, width, menu.bary+5)
 		love.graphics.setColor(0,255,0,50)
