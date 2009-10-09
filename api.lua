@@ -65,7 +65,6 @@ function rLBP.setProperty(object, property, value)
 	object[lasts] = value
 end
 
--- bartbes: is it okay to expose this function?
 function rLBP.setLayers(object, positions)
 	local posses = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
 	for i, v2 in ipairs(positions) do

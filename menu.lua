@@ -24,7 +24,6 @@ function menu.draw() --decides what state to draw, then draws it
 		local prevcolor = {love.graphics.getColor()}
 		local numoptions = #menu.options
 		local my = numoptions*menu.bheight+25
-		--love.graphics.setColor(105, 105, 20)
 		love.graphics.setColor(255, 255, 255)
 		love.graphics.rectangle(love.draw_fill, 0, height/2-my/2-5, width, my+10)
 		love.graphics.setColor(0, 0, 0)

@@ -4,9 +4,6 @@ function startgame(map, noplay)
 	hud.score = false
 	hud.lvl1 = false
 	hud.lvl2 = false
-	--following needs to be replaced by a state loader
-	--[[love.update = game.update
-	love.draw = game.draw]]
 	--ok, let's do the stuff we'd normally do in load
 	--we create a world, set gravity, the collision callback, and load the map
 	game.world = love.physics.newWorld(1830, 1230)

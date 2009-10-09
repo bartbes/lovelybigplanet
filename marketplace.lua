@@ -34,8 +34,6 @@ local function setmode(self)
 end
 local function preparebutton(btn)
 	btn.opaque = false
-	--btn.textColor = {255,255,255}
-	--btn.backgroundColor = {0,255,0,100}
 end
 
 local sep = 1

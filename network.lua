@@ -41,12 +41,6 @@ function network:connect()
 	self.socket = socket.tcp()
 	if not self.socket then return false end
 	self.socket:settimeout(5)
-	--- This one includes a debug statement
-	-- MARK MARK MARK
-	-- PLEASE REMOVE THIS BEFORE RELEASE
-	-- MARK SOME MORE
-	server, port = serverOverride or server, portOverride or port
-	-- END DEBUG STATEMENT
 	log("Connecting to server: " .. server .. ":" .. port)
 	self.socket:connect(server, port)
 	self.socket:settimeout(0)

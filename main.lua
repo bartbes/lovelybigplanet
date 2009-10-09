@@ -371,7 +371,6 @@ function love.keypressed(key, u)
 			game.keypressed(key, u)
 		end
 		if editor.active then
-			--if menu.keypressed(key) then return end
 			editor.context:keyEvent(key, editor.context.keyDown)
 			if editor.context.firstResponder.cellClass~=LoveUI.TextfieldCell then
 				if key == love.key_m then
@@ -443,6 +442,3 @@ function love.errhand(msg)
 	end
 end
 
---camera.lateInit()
---editor.cursorobject=loadobjectlite("player")
---editor.cursortexture=editor.cursorobject.Resources.texture
