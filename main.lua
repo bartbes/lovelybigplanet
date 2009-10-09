@@ -1,6 +1,7 @@
 require("save.lua")
 dbg = false
 resources = {}
+requireupdate = {}
 
 function log(...)
 	if console then console:print(...) end
@@ -75,6 +76,7 @@ function love.load()
 	require("marketplace.lua")
 	require("libs/console.lua")
 	require("libs/camera.lua")
+	require("libs/anal.lua")
 	--create the cameras
 	cameras = {
 		hud = camera.new(),
@@ -230,6 +232,15 @@ function loadresource(name)
 	if resources[name] then return resources[name] end
 	local ftype = ""
 	local fext = ""
+	--Note the order:
+	-- - Animation
+	-- - Image
+	-- - Music
+	--So, this means an animation overrrides an image
+	--useful because this allows for an animated
+	--and unanimated 'resource package'
+	if love.filesystem.exists("resources/anim_" .. name .. ".jpg") then ftype = "animation"; fext = ".jpg" end
+	if love.filesystem.exists("resources/anim_" .. name .. ".png") then ftype = "animation"; fext = ".png" end
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
 	if love.filesystem.exists("resources/" .. name .. ".png") then ftype = "image"; fext = ".png" end
 	if love.filesystem.exists("resources/" .. name .. ".mp3") then ftype = "music"; fext = ".mp3" end
@@ -245,6 +256,15 @@ function loadresource(name)
 		resources[name].resource = love.audio.newSource(resources[name].music)
 		resources[name].resource:setLooping(true)
 		log("Loaded resource " .. name .. " (music)")
+		return resources[name]
+	elseif ftype == "animation" then
+		resources[name] = {name = name, resource = newAnimation("resources/anim_" .. name .. fext, 150, 150, 0.1, 0), hasInternalDraw = true}
+		--MARK
+		--I only support 150x150 frames played at 0.1 sec/frame
+		--Change this, somehow, sometime
+		--MARK
+		table.insert(requireupdate, resources[name].resource)
+		log("Loaded resource " .. name .. " (animation)")
 		return resources[name]
 	end
 	--apparently we didn't succeed in finding the resource, error
