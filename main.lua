@@ -216,8 +216,6 @@ function loadresource(name)
 	if love.filesystem.exists("resources/" .. name .. ".mp3") then ftype = "music"; fext = ".mp3" end
 	if love.filesystem.exists("resources/" .. name .. ".ogg") then ftype = "music"; fext = ".ogg" end
 	if love.filesystem.exists("resources/" .. name .. ".xm")  then ftype = "music"; fext = ".xm"  end
-	--did we find a Resource?
-	if ftype == "" or fext == "" then return false, "Resource " .. name .. " not found." end
 	--if it's an image, load and return it
 	if ftype == "image" then
 		resources[name] = {name = name, resource = love.graphics.newImage("resources/" .. name .. fext)}
@@ -230,7 +228,7 @@ function loadresource(name)
 		log("Loaded resource " .. name .. " (music)")
 		return resources[name]
 	end
-	--FAIL!
+	--apparently we didn't succeed in finding the resource, error
 	log("[ERROR]: Resource " .. name .. " not found.")
 	return false, "Resource " .. name .. " not found."
 end
@@ -403,7 +401,7 @@ function love.mousereleased(x, y, button)
 	editor.mousereleased(x, y, button)
 	marketplace.mousereleased(x, y, button)
 end
- 
+
 --camera.lateInit()
 --editor.cursorobject=loadobjectlite("player")
 --editor.cursortexture=editor.cursorobject.Resources.texture
