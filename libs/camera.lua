@@ -10,7 +10,7 @@
 
 -- TODO: particle system scaling
 -- TODO: negative scales should substitute a position with the corner that is in the upper upper left after the scaling.
--- TODO: 
+-- TODO:
 
 camera = {love={graphics={},mouse={}}}
 camera.class = {}
@@ -26,7 +26,7 @@ local	twopi = math.pi + math.pi
 function camera.new(scalex, scaley, ox, oy, screenox, screenoy, rotation)
 	local	cam = {}
 	setmetatable(cam, camera.class)
-	
+
 	cam.scalex = scalex or 1
 	cam.scaley = scaley or 1
 	cam.ox = ox or 0
@@ -36,7 +36,7 @@ function camera.new(scalex, scaley, ox, oy, screenox, screenoy, rotation)
 	cam.rotation = rotation or 0
 	cam.cosrot = 1
 	cam.sinrot = 0
-	
+
 	return cam
 end
 
@@ -195,7 +195,7 @@ function love.graphics.getWidth()
 	return camera.present:unscaleX(love.graphics.getWindowWidth())
 end
 function love.graphics.getWidthWithRot()
-	
+
 end
 
 camera.love.graphics.getHeight = love.graphics.getHeight
@@ -339,6 +339,29 @@ function love.graphics.draw(elem, x, y, angle, sx, sy)
 	local	nextElem = elem
 	if not pcall(camera.love.graphics.draw, elem, x, y, angle, sx, sy, w, h) then
 		camera.love.graphics.draw(elem, x, y, 1, 1, w, h)
+	end
+end
+
+camera.love.graphics.drawq = love.graphics.drawq
+function love.graphics.drawq(elem, quad, x, y, angle, sx, sy)
+	x, y = camera.present:pos(x,y)
+	angle = (angle or 0) + camera.present.rotation
+	sx = sx or 1
+	sy = sy or sx
+	sx = sx * (math.abs(math.cos(angle)^2 * camera.present.scalex) +
+		math.abs(math.sin(angle)^2 * camera.present.scaley))
+	sy = sy * (math.abs(math.cos(angle)^2 * camera.present.scaley) +
+		math.abs(math.sin(angle)^2 * camera.present.scalex))
+	if camera.present.scalex * camera.present.scaley < 0 then
+		angle = -angle
+	end
+	local w = elem:getWidth()/2
+	local h = elem:getHeight()/2
+	--local xcomp = w * math.cos(angle) - h * math.sin(angle)
+	--local ycomp = h * math.cos(angle) + w * math.sin(angle)
+	local	nextElem = elem
+	if not pcall(camera.love.graphics.drawq, elem, quad, x, y, angle, sx, sy, w, h) then
+		camera.love.graphics.drawq(elem, quad, x, y, 1, 1, w, h)
 	end
 end
 

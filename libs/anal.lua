@@ -42,7 +42,7 @@ function newAnimation(image, fw, fh, delay, frames)
 	local imgw = image:getWidth()
 	local imgh = image:getHeight()
 	if frames == 0 then
-		frames = imgw / fw * imgh / fh
+		frames = math.floor(imgw / fw * imgh / fh)
 	end
 	local rowsize = imgw/fw
 	for i = 1, frames do
@@ -122,11 +122,11 @@ function anim_mt:setSpeed(speed)
 end
 
 function anim_mt:getWidth()
-	return self.frames[self.position]:getWidth()
+	return self.fw --self.frames[self.position]:getWidth()
 end
 
 function anim_mt:getHeight()
-	return self.frames[self.position]:getHeight()
+	return self.fh --self.frames[self.position]:getHeight()
 end
 
 function anim_mt:setMode(mode)
