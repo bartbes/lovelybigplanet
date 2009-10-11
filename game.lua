@@ -214,12 +214,12 @@ function game.keypressed(key)
 		--now we'll check for the number keys, if one is pressed, switch to appropriate
 		--layer, if it exists.
 		elseif key > love.key_0 and key <= love.key_9 then
-			local l = key - love.key_0
+			local l = string.byte(key) - string.byte(love.key_0)
 			if game.layers >= l then
 				game.switchlayer(l)
 			end
 		elseif key > love.key_kp0 and key <= love.key_kp9 then
-			local l = key - love.key_kp0
+			local l = string.byte(key,3) - string.byte(love.key_0)
 			if game.layers >= l then
 				game.switchlayer(l)
 			end

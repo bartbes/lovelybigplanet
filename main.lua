@@ -1,4 +1,6 @@
+require 'constants.lua'
 require("save.lua")
+
 dbg = false
 resources = {}
 requireupdate = {}
@@ -142,7 +144,7 @@ function loadmap(name, worlds)
 	env.MAP._name = name
 	log("Loaded map " .. name)
 	f = love.filesystem.newFile("maps/" .. name .. ".lua")
-	f:open()
+	f:open('r')
 	local code = f:read()
 	f:close()
 	code = code:match("----CODE----\n(.*)")
