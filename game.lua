@@ -117,14 +117,18 @@ function game.update(dt)
 		startgame(game.map._name)
 	end
 	if game.map.update then game.map.update(dt) end
-	for i, v in ipairs(requireupdate) do v:update() end
+	for i, v in ipairs(requireupdate) do v:update(dt) end
 	--preserve some CPU, may need some tweaking when the engine becomes heavier
 	love.timer.sleep(15)
 end
 
 function game.draw()
 	--draw the background, of course
-	love.graphics.draw(game.map.Resources.background.resource, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
+	if game.map.Resources.background.hasInternalDraw then
+		game.map.Resources.background.resource:draw(center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
+	else
+		love.graphics.draw(game.map.Resources.background.resource, center.x, center.y, 0, game.map.BackgroundScale.x/150, (game.map.BackgroundScale.y or game.map.BackgroundScale.x)/150)
+	end
 	--ask the map to draw each layer, usually done using the standard functions
 	game.map:drawLayers()
 	--same goes for menu

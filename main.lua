@@ -235,16 +235,16 @@ function loadresource(name)
 	local ftype = ""
 	local fext = ""
 	--Note the order:
+	-- - Music
 	-- - Animation
 	-- - Image
-	-- - Music
 	--So, this means an animation overrrides an image
 	--useful because this allows for an animated
 	--and unanimated 'resource package'
-	if love.filesystem.exists("resources/anim_" .. name .. ".jpg") then ftype = "animation"; fext = ".jpg" end
-	if love.filesystem.exists("resources/anim_" .. name .. ".png") then ftype = "animation"; fext = ".png" end
 	if love.filesystem.exists("resources/" .. name .. ".jpg") then ftype = "image"; fext = ".jpg" end
 	if love.filesystem.exists("resources/" .. name .. ".png") then ftype = "image"; fext = ".png" end
+	if love.filesystem.exists("resources/" .. name:gsub("(.-)/(.-)$", "%1/anim_%2") .. ".jpg") then ftype = "animation"; fext = ".jpg" end
+	if love.filesystem.exists("resources/" .. name:gsub("(.-)/(.-)$", "%1/anim_%2") .. ".png") then ftype = "animation"; fext = ".png" end
 	if love.filesystem.exists("resources/" .. name .. ".mp3") then ftype = "music"; fext = ".mp3" end
 	if love.filesystem.exists("resources/" .. name .. ".ogg") then ftype = "music"; fext = ".ogg" end
 	if love.filesystem.exists("resources/" .. name .. ".xm")  then ftype = "music"; fext = ".xm"  end
@@ -260,12 +260,24 @@ function loadresource(name)
 		log("Loaded resource " .. name .. " (music)")
 		return resources[name]
 	elseif ftype == "animation" then
-		resources[name] = {name = name, resource = newAnimation("resources/anim_" .. name .. fext, 150, 150, 0.1, 0), hasInternalDraw = true}
-		--MARK
-		--I only support 150x150 frames played at 0.1 sec/frame
-		--Change this, somehow, sometime
-		--MARK
-		table.insert(requireupdate, resources[name].resource)
+		name = name:gsub("(.-)/(.-)$", "%1/anim_%2")
+		local img = love.graphics.newImage("resources/" .. name .. fext)
+		local w, h, s = 150, 150, 0.1
+		if love.filesystem.exists("resources/" .. name .. ".def") then
+			local f = love.filesystem.newFile("resources/" .. name .. ".def")
+			f:open(love.file_read)
+			local d = f:read()
+			f:close()
+			for l in d:gmatch("([^\r\n]+)[\r\n]*") do
+				w = l:match("^d = ([%d%.]+)$") or w
+				h = l:match("^h = ([%d%.]+)$") or h
+				s = l:match("^s = ([%d%.]+)$") or s
+			end
+			w, h, s = tonumber(w), tonumber(h), tonumber(s)
+		end
+		local anim = newAnimation(img, w, h, s, 0)
+		resources[name] = {name = name, resource = anim, image = img, hasInternalDraw = true}
+		table.insert(requireupdate, anim)
 		log("Loaded resource " .. name .. " (animation)")
 		return resources[name]
 	end
