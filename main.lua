@@ -15,7 +15,7 @@ function quitgame()
 	log("Saving...")
 	save.createsave(startgame, "testmap")
 	log("Quitting...\nThanks for playing LovelyBigPlanet!")
-	return love.event.quit()
+	return love.event.push("q")
 end
 
 function setRes(w, h, fs)
