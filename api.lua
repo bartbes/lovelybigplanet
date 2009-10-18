@@ -144,6 +144,14 @@ function rLBP.finish()
 	end
 end
 
+function rLBP.killplayer()
+	rLBP.restartmap()
+end
+
+function rLBP.restartmap()
+	startgame(game.map._name)
+end
+
 local mt = {}
 function mt:__index(i)
 	return rLBP[i] or CustomCommands[i]

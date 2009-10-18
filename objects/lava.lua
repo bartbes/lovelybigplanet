@@ -7,5 +7,8 @@ OBJECT.Polygon = { { -1.5, -1.5, -1.5, -0.5, -0.5, -0.5, -0.5, -1.5 } }
 OBJECT.Static = true
 
 function OBJECT:collision(a)
-	--somehow kill the player...
+	if a == 'player' then
+		--kill the player
+		LBP.killplayer()
+	end
 end
