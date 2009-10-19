@@ -162,7 +162,11 @@ function game.draw()
 			local a = editor.cursorobject._lite and 0 or -editor.cursorobject._body:getAngle()
 			setCamera(cameras.default)
 			local Px, Py = cameras.default:unpos(x, y)
-			love.graphics.draw(editor.cursortexture.resource, Px, Py, a, editor.cursorobject.TextureScale.x/150, (editor.cursorobject.TextureScale.y or editor.cursorobject.TextureScale.x)/150)
+			if editor.cursortexture.hasInternalDraw then
+				editor.cursortexture.resource:draw(Px, Py, a, editor.cursorobject.TextureScale.x/150, (editor.cursorobject.TextureScale.y or editor.cursorobject.TextureScale.x)/150)
+			else
+				love.graphics.draw(editor.cursortexture.resource, Px, Py, a, editor.cursorobject.TextureScale.x/150, (editor.cursorobject.TextureScale.y or editor.cursorobject.TextureScale.x)/150)
+			end
 			setCamera(cameras.hud)
 			love.graphics.setColor(255, 255, 255, 255)
 		end
@@ -188,8 +192,8 @@ function game.collision(a, b, coll)
 	if a == "player" or b == "player" then
 		game.allowjump = true
 	end
-	if game.map.Objects[a].collision then game.map.Objects[a]:collision(b) end
-	if game.map.Objects[b].collision then game.map.Objects[b]:collision(a) end
+	if game.map.Objects[a] and game.map.Objects[a].collision then game.map.Objects[a]:collision(b) end
+	if game.map.Objects[b] and game.map.Objects[b].collision then game.map.Objects[b]:collision(a) end
 	if game.map.collision then game.map:collision(a, b) end
 end
 

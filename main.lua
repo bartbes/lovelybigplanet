@@ -225,7 +225,7 @@ function loadobjectlite(name)
 	end
 	env.OBJECT._name = name
 	env.OBJECT._lite = true
-	log("Loaded object " .. internalname .. " (" .. name .. ")")
+	log("Loaded object lite (" .. name .. ")")
 	return env.OBJECT
 end
 
