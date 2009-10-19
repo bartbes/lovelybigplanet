@@ -144,7 +144,9 @@ function rLBP.finish()
 	end
 end
 
-function rLBP.killplayer()
+function rLBP.kill(obj)
+	obj = LBP.getObject(obj, true)
+	--killing is not yet implemented, so we'll restart
 	rLBP.restartmap()
 end
 

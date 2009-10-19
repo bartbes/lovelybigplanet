@@ -114,7 +114,7 @@ function game.update(dt)
 		LBP.finish()
 	end
 	if x < -30 or x > 30 and y > 20 or y < -20 then
-		LBP.killplayer()
+		LBP.kill("player")
 	end
 	if game.map.update then game.map.update(dt) end
 	for i, v in ipairs(requireupdate) do v:update(dt) end

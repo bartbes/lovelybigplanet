@@ -9,6 +9,6 @@ OBJECT.Static = true
 function OBJECT:collision(a)
 	if a == 'player' then
 		--kill the player
-		LBP.killplayer()
+		LBP.kill(a)
 	end
 end
