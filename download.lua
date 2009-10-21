@@ -59,6 +59,8 @@ function download.load(url, filename, cb)
 	download.active = true
 	download.cor = coroutine.create(dodownload)
 	download.cb = cb
+	download.url = url
+	download.filename = filename
 	local err
 	err, download.message = coroutine.resume(download.cor, 0, url, filename)
 	if not err then
@@ -75,7 +77,7 @@ function download.update(dt)
 		download.active = false
 		love.update = download.oldupdate
 		if download.cb then
-			download.cb()
+			download.cb(download.url, download.filename)
 		end
 	end
 	love.timer.sleep(15)
