@@ -37,7 +37,7 @@ local function dodownload(progress, url, filename)
 	local data = ""
 	local errmsg, part
 	while progress ~= 100 do
-		line, errmsg, part = sock:receive(128)
+		line, errmsg, part = sock:receive(2048)
 		if not line then
 			line = part
 			part = true
