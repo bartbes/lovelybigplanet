@@ -13,6 +13,8 @@ function download.load()
 	download.progress = 0
 	download.active = true
 	download.cor = coroutine.create(dodownload)
+	download.oldupdate = love.update
+	love.update = download.update
 end
 
 function download.update(dt)
@@ -21,7 +23,9 @@ function download.update(dt)
 	if not busy then
 		--finished, do something here
 		download.active = false
+		love.update = download.oldupdate
 	end
+	love.timer.sleep(15)
 end
 
 dtest = download.load
@@ -51,7 +55,6 @@ function download.draw()
 	love.graphics.line(posx, h/2 + 60, posx, h/2 + 100)
 	love.graphics.setColor(0,255,0,50)
 	love.graphics.rectangle("fill", w/2 - 300, h/2 + 60, download.progress*6, 40)
-	love.graphics.setLineWidth(1)
 	love.graphics.setColor(255,255,255)
 	setCamera(cameras.default)
 end
