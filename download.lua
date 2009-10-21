@@ -7,7 +7,7 @@ Host: %s
 
 ]]
 
-local function dodownload(progress, url)
+local function dodownload(progress, url, filename)
 	local sock = socket.tcp()
 	local host = url:match("([%w%.]+)")
 	local port = url:match("[%w%.]+:(%d+)") or 80
@@ -47,15 +47,19 @@ local function dodownload(progress, url)
 		if part then break end
 	end
 	sock:close()
+	local f = love.filesystem.newFile(filename)
+	f:open("w")
+	f:write(data)
+	f:close()
 	return false, progress
 end
 
-function download.load(url)
+function download.load(url, filename)
 	download.progress = 0
 	download.active = true
 	download.cor = coroutine.create(dodownload)
 	local err
-	err, download.message = coroutine.resume(download.cor, 0, url)
+	err, download.message = coroutine.resume(download.cor, 0, url, filename)
 	if not err then
 		download.active = false
 	end
