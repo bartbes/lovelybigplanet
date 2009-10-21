@@ -118,6 +118,9 @@ function game.update(dt)
 	end
 	if game.map.update then game.map.update(dt) end
 	for i, v in ipairs(requireupdate) do v:update(dt) end
+	if download.active then
+		download.update(dt)
+	end
 	--preserve some CPU, may need some tweaking when the engine becomes heavier
 	love.timer.sleep(15)
 end
@@ -183,6 +186,9 @@ function game.draw()
 	else
 		--draw HUD
 		hud.draw()
+	end
+	if download.active then
+		download.draw()
 	end
 end
 
