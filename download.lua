@@ -54,10 +54,11 @@ local function dodownload(progress, url, filename)
 	return false, progress
 end
 
-function download.load(url, filename)
+function download.load(url, filename, cb)
 	download.progress = 0
 	download.active = true
 	download.cor = coroutine.create(dodownload)
+	download.cb = cb
 	local err
 	err, download.message = coroutine.resume(download.cor, 0, url, filename)
 	if not err then
@@ -73,6 +74,9 @@ function download.update(dt)
 		--finished, do something here
 		download.active = false
 		love.update = download.oldupdate
+		if download.cb then
+			download.cb()
+		end
 	end
 	love.timer.sleep(15)
 end
