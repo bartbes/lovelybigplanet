@@ -9,8 +9,14 @@ Host: %s
 
 local function dodownload(progress, url, filename)
 	local sock = socket.tcp()
+	local port = 80
+	local scheme = url:match("^(%w+)://")
+	if scheme == "http" then
+		port = 80
+	end
+	url = url:sub(#scheme+4)
 	local host = url:match("([%w%.]+)")
-	local port = url:match("[%w%.]+:(%d+)") or 80
+	port = url:match("[%w%.]+:(%d+)") or port
 	local page = url:match("(/.*)$")
 	local file = page:match("/(.+)$") or ""
 	sock:connect(host, port)
