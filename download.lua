@@ -89,7 +89,26 @@ function download.update(dt)
 	love.timer.sleep(15)
 end
 
-dtest = download.load
+local function dotest(progress)
+	while progress < 100 do
+		progress = progress + love.timer.getDelta()*10
+		if progress > 100 then progress = 100 end
+		progress = coroutine.yield(true, progress)
+	end
+	return false, progress
+end
+
+function dtest (url, filename)
+	if url then
+		download.load(url, filename)
+	else
+		download.progress = 0
+		download.active = true
+		download.cor = coroutine.create(dotest)
+		download.oldupdate = love.update
+		love.update = download.update
+	end
+end
 
 local fnt = love.graphics.newFont(love._vera_ttf, 20)
 local fnt_msg_width = fnt:getWidth("Downloading...")/2
