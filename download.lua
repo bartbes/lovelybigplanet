@@ -1,24 +1,69 @@
 download = {message = '', active = false, progress = 0, cor = nil}
 
-local function dodownload(progress)
-	while progress ~= 100 do
-		progress = progress + love.timer.getDelta()*10
-		if progress > 100 then progress = 100 end
-		progress = coroutine.yield(true, progress, "Doing some fake stuff")
+local request = [[
+GET %s HTTP/1.0
+Host: %s
+
+
+]]
+
+local function dodownload(progress, url)
+	local sock = socket.tcp()
+	local host = url:match("([%w%.]+)")
+	local port = url:match("[%w%.]+:(%d+)") or 80
+	local page = url:match("(/.*)$")
+	local file = page:match("/(.+)$") or ""
+	sock:connect(host, port)
+	coroutine.yield(url)
+	local totalsize
+	local line
+	sock:send(request:format(page, host))
+	while true do
+		line = sock:receive("*l")
+		if line == "" then
+			progress = coroutine.yield(true, 0)
+			break
+		end
+		totalsize = line:match("Content%-Length: (%d+)") or totalsize
+		progress = coroutine.yield(true, 0)
 	end
-	return false, 100, "Done"
+	local bytesreceived = 0
+	local data = ""
+	local errmsg, part
+	while progress ~= 100 do
+		line, errmsg, part = sock:receive(128)
+		if not line then
+			line = part
+			part = true
+		end
+		data = data .. line
+		bytesreceived = #data
+		if totalsize then
+			progress = (bytesreceived/totalsize)*100
+		else
+			progress = 50
+		end
+		progress = coroutine.yield(true, progress)
+		if part then break end
+	end
+	sock:close()
+	return false, progress
 end
 
-function download.load()
+function download.load(url)
 	download.progress = 0
 	download.active = true
 	download.cor = coroutine.create(dodownload)
+	local err
+	err, download.message = coroutine.resume(download.cor, 0, url)
+	if not err then
+		download.active = false
+	end
 end
 
 function download.update(dt)
-	local success, busy
-	success, busy, download.progress, download.message = coroutine.resume(download.cor, download.progress)
-	if not busy then
+	success, busy, download.progress = assert(coroutine.resume(download.cor, download.progress))
+	if not busy or not success then
 		--finished, do something here
 		download.active = false
 	end
