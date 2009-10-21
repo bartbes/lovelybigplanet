@@ -4,9 +4,9 @@ local function dodownload(progress)
 	while progress ~= 100 do
 		progress = progress + love.timer.getDelta()*10
 		if progress > 100 then progress = 100 end
-		progress = coroutine.yield(true, progress)
+		progress = coroutine.yield(true, progress, "Doing some fake stuff")
 	end
-	return false, 100
+	return false, 100, "Done"
 end
 
 function download.load()
@@ -16,8 +16,8 @@ function download.load()
 end
 
 function download.update(dt)
-	success, busy, download.progress, message = coroutine.resume(download.cor, download.progress)
-	if message then download.message = message end
+	local success, busy
+	success, busy, download.progress, download.message = coroutine.resume(download.cor, download.progress)
 	if not busy then
 		--finished, do something here
 		download.active = false
