@@ -40,7 +40,7 @@ function console:load()
 	self.yperc = 30
 	self.currentline = ""
 	self.scrollback = {}
-	self.scrollbacklength = 30
+	self.scrollbacklength = 15
 	self.oldcommands = {}
 	self.oldcommandlength = 10
 	self.oldcommandindex = 0
