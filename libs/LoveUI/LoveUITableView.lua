@@ -52,7 +52,7 @@ function LoveUI.TableView:init(frame, datasource, ...)
 			if self.opaque then
 				local size=self.frame.size;
 				LoveUI.graphics.setColor(unpack(hself.backgroundColor))
-				LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
+				LoveUI.graphics.rectangle('fill', 0, 0, size.width, size.height)
 			end
 			local frame=hself.frame;
 			local curImage=LoveUI:getImage("light-gloss-top-bottom.png");
@@ -215,7 +215,7 @@ function LoveUI.TableView:reloadData()
 							currentColor=self.selectColor;
 						end
 						LoveUI.graphics.setColor(unpack(currentColor))
-						LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
+						LoveUI.graphics.rectangle('fill', 0, 0, size.width, size.height)
 					end
 				end
 				LoveUI.bind(self.rowViews[j], "opaque", self, "opaque",

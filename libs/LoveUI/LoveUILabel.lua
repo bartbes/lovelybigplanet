@@ -38,7 +38,7 @@ function LoveUI.Label:display()
 	LoveUI.graphics.setFont(self.font);
 	LoveUI.graphics.setColor(unpack(self.backgroundColor));
 	if self.opaque then
-		LoveUI.graphics.rectangle(2, 0, 0, self.frame.size:get());
+		LoveUI.graphics.rectangle('fill', 0, 0, self.frame.size:get());
 	end
 	LoveUI.graphics.setColor(unpack(self.textColor));
 	LoveUI.graphics.draw(self.value, 10, self.frame.size.height/2+ self.font:getHeight()/2);

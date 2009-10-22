@@ -47,7 +47,7 @@ function LoveUI.View:display()
 	if self.opaque then
 		local size=self.frame.size;
 		LoveUI.graphics.setColor(unpack(self.backgroundColor))
-		LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
+		LoveUI.graphics.rectangle('fill', 0, 0, size.width, size.height)
 	end
 end
 
@@ -143,7 +143,7 @@ function LoveUI.View:postDisplay()
 	local size=self.frame.size;
 	if self.tabAccessible and self.context.firstResponder == self then
 		LoveUI.graphics.setColor(unpack(LoveUI.defaultSelectBgColor))
-		LoveUI.graphics.rectangle(love.draw_fill, self.frame.origin.x+1, self.frame.origin.y+1 , size.width-2, size.height-2)
+		LoveUI.graphics.rectangle('fill', self.frame.origin.x+1, self.frame.origin.y+1 , size.width-2, size.height-2)
 	end
 end
 

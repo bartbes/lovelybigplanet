@@ -15,7 +15,7 @@ function LoveUI.ScrollerCell:drawBackground(frame, view)
 	LoveUI.graphics.setColor(unpack(self.controlView.backgroundColor))
 	local size=frame.size;
 	if view.opaque then
-		LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
+		LoveUI.graphics.rectangle('fill', 0, 0, size.width, size.height)
 	end
 	LoveUI.graphics.draw(self.image, frame.size.width/2, frame.size.height/2,0, frame.size.width/self.image:getWidth(), frame.size.height/self.image:getHeight());
 end
@@ -41,7 +41,7 @@ function LoveUI.ScrollerCell:drawHandle(frame, view)
 		ho=1+self.value;
 	end
 	if view.opaque then
-		LoveUI.graphics.rectangle(2, ho, vo, size.width, size.height)
+		LoveUI.graphics.rectangle('fill', ho, vo, size.width, size.height)
 	end
 	local curImage=self.scrollerImage
 	

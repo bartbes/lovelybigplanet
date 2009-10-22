@@ -249,14 +249,14 @@ end
 function LoveUI.ScrollView:display()
 	if self.opaque then
 		LoveUI.graphics.setColor(unpack(self.backgroundColor))
-		LoveUI.graphics.rectangle(2, self.frame:get())
+		LoveUI.graphics.rectangle('fill', self.frame:get())
 	end
 end
 
 function LoveUI.ScrollView:postDisplay()
 	--After displaying subviews
 		LoveUI.graphics.setColor(0,0,0,0)
-		LoveUI.graphics.rectangle(1,self.frame:get())
+		LoveUI.graphics.rectangle('line',self.frame:get())
 end
 
 

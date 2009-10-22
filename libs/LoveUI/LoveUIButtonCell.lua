@@ -26,7 +26,7 @@ function LoveUI.ButtonCell:drawImage(frame, view)
 	local size=frame.size;
 	
 	if view.opaque then
-		LoveUI.graphics.rectangle(2, 0, 0, size.width, size.height)
+		LoveUI.graphics.rectangle('fill', 0, 0, size.width, size.height)
 	end
 	local curImage=self.image;
 	if self.state==LoveUI.ON or self.isdown then

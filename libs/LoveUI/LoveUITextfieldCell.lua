@@ -93,7 +93,7 @@ function LoveUI.TextfieldCell:drawImage(frame, view)
 	local size=frame.size;
 	
 	if view.opaque then
-		LoveUI.graphics.rectangle(2, 0,0, size.width, size.height)
+		LoveUI.graphics.rectangle('fill', 0,0, size.width, size.height)
 	end
 	
 	local curImage=self.image;
@@ -265,7 +265,7 @@ end
 function LoveUI.TextfieldCell:drawBorder(frame, view)
 	LoveUI.graphics.setColor(180,180,180,255)
 	LoveUI.graphics.setLineStyle( love.line_rough )
-	LoveUI.graphics.rectangle(love.draw_line, 0,0, frame.size.width-1, frame.size.height-1) --textfield border
+	LoveUI.graphics.rectangle('line', 0,0, frame.size.width-1, frame.size.height-1) --textfield border
 	LoveUI.graphics.setColor(0,0,0,255)
 	LoveUI.graphics.setLineStyle( love.line_smooth )
 	LoveUI.graphics.line(0, 1, frame.size.width, 1) --text field shadow at top
@@ -292,10 +292,10 @@ function LoveUI.TextfieldCell:drawSelection(frame, view)
 		else
 			LoveUI.graphics.setColor(unpack(self.controlView.selectColor)) --select rect color
 			if self.selectLength>0 then
-				LoveUI.graphics.rectangle(love.draw_fill, xloc, 3, view.font:getWidth(string.sub(self.value,self.selectStart+1,self.selectStart+self.selectLength)) ,frame.size.height-6)
+				LoveUI.graphics.rectangle('fill', xloc, 3, view.font:getWidth(string.sub(self.value,self.selectStart+1,self.selectStart+self.selectLength)) ,frame.size.height-6)
 			else
 				local selWid=view.font:getWidth(string.sub(self.value,self.selectStart+self.selectLength+1, self.selectStart))
-				LoveUI.graphics.rectangle(love.draw_fill, xloc-selWid, 3, selWid ,frame.size.height-5)
+				LoveUI.graphics.rectangle('fill', xloc-selWid, 3, selWid ,frame.size.height-5)
 			end
 		end
 	
