@@ -29,14 +29,20 @@ function setRes(w, h, fs)
 end
 
 local function parsearguments(args)
-	local s
+	local m, c
 	local map
 	for i, v in ipairs(args) do
-		s = v:match("--map=(.*)")
+		m = v:match("--map=(.*)")
+		c = v:match("--exec=(.*)")
 		if v == "-d" then
 			dbg = true
-		elseif s then
-			map = s
+		elseif m then
+			map = m
+		elseif c then
+			console:execute(c)
+		elseif v == "--help" then
+			print("Usage: " .. args[0] .. " [-d] [--map=<map>] [--exec=<command>]")
+			love.event.push("q")
 		end
 	end
 	return map
