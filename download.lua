@@ -10,47 +10,79 @@ Host: %s
 local function dodownload(progress, url, filename)
 	local sock = socket.tcp()
 	local port = 80
-	local scheme = url:match("^(%w+)://")
+	local scheme = url:match("^(%w+)://") or "http"
 	if scheme == "http" then
 		port = 80
+	elseif scheme == "lbp" then
+		port = 8372
 	end
 	url = url:sub(#scheme+4)
 	local host = url:match("([%w%.]+)")
 	port = url:match("[%w%.]+:(%d+)") or port
-	local page = url:match("(/.*)$")
-	local file = page:match("/(.+)$") or ""
 	sock:connect(host, port)
-	coroutine.yield(url)
-	local totalsize
-	local line
-	sock:send(request:format(page, host))
-	while true do
-		line = sock:receive("*l")
-		if line == "" then
-			progress = coroutine.yield(true, 0)
-			break
-		end
-		totalsize = line:match("Content%-Length: (%d+)") or totalsize
-		progress = coroutine.yield(true, 0)
-	end
-	local bytesreceived = 0
+	coroutine.yield(scheme .. "://" .. url)
 	local data = ""
-	local errmsg, part
-	while progress ~= 100 do
-		line, errmsg, part = sock:receive(2048)
-		if not line then
-			line = part
-			part = true
+	if scheme == "http" then
+		local page = url:match("(/.*)$")
+		local file = page:match("/(.+)$") or ""
+		local totalsize
+		local line
+		sock:send(request:format(page, host))
+		while true do
+			line = sock:receive("*l")
+			if line == "" then
+				progress = coroutine.yield(true, 0)
+				break
+			end
+			totalsize = line:match("Content%-Length: (%d+)") or totalsize
+			progress = coroutine.yield(true, 0)
 		end
-		data = data .. line
-		bytesreceived = #data
-		if totalsize then
+		local bytesreceived = 0
+		local errmsg, part
+		while progress ~= 100 do
+			line, errmsg, part = sock:receive(2048)
+			if not line then
+				line = part
+				if not line then line = "" end
+				part = true
+			end
+			data = data .. line
+			bytesreceived = #data
+			if totalsize then
+				progress = (bytesreceived/totalsize)*100
+			else
+				progress = 50
+			end
+			progress = coroutine.yield(true, progress)
+			if part then break end
+		end
+	elseif scheme == "lbp" then
+		local fileID = url:match("/(.+)[\n]*$")
+		local msg = network.packmessage("file", fileID)
+		sock:send(msg)
+		local msg = sock:receive(8)
+		log(msg)
+		local totalsize = network.extract(msg, "length")
+		log(totalsize)
+		local line, errmsg, part, bytesreceived
+		while progress ~= 100 do
+			line, errmsg, part = sock:receive(2048)
+			log(line)
+			if not line then
+				line = part
+				if not line then line = "" end
+				part = true
+			end
+			msg = msg .. line
+			bytesreceived = #msg
 			progress = (bytesreceived/totalsize)*100
-		else
-			progress = 50
+			progress = coroutine.yield(true, progress)
+			if part then break end
 		end
-		progress = coroutine.yield(true, progress)
-		if part then break end
+		local t, l, d = network.unpackmessage(msg)
+		l = network.extract(d, "length")
+		d = d:sub(l+7)
+		t, l, data = network.unpackmessage(d)
 	end
 	sock:close()
 	local f = love.filesystem.newFile(filename)

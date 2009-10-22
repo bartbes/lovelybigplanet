@@ -21,11 +21,15 @@ local function extract(data, what)
 	end
 end
 
+network.extract = extract
+
 local function packmessage(type, data)
 	local length = data:len()
 	length = string.char(math.floor(length/16777216), math.floor((length%16777216)/65536), math.floor((length%65536)/256), length%256)
 	return type .. length .. data .. "\n"
 end
+
+network.packmessage = packmessage
 
 local function unpackmessage(data)
 	local type = extract(data, "type")
@@ -33,6 +37,8 @@ local function unpackmessage(data)
 	local data = data:sub(9, 9+length)
 	return type, length, data
 end
+
+network.unpackmessage = unpackmessage
 
 function network:connect()
 	if self.socket then
