@@ -19,3 +19,5 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 CAMERA (found in camera.lua) is licensed under the LPCL, which can be found here: http://love2d.org/wiki/index.php?title=LPC_License
+LoveUI is licensed ZLIB.
+I (Bart van Strien A.K.A. Bart Bes) have copyright on all other libs found in this release and all of them are released under MIT/X11 license.
