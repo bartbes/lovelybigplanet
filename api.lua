@@ -154,6 +154,10 @@ function rLBP.restartmap()
 	startgame(game.map._name)
 end
 
+function LBP.speechBox(speaker, text)
+	hud.speechBox(speaker, text)
+end
+
 local mt = {}
 function mt:__index(i)
 	return rLBP[i] or CustomCommands[i]

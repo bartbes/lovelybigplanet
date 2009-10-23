@@ -34,6 +34,7 @@ MAP.ShowScore = true
 
 function MAP.init()
 	MAP.Objects.helpsign.helptext = "You gain extra points\nfor pushing off the enemy"
+	LBP.speechBox("rude", "OBEY!")
 end
 
 function MAP.update(dt)
