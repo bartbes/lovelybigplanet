@@ -18,6 +18,7 @@ local function msgUpdate(dt)
 		if hud.msgFadeouttime < 0 then
 			hud.msgFadeouttime = 0
 			hud.messagebox = nil
+			hud.speechbox = nil
 			love.update = oldUpdate
 			love.keypressed = oldKeypressed
 			love.joystickpressed = oldJoystickpressed
@@ -117,6 +118,25 @@ function hud.draw()
 		end
 		--NOTE: I don't get the feeling love.align_center works as it should
 	end
+	if hud.speechbox then
+		love.graphics.setColor(255, 255, 255)
+		local lineheight = (hud.msgFadeouttime > 0 and hud.msgFadeouttime/hud.msgFadetimemax or (hud.msgFadeintime > 0 and 1-hud.msgFadeintime/hud.msgFadetimemax or 1)) * 100
+		love.graphics.rectangle('fill', 20, height-lineheight-20, width-40, lineheight)
+		love.graphics.setColor(0,255,0)
+		love.graphics.setLineWidth(2)
+		love.graphics.line(20, height-lineheight-20, width-20, height-lineheight-20)
+		love.graphics.line(20, height-lineheight, width-20, height-lineheight)
+		love.graphics.line(20, height-lineheight-20, 20, height-20)
+		love.graphics.line(width-20, height-lineheight-20, width-20, height-20)
+		love.graphics.line(20, height-20, width-20, height-20)
+		love.graphics.setColor(0,255,0,100)
+		love.graphics.rectangle('fill', 20, height-lineheight-20, width-40, 20)
+		love.graphics.setColor(0, 0, 0)
+		if hud.msgFadeintime ==0 and hud.msgFadeouttime ==0 then
+			love.graphics.print(hud.speaker, 24, height-lineheight-6)
+			love.graphics.print(hud.speechbox, 28, height-lineheight+20)
+		end
+	end
 	--restore settings, we don't want to impact any other drawing
 	love.graphics.setColor(unpack(col))
 	console:draw()
@@ -135,4 +155,24 @@ function hud.messageBox(text) --create a message box
 	--set the text
 	hud.messagebox = text
 	hud.msgFadeintime = hud.msgFadetimemax
+end
+
+function hud.speechBox(speaker, text) --create a message box
+	--store the callbacks, if necessary (happens once)
+	if not oldUpdate then oldUpdate = love.update end
+	if not oldKeypressed then oldKeypressed = love.keypressed end
+	if not oldJoystickpressed then oldJoystickpressed = love.joystickpressed end
+	--load the new ones
+	love.update = msgUpdate
+	love.keypressed = msgKeypressed
+	love.joystickpressed = msgJoystickpressed
+	--set the text
+	hud.speechbox = text
+	hud.speaker = speaker
+	hud.msgFadeintime = hud.msgFadetimemax
+end
+
+--Testing function:
+function sB()
+	hud.speechBox("Neo", "Well, duh. It says so, right here in the script.")
 end
