@@ -26,7 +26,7 @@ local function msgUpdate(dt)
 	end
 end
 local function msgKeypressed(key)
-	if key == love.key_return then
+	if key == 'return' then
 		hud.msgFadeouttime = hud.msgFadetimemax-hud.msgFadeintime
 	end
 end
@@ -34,7 +34,7 @@ end
 local function msgJoystickpressed(j, key)
 	if j ~= activejoystick then return end
 	if key == 0 then
-		msgKeypressed(love.key_return)
+		msgKeypressed('return')
 	end
 end
 
@@ -50,19 +50,19 @@ function hud.draw()
 	love.graphics.setColor(175, 175, 50)
 	--draw the inside
 	if hud.score or dbg then
-		love.graphics.rectangle(love.draw_fill, width/2-200, 0, 400, 50)
-		love.graphics.triangle(love.draw_fill, width/2-200, 0, width/2-200, 50, width/2-250, 0)
-		love.graphics.triangle(love.draw_fill, width/2+200, 0, width/2+200, 50, width/2+250, 0)
+		love.graphics.rectangle('fill', width/2-200, 0, 400, 50)
+		love.graphics.triangle(l'fill', width/2-200, 0, width/2-200, 50, width/2-250, 0)
+		love.graphics.triangle('fill', width/2+200, 0, width/2+200, 50, width/2+250, 0)
 	end
 	if hud.lvl1 or dbg then
-		love.graphics.rectangle(love.draw_fill, 0, 0, 100, 30)
-		love.graphics.rectangle(love.draw_fill, 0, 30, 80, 20)
-		love.graphics.triangle(love.draw_fill, 80, 30, 100, 30, 80, 50)
+		love.graphics.rectangle('fill', 0, 0, 100, 30)
+		love.graphics.rectangle('fill', 0, 30, 80, 20)
+		love.graphics.triangle('fill', 80, 30, 100, 30, 80, 50)
 	end
 	if hud.lvl2 or dbg then
-		love.graphics.rectangle(love.draw_fill, width-100, 0, 100, 30)
-		love.graphics.rectangle(love.draw_fill, width-80, 30, 80, 20)
-		love.graphics.triangle(love.draw_fill, width-80, 30, width-80, 50, width-100, 30)
+		love.graphics.rectangle('fill', width-100, 0, 100, 30)
+		love.graphics.rectangle('fill', width-80, 30, 80, 20)
+		love.graphics.triangle('fill', width-80, 30, width-80, 50, width-100, 30)
 	end
 	love.graphics.setColor(0, 0, 0)
 	--draw the outline
@@ -83,7 +83,7 @@ function hud.draw()
 	end
 	--and, draw the inside
 	if hud.score then
-		love.graphics.drawf(tostring(game.score), width/2-5, 30, 20, love.align_center)
+		love.graphics.drawf(tostring(game.score), width/2-5, 30, 20, 'center')
 	end
 	--debug code
 	if dbg then
@@ -99,22 +99,22 @@ function hud.draw()
 	if hud.messagebox then
 		--set the color to transparent black, and draw that over the entire screen
 		love.graphics.setColor(0, 0, 0, 100)
-		love.graphics.rectangle(love.draw_fill, 0, 0, width, height)
+		love.graphics.rectangle('fill', 0, 0, width, height)
 		--now start drawing those contents
 		love.graphics.setColor(255, 255, 255)
 		local lineheight = (hud.msgFadeouttime > 0 and hud.msgFadeouttime/hud.msgFadetimemax or (hud.msgFadeintime > 0 and 1-hud.msgFadeintime/hud.msgFadetimemax or 1)) * height/4
-		love.graphics.rectangle(love.draw_fill, 0, height/4, width, lineheight)
+		love.graphics.rectangle('fill', 0, height/4, width, lineheight)
 		love.graphics.setColor(0,255,0)
 		love.graphics.setLineWidth(2)
 		love.graphics.line(0, height/4, width, height/4)
 		love.graphics.line(0, height/4+lineheight, width, height/4+lineheight)
 		love.graphics.line(0, height/4+lineheight-20, width, height/4+lineheight-20)
 		love.graphics.setColor(0,255,0,100)
-		love.graphics.rectangle(love.draw_fill, 0, height/4+lineheight-20, width, 20)
+		love.graphics.rectangle('fill', 0, height/4+lineheight-20, width, 20)
 		love.graphics.setColor(0, 0, 0)
 		love.graphics.print("Press Enter to continue", width*.75-165, height/4+lineheight-6)
 		if hud.msgFadeintime ==0 and hud.msgFadeouttime ==0 then
-			love.graphics.drawf(hud.messagebox, width/4, height*3/8-20, width/2, love.align_center)
+			love.graphics.drawf(hud.messagebox, width/4, height*3/8-20, width/2, 'center')
 		end
 		--NOTE: I don't get the feeling love.align_center works as it should
 	end
