@@ -138,10 +138,10 @@ function game.draw()
 		if editor.selectedobject then
 			sel = game.map.Objects[editor.selectedobject]
 			love.graphics.setColor(100, 100, 255, 255)
-			love.graphics.setBlendMode(love.blend_additive)
+			love.graphics.setBlendMode('additive')
 			LBP.draw(sel)
 			love.graphics.setColor(255, 255, 255, 255)
-			love.graphics.setBlendMode(love.blend_alpha)
+			love.graphics.setBlendMode('alpha')
 		end
 		setCamera(cameras.editor)
 		if editor.selectedobject and sel
