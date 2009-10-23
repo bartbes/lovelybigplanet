@@ -4,6 +4,7 @@ hud = {msgFadetimemax = .15, msgFadeouttime = 0, msgFadeintime = 0}
 local oldUpdate
 local oldKeypressed
 local oldJoystickpressed
+local msgwidth
 
 --new callbacks, local, nobody else needs it
 local function msgUpdate(dt)
@@ -51,7 +52,7 @@ function hud.draw()
 	--draw the inside
 	if hud.score or dbg then
 		love.graphics.rectangle('fill', width/2-200, 0, 400, 50)
-		love.graphics.triangle(l'fill', width/2-200, 0, width/2-200, 50, width/2-250, 0)
+		love.graphics.triangle('fill', width/2-200, 0, width/2-200, 50, width/2-250, 0)
 		love.graphics.triangle('fill', width/2+200, 0, width/2+200, 50, width/2+250, 0)
 	end
 	if hud.lvl1 or dbg then
@@ -135,6 +136,7 @@ function hud.draw()
 		if hud.msgFadeintime ==0 and hud.msgFadeouttime ==0 then
 			love.graphics.print(hud.speaker, 24, height-lineheight-6)
 			love.graphics.print(hud.speechbox, 28, height-lineheight+20)
+			love.graphics.print("Press Enter to continue", width-msgwidth-30, height-30)
 		end
 	end
 	--restore settings, we don't want to impact any other drawing
@@ -170,9 +172,12 @@ function hud.speechBox(speaker, text) --create a message box
 	hud.speechbox = text
 	hud.speaker = speaker
 	hud.msgFadeintime = hud.msgFadetimemax
+	if not msgwidth then
+		msgwidth = love.graphics.getFont():getWidth("Press Enter to continue")
+	end
 end
 
 --Testing function:
 function sB()
-	hud.speechBox("Neo", "Well, duh. It says so, right here in the script.")
+	hud.speechBox("rude", "OBEY!")
 end
