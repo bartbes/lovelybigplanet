@@ -8,5 +8,6 @@ for file in $(find -iname "*.lua" -or -iname "*.png" -or -iname "*.jpg" -or -ina
 	file=`expr "$file" : "./\(.*\)"`
 	echo "=-=-=-=-${file}-=-=-=-="
 	cat $file
+	echo "=-=-=-=---=-=-=-="
 done
 echo "=-=-=-=-=-=-=-=-="
