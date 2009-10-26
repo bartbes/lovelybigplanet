@@ -155,6 +155,8 @@ function rLBP.restartmap()
 end
 
 function LBP.speechBox(speaker, text, cb, userd)
+	if type(speaker) ~= "string" or type(text) ~= "string" then return end
+	log("Speech from " .. speaker .. ": " .. text)
 	hud.speechBox(speaker, text, cb, userd)
 end
 
