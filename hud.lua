@@ -23,6 +23,7 @@ local function msgUpdate(dt)
 			love.update = oldUpdate
 			love.keypressed = oldKeypressed
 			love.joystickpressed = oldJoystickpressed
+			if hud.cb then hud.cb(hud.userd) end
 		end
 	end
 end
@@ -145,7 +146,7 @@ function hud.draw()
 	setCamera(cameras.default)
 end
 
-function hud.messageBox(text) --create a message box
+function hud.messageBox(text, cb, userd) --create a message box
 	--store the callbacks, if necessary (happens once)
 	if not oldUpdate then oldUpdate = love.update end
 	if not oldKeypressed then oldKeypressed = love.keypressed end
@@ -157,9 +158,11 @@ function hud.messageBox(text) --create a message box
 	--set the text
 	hud.messagebox = text
 	hud.msgFadeintime = hud.msgFadetimemax
+	hud.cb = cb
+	hud.userd = userd
 end
 
-function hud.speechBox(speaker, text) --create a message box
+function hud.speechBox(speaker, text, cb, userd) --create a message box
 	--store the callbacks, if necessary (happens once)
 	if not oldUpdate then oldUpdate = love.update end
 	if not oldKeypressed then oldKeypressed = love.keypressed end
@@ -172,6 +175,8 @@ function hud.speechBox(speaker, text) --create a message box
 	hud.speechbox = text
 	hud.speaker = speaker
 	hud.msgFadeintime = hud.msgFadetimemax
+	hud.cb = cb
+	hud.userd = userd
 	if not msgwidth then
 		msgwidth = love.graphics.getFont():getWidth("Press Enter to continue")
 	end

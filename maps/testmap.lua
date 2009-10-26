@@ -32,12 +32,24 @@ MAP.Finish = { x = 2, y = 7, position = Background } --set finish coordinates, t
 MAP.Mission = "Welcome to LovelyBigPlanet!\n\nGo to the center of the top-left platform"
 MAP.ShowScore = true
 
+function conversation1(pos)
+	conversation1_run = true
+	pos = pos and pos+1 or 1
+	if pos == 1 then
+		LBP.speechBox("rude", "OBEY!", conversation1, pos)
+	elseif pos == 2 then
+		LBP.speechBox("robin-gvx", "No!", conversation1, pos)
+	elseif pos == 3 then
+		LBP.speechBox("bartbes", "Resistance is futile", conversation1, pos)
+	end
+end
+
 function MAP.init()
 	MAP.Objects.helpsign.helptext = "You gain extra points\nfor pushing off the enemy"
-	LBP.speechBox("rude", "OBEY!")
 end
 
 function MAP.update(dt)
+	if not conversation1_run then conversation1() end
 	MAP.Objects.helpsign:checkposition(MAP.Objects.player._body)
 	if MAP.Objects.enemy._body:getY() < 2 and not MAP.shownmessage then
 		MAP.shownmessage = true

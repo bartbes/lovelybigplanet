@@ -90,10 +90,10 @@ function rLBP.setLvl2(f) --same goes for lvl2
 	hud.lvl2 = f
 end
 
-function rLBP.messageBox(msg) --give me a messagebox NOW!
+function rLBP.messageBox(msg, cb, userd) --give me a messagebox NOW!
 	if type(msg) ~= "string" then return end
 	log("Message: ", msg)
-	hud.messageBox(msg)
+	hud.messageBox(msg, cb, userd)
 end
 
 function rLBP.draw(object) --the generic draw function, only takes the object, extracts the rest from it, yay!
@@ -154,8 +154,8 @@ function rLBP.restartmap()
 	startgame(game.map._name)
 end
 
-function LBP.speechBox(speaker, text)
-	hud.speechBox(speaker, text)
+function LBP.speechBox(speaker, text, cb, userd)
+	hud.speechBox(speaker, text, cb, userd)
 end
 
 local mt = {}
