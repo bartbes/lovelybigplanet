@@ -1,4 +1,19 @@
-require 'constants.lua'
+if not love._version or love._version < 060 then
+	function load()
+		love.graphics.setFont(love.default_font, 32)
+	end
+
+	function draw()
+		love.graphics.draw("You are running an old version of LOVE", 40, 50)
+		love.graphics.draw("To run this game you need to run at least 0.6.0", 40, 100)
+		love.graphics.draw("You can get it from http://love2d.org/", 40, 150)
+		love.graphics.draw("Or get one of the 'nightly' builds at", 40, 200)
+		love.graphics.draw("http://love2d.org/builds", 40, 250)
+	end
+	return
+end
+
+require("constants.lua")
 require("save.lua")
 
 dbg = false
