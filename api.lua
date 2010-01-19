@@ -154,7 +154,7 @@ function rLBP.restartmap()
 	startgame(game.map._name)
 end
 
-function LBP.speechBox(speaker, text, cb, userd)
+function rLBP.speechBox(speaker, text, cb, userd)
 	if type(speaker) ~= "string" or type(text) ~= "string" then return end
 	log("Speech from " .. speaker .. ": " .. text)
 	hud.speechBox(speaker, text, cb, userd)
