@@ -107,10 +107,8 @@ function rLBP.draw(object) --the generic draw function, only takes the object, e
 end
 
 function rLBP.play(music, loop)
-	if loop then
+	if music.resource:isStopped() then
 		love.audio.play(music.resource)
-	else
-		love.audio.play(music.music)
 	end
 end
 

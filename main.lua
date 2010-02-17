@@ -13,6 +13,7 @@ if not love._version or love._version < 060 then
 	return
 end
 
+require("padding")
 require("constants.lua")
 require("save.lua")
 
@@ -277,8 +278,8 @@ function loadresource(name)
 		log("Loaded resource " .. name .. " (image)")
 		return resources[name]
 	elseif ftype == "music" then
-		resources[name] = {name = name, music = love.audio.newMusic("resources/" .. name .. fext)}
-		resources[name].resource = love.audio.newSource(resources[name].music)
+		resources[name] = {name = name}
+		resources[name].resource = love.audio.newSource("resources/" .. name .. fext, "static")
 		resources[name].resource:setLooping(true)
 		log("Loaded resource " .. name .. " (music)")
 		return resources[name]
